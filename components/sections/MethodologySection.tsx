@@ -70,10 +70,13 @@ export default function MethodologySection() {
                   <p className="text-gray-600 leading-relaxed">
                     {step.description}
                   </p>
-                  <div className="mt-6 text-indigo-600 font-medium flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <a 
+                    href="#contact" 
+                    className="mt-6 text-indigo-600 font-medium flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:text-indigo-800"
+                  >
                     En savoir plus
                     <ArrowPathIcon className="ml-2 h-4 w-4" />
-                  </div>
+                  </a>
                 </div>
               </motion.div>
             ))}
