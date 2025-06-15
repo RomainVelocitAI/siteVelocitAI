@@ -1,0 +1,82 @@
+/* stylelint-disable */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* stylelint-enable */
+
+/* Custom styles */
+body {
+  @apply bg-light text-dark dark:bg-dark dark:text-light transition-colors duration-200;
+}
+
+.container {
+  @apply mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Custom components */
+.btn {
+  @apply px-6 py-2 rounded-lg font-medium transition-colors duration-200;
+}
+
+.btn-primary {
+  @apply bg-primary text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-white hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700;
+}
+
+/* 3D Flip Card Effect */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Smooth transitions */
+.transition-3d {
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card hover effect */
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Ensure proper card height */
+.min-h-card {
+  min-height: 450px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .min-h-card {
+    min-height: 400px;
+  }
+}

@@ -1,0 +1,7 @@
+# Ignorer les fichiers et dossiers inutiles
+node_modules/
+.next/
+.vscode/
+dist/
+*.log
+.env
