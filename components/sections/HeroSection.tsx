@@ -84,8 +84,8 @@ export default function HeroSection() {
             </StaggerItem>
           </StaggerContainer>
 
-          {/* Image avec animation */}
-          <FadeInSide direction="right" delay={0.4}>
+          {/* Image avec animation - Masquée sur mobile */}
+          <FadeInSide direction="right" delay={0.4} className="hidden lg:block">
             <div className="relative h-96 lg:h-[500px]">
               <Image
                 src="/hero-automation.png"
