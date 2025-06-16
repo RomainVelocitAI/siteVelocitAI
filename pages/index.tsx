@@ -5,7 +5,8 @@ import ContactSection from '@/components/sections/ContactSection';
 import WhyAutomateSection from '@/components/sections/WhyAutomateSection';
 import SolutionsSection from '@/components/sections/SolutionsSection';
 import MethodologySection from '@/components/sections/MethodologySection';
-import LocalExpertiseSection from '@/components/sections/LocalExpertiseSection';
+
+import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import FaqSection from '@/components/sections/FaqSection';
 
 export default function Home() {
@@ -49,7 +50,7 @@ export default function Home() {
         </div>
         <SolutionsSection />
         <MethodologySection />
-        <LocalExpertiseSection />
+        <TestimonialsSection />
         <FaqSection />
         <ContactSection />
       </main>
