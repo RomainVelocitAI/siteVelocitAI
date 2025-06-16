@@ -59,34 +59,16 @@ export default function FaqSection() {
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <motion.h2 
-            className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
             Questions Fréquentes
-          </motion.h2>
-          <motion.p 
-            className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          </h2>
+          <p className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
             Découvrez comment l'automatisation peut transformer votre entreprise
-          </motion.p>
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <motion.div 
-            className="space-y-4"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+          <div className="space-y-4">
             <h3 className="text-2xl font-semibold text-gray-900">
               Tout savoir sur nos solutions
             </h3>
@@ -95,27 +77,19 @@ export default function FaqSection() {
               Si vous ne trouvez pas de réponse à votre question, n'hésitez pas à nous contacter.
             </p>
             <div className="mt-8">
-              <motion.a 
+              <a 
                 href="#contact" 
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
               >
                 Poser une question
                 <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
-              </motion.a>
+              </a>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div 
-            className="space-y-6"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
+          <div className="space-y-6">
             {faqs.map((faq, index) => (
               <motion.div 
                 key={faq.id}
@@ -126,23 +100,14 @@ export default function FaqSection() {
                   open: { height: 'auto' },
                   collapsed: { height: 'auto' }
                 }}
-                transition={{ duration: 0.3 }}
               >
                 <motion.div 
-                  className={`p-6 rounded-xl cursor-pointer transition-all duration-300 flex items-start ${
-                    openIndex === index 
-                      ? 'bg-gradient-to-r from-purple-50 to-indigo-50 border-l-4 border-purple-600' 
-                      : 'bg-white hover:bg-gray-50 border border-gray-100'
-                  }`}
+                  className={`p-6 rounded-xl cursor-pointer transition-all duration-300 flex items-start ${openIndex === index ? 'bg-gradient-to-r from-purple-50 to-indigo-50 border-l-4 border-purple-600' : 'bg-white hover:bg-gray-50 border border-gray-100'}`}
                   onClick={() => toggleFaq(index)}
                   whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.99 }}
                 >
-                  <div 
-                    className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${
-                      openIndex === index ? 'bg-purple-100 text-purple-600' : 'bg-gray-100 text-gray-500'
-                    }`}
-                  >
+                  <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4 ${openIndex === index ? 'bg-purple-100 text-purple-600' : 'bg-gray-100 text-gray-500'}`}>
                     <span className="text-lg">{faq.icon}</span>
                   </div>
                   <div className="flex-1">
@@ -157,11 +122,11 @@ export default function FaqSection() {
                     <AnimatePresence>
                       {openIndex === index && (
                         <motion.div
-                          initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                          animate={{ opacity: 1, height: 'auto', marginTop: '0.5rem' }}
-                          exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                          transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
-                          className="overflow-hidden"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="mt-2"
                         >
                           <p className="text-gray-600">{faq.answer}</p>
                         </motion.div>
@@ -171,29 +136,64 @@ export default function FaqSection() {
                 </motion.div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: index * 0.05 }}
+            >
+              <button
+                className="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none"
+                onClick={() => toggleFaq(index)}
+              >
+                <span className="text-lg font-medium text-gray-900">
+                  {faq.question}
+                </span>
+                <svg
+                  className={`h-5 w-5 text-indigo-600 transform transition-transform ${openIndex === index ? 'rotate-180' : ''}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-6 pb-4 pt-0 text-gray-600">
+                      {faq.answer}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
         </div>
 
-        <motion.div 
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
+        <div className="mt-12 text-center">
           <p className="text-lg text-gray-600">
             Vous avez d'autres questions ?
           </p>
           <motion.a
             href="#contact"
-            className="mt-4 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="mt-4 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Contactez-nous
           </motion.a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
-}
+};
