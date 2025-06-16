@@ -50,7 +50,11 @@ export default function FaqSection() {
   };
 
   return (
-    <section className="relative py-24 overflow-hidden bg-gray-50">
+    <section 
+      className="relative py-24 overflow-hidden bg-gray-50"
+      itemScope
+      itemType="https://schema.org/FAQPage"
+      aria-label="Questions fréquemment posées">
       {/* Background elements */}
       <div className="absolute top-0 right-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute w-full h-full bg-gradient-to-br from-purple-600/5 to-indigo-600/10 -z-10"></div>

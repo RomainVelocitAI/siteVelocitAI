@@ -253,7 +253,8 @@ export default function CalculatorSection() {
                 </div>
               </div>
 
-              <div className="mt-8 text-center">
+              {/* Bouton WhatsApp pour les écrans larges (masqué sur mobile) */}
+              <div className="hidden lg:block mt-8 text-center">
                 <a
                   href={`https://wa.me/33756827384?text=${generateWhatsAppMessage()}`}
                   target="_blank"
@@ -442,6 +443,22 @@ export default function CalculatorSection() {
                   </div>
                 </div>
               </div>
+            </div>
+            
+            {/* Bouton WhatsApp pour les mobiles (affiché uniquement sur mobile) */}
+            <div className="lg:hidden mt-8 text-center px-4">
+              <a
+                href={`https://wa.me/33756827384?text=${generateWhatsAppMessage()}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center px-6 py-4 border border-transparent text-base font-medium rounded-full shadow-lg text-white bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200 transform hover:scale-105 hover:shadow-xl"
+              >
+                <svg className="h-6 w-6 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fillRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10h5v-2h-5c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8v1.43c0 .79-.71 1.57-1.5 1.57s-1.5-.78-1.5-1.57V12c0-2.76-2.24-5-5-5s-5 2.24-5 5 2.24 5 5 5c1.38 0 2.64-.56 3.54-1.47.65.89 1.77 1.47 2.96 1.47 1.97 0 3.5-1.6 3.5-3.57V12c0-5.52-4.48-10-10-10zm0 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z" clipRule="evenodd" />
+                </svg>
+                <span className="text-base font-semibold">Parlez-nous de votre projet</span>
+              </a>
+              <p className="mt-2 text-xs text-gray-500">Réponse sous 24h, 7j/7</p>
             </div>
           </div>
         </div>

@@ -2,6 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  poweredByHeader: false,
+  generateEtags: true,
   images: {
     remotePatterns: [
       {
@@ -13,9 +15,39 @@ const nextConfig = {
         hostname: 'source.unsplash.com',
       },
     ],
+    formats: ['image/avif', 'image/webp'],
   },
-  // Configuration expérimentale si nécessaire
-  // Les Server Actions sont activées par défaut dans les versions récentes
+  // Enable experimental features carefully
+  experimental: {
+    // optimizeCss: true, // Enable only if you have @next/bundle-analyzer installed
+    scrollRestoration: true,
+  },
+  // Security headers
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Download-Options',
+            value: 'noopen',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
