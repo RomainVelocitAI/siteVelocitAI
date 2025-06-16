@@ -146,14 +146,26 @@ export const CalculatorProvider: React.FC<{ children: ReactNode }> = ({ children
       }
     }
     
-    // Calculer les économies et le ROI
-    const economieAnnuelle = coutAnnuel * 0.9; // 90% d'économie
-    const economieMensuelle = economieAnnuelle / 12;
+    // Calculer les économies brutes (90% du coût actuel)
+    const economieBruteAnnuelle = coutAnnuel * 0.9;
+    const economieBruteMensuelle = economieBruteAnnuelle / 12;
+    
+    // Coût du forfait annuel
     const coutForfaitAnnuel = forfaitRecommandation.prixMensuel * 12;
-    const economieReelleAnnuelle = economieAnnuelle - coutForfaitAnnuel;
+    
+    // Économies réelles après déduction du coût du forfait
+    const economieReelleAnnuelle = Math.max(0, economieBruteAnnuelle - coutForfaitAnnuel);
     const economieReelleMensuelle = economieReelleAnnuelle / 12;
-    const roiMensuel = (economieReelleMensuelle / forfaitRecommandation.prixMensuel) * 100;
-    const tempsRetourInvestissement = forfaitRecommandation.prixMensuel / economieReelleMensuelle;
+    
+    // Calcul du ROI mensuel (économies / coût du forfait)
+    const roiMensuel = forfaitRecommandation.prixMensuel > 0 
+      ? (economieReelleMensuelle / forfaitRecommandation.prixMensuel) * 100 
+      : 0;
+      
+    // Temps de retour sur investissement (en mois)
+    const tempsRetourInvestissement = economieReelleMensuelle > 0 
+      ? forfaitRecommandation.prixMensuel / economieReelleMensuelle 
+      : 0;
     
     return {
       forfait: forfaitRecommandation,
@@ -191,9 +203,15 @@ export const CalculatorProvider: React.FC<{ children: ReactNode }> = ({ children
       0
     );
 
-    // Économies potentielles (90% du coût actuel, en supposant 10% de coût de maintenance)
-    const totalYearlySavings = totalYearlyCost * 0.9;
-    const totalMonthlySavings = totalYearlySavings / 12;
+    // Calculer le forfait recommandé et les économies potentielles
+    const forfaitRecommandation = calculerForfaitRecommandation(tasks.length, totalYearlyCost);
+
+    // Économies brutes avant déduction du coût du forfait (90% du coût actuel)
+    const totalYearlySavingsBrutes = totalYearlyCost * 0.9;
+    
+    // Économies réelles après déduction du coût du forfait
+    const totalYearlySavings = forfaitRecommandation.economieAnnuelle;
+    const totalMonthlySavings = forfaitRecommandation.economieMensuelle;
 
     // Niveau d'urgence basé sur les économies annuelles et le temps passé
     let emergencyLevel = 0;
@@ -223,9 +241,6 @@ export const CalculatorProvider: React.FC<{ children: ReactNode }> = ({ children
     // Stocker le niveau d'urgence dans l'état pour utilisation dans l'interface
     // (la logique de couleur et de message est gérée dans le composant)
     
-    // Calculer le forfait recommandé et le ROI
-    const forfaitRecommandation = calculerForfaitRecommandation(tasks.length, totalYearlyCost);
-
     setResult({
       totalHoursPerYear: Math.round(totalHoursPerYear * 10) / 10,
       totalWorkDaysPerYear: Math.round(totalWorkDaysPerYear * 10) / 10,
