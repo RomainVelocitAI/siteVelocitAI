@@ -15,7 +15,7 @@ export default function Seo({
   article = false,
 }: SeoProps) {
   const router = useRouter();
-  const url = `https://votredomaine.com${router.asPath}`;
+  const url = `https://www.velocit-ai.fr${router.asPath}`;
   const siteName = 'Votre Entreprise';
 
   return (
