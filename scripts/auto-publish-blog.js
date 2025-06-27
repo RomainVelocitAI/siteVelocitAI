@@ -399,29 +399,43 @@ export default Sitemap;`;
   }
 
   /**
-   * Processus principal d'automatisation - Publication séquentielle quotidienne
+   * Vérifie si c'est un jour de publication (tous les 2 jours)
+   */
+  shouldPublishToday() {
+    const today = new Date();
+    const daysSinceEpoch = Math.floor(today.getTime() / (1000 * 60 * 60 * 24));
+    
+    // Publication tous les 2 jours (jours pairs depuis l'époque)
+    return daysSinceEpoch % 2 === 0;
+  }
+
+  /**
+   * Processus principal d'automatisation - Publication tous les 2 jours
    */
   async run() {
     try {
-      console.log('🚀 Démarrage de l\'automatisation blog quotidienne...');
+      console.log('🚀 Démarrage de l\'automatisation blog (publication tous les 2 jours)...');
       
       // Vérifier les variables d'environnement
       if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
         throw new Error('Variables d\'environnement Airtable manquantes');
       }
 
+      // Vérifier si c'est un jour de publication
+      if (!this.shouldPublishToday()) {
+        console.log('📅 Pas de publication aujourd\'hui (cycle de 2 jours)');
+        console.log('🔄 Prochaine publication demain');
+        return;
+      }
+
+      console.log('📅 Jour de publication ! Recherche d\'un article à publier...');
+
       // Récupérer le prochain article à publier
       const nextArticles = await this.getNextArticleToPublish();
       
       if (nextArticles.length === 0) {
         console.log('ℹ️  Aucun article en attente de publication');
-        
-        // Vérifier s'il y a des articles programmés pour aujourd'hui spécifiquement
-        const todayArticles = await this.getScheduledArticles();
-        if (todayArticles.length > 0) {
-          console.log(`📅 ${todayArticles.length} article(s) programmé(s) pour aujourd'hui`);
-          await this.processArticles(todayArticles);
-        }
+        console.log('💡 Ajoutez des articles avec le statut "Scheduled" dans Airtable');
         return;
       }
 

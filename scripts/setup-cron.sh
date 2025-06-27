@@ -9,7 +9,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-echo -e "${GREEN}🚀 Configuration du cron job pour l'automatisation blog${NC}"
+echo -e "${GREEN}🚀 Configuration du cron job pour l'automatisation blog (publication tous les 2 jours)${NC}"
 
 # Vérifier si Node.js est installé
 if ! command -v node &> /dev/null; then
@@ -72,7 +72,8 @@ echo -e "${GREEN}📋 Configuration terminée:${NC}"
 echo -e "  • Script: $SCRIPT_PATH"
 echo -e "  • Wrapper: $WRAPPER_SCRIPT"
 echo -e "  • Logs: $PROJECT_PATH/logs/blog-automation.log"
-echo -e "  • Horaire: Tous les jours à 9h00"
+echo -e "  • Horaire: Vérification quotidienne à 9h00"
+echo -e "  • Publication: Tous les 2 jours automatiquement"
 
 echo -e "\n${YELLOW}📝 Prochaines étapes:${NC}"
 echo -e "  1. Configurer vos variables d'environnement dans .env"
