@@ -16,7 +16,16 @@
     "analyze": "cross-env ANALYZE=true next build",
     "type-check": "tsc --noEmit",
     "prepare": "husky install",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "blog:publish": "node scripts/auto-publish-blog.js",
+    "blog:test": "node scripts/test-blog-automation.js",
+    "blog:setup": "chmod +x scripts/setup-cron.sh && ./scripts/setup-cron.sh",
+    "blog:deploy": "chmod +x scripts/deploy-blog-automation.sh && ./scripts/deploy-blog-automation.sh",
+    "blog:monitor": "chmod +x scripts/monitor-blog-automation.sh && ./scripts/monitor-blog-automation.sh",
+    "blog:queue": "node scripts/prepare-blog-queue.js queue",
+    "blog:stats": "node scripts/prepare-blog-queue.js stats",
+    "blog:simulate": "node scripts/prepare-blog-queue.js simulate",
+    "blog:check": "chmod +x scripts/quick-check.sh && ./scripts/quick-check.sh"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

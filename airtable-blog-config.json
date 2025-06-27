@@ -1,0 +1,26 @@
+{
+  "baseId": "appBsMKnq8zWDIMNr",
+  "tableName": "Blog Articles",
+  "tableId": "tblqgaGP9fQNd2xtn",
+  "fieldsCount": 16,
+  "imagesPerArticle": 6,
+  "setupDate": "2025-06-27T18:41:43.000Z",
+  "fields": {
+    "title": "Title",
+    "description": "Description",
+    "content": "Content",
+    "slug": "Slug",
+    "status": "Status",
+    "published": "Published",
+    "publicationDate": "Publication Date",
+    "author": "Author",
+    "category": "Category",
+    "readTime": "Read Time",
+    "image1URL": "Image 1 URL",
+    "image2URL": "Image 2 URL",
+    "image3URL": "Image 3 URL",
+    "image4URL": "Image 4 URL",
+    "image5URL": "Image 5 URL",
+    "image6URL": "Image 6 URL"
+  }
+}
