@@ -155,8 +155,7 @@ export default function NeonCursor({
         uniform vec3 uColor;
         varying vec2 vUv;
         void main() {
-          float intensity = 2.5;
-          float radius = 0.025;
+          float intensity = 1.8;
 
           vec2 pos = (vUv - 0.5) * uRatio;
 
@@ -170,37 +169,19 @@ export default function NeonCursor({
           }
           dist = max(0.0, dist);
 
-          // Effet neon multi-couches pour plus de brillance
-          float glow1 = pow(uSize.y / (dist + 0.001), intensity * 1.5);
-          float glow2 = pow(uSize.y / (dist + 0.005), intensity * 0.8);
-          float glow3 = pow(uSize.y / (dist + 0.015), intensity * 0.4);
-          
+          // Effet neon simple et pur comme l'original
+          float glow = pow(uSize.y / (dist + 0.001), intensity);
           vec3 col = vec3(0.0);
           
-          // Coeur ultra-brillant
-          col += 25.0 * vec3(smoothstep(uSize.x * 0.5, 0.0, dist));
-          
-          // Halos multiples pour effet neon intense
-          col += glow1 * uColor * 3.0;
-          col += glow2 * uColor * 2.0;
-          col += glow3 * (uColor + vec3(0.3, 0.1, 0.8)) * 1.5;
-          
-          // Ajouter des reflets violets intenses
-          vec3 violetBoost = vec3(0.8, 0.2, 1.0);
-          col += glow1 * violetBoost * 2.5;
-          
-          // Saturation et contraste pour plus de punch
-          col = mix(col, col * col * col, 0.3);
-          col *= 1.8;
+          // Trait neon violet pur avec intensité
+          col += 15.0 * uColor * smoothstep(uSize.x, 0.0, dist);
+          col += glow * uColor * 1.2;
 
-          // Tone mapping amélioré pour garder la brillance
-          col = col / (col + vec3(1.2));
-          col = pow(col, vec3(0.6));
+          // Tone mapping simple pour garder l'intensité
+          col = 1.0 - exp(-col * 1.5);
+          col = pow(col, vec3(0.4545));
 
-          // Alpha avec plus de présence
-          float alpha = min(1.0, (glow1 + glow2 + glow3) * 0.8);
-          
-          gl_FragColor = vec4(col, alpha);
+          gl_FragColor = vec4(col, 1.0);
         }
       `
     });
@@ -307,7 +288,7 @@ export default function NeonCursor({
         spline.getPoint(i / (shaderPoints - 1), uniforms.uPoints.value[i]);
       }
 
-      // Update color based on hover state
+      // Update color based on hover state - EXACTEMENT comme l'original
       if (!hover) {
         const time = clock.getElapsedTime();
         const t1 = time * sleepTimeCoefX;
@@ -323,17 +304,15 @@ export default function NeonCursor({
         const y = r2 * sin;
         spline.points[0].set(x, y);
         
-        // Animation violet brillant avec pulsation
-        const pulse = 0.7 + 0.3 * Math.sin(time * 0.003);
-        uniforms.uColor.value.r = (0.8 + 0.2 * Math.cos(time * 0.002)) * pulse;
-        uniforms.uColor.value.g = (0.1 + 0.15 * Math.sin(time * 0.0025)) * pulse;
-        uniforms.uColor.value.b = (0.95 + 0.05 * Math.cos(time * 0.0018)) * pulse;
+        // Animation couleur violette pure (pas rouge comme l'original)
+        uniforms.uColor.value.r = 0.5 + 0.5 * Math.cos(time * 0.0015);
+        uniforms.uColor.value.g = 0.1; // Un peu de vert pour la richesse
+        uniforms.uColor.value.b = 1.0; // Toujours maximum bleu pour le violet
       } else {
-        // Couleurs violettes intenses basées sur la vélocité
-        const velocityIntensity = Math.min(velocity.z * 2.0, 1.0);
-        uniforms.uColor.value.r = 0.7 + velocityIntensity * 0.3;
-        uniforms.uColor.value.g = 0.05 + velocityIntensity * 0.1;
-        uniforms.uColor.value.b = 0.9 + velocityIntensity * 0.1;
+        // Couleur basée sur la vélocité - style original mais violet
+        uniforms.uColor.value.r = velocity.z * 0.8 + 0.2; // Violet-rouge variable
+        uniforms.uColor.value.g = 0.1; // Toujours minimal
+        uniforms.uColor.value.b = 1.0; // Toujours maximum pour le violet
         velocity.multiplyScalar(0.95);
       }
 
