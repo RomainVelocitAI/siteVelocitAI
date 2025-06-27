@@ -55,6 +55,14 @@ export default function NeonCursor({
   useEffect(() => {
     if (!containerRef.current) return;
 
+    // Désactiver sur mobile pour les performances
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    if (isMobile || isTouchDevice) {
+      return; // Ne pas initialiser Three.js sur mobile
+    }
+
     const container = containerRef.current;
 
     // Initialize Three.js scene
