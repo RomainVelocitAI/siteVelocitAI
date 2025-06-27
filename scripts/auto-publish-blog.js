@@ -305,7 +305,7 @@ class BlogAutomation {
     }
 
     try {
-      // Simple parsing YAML (pour les cas basiques)
+      // Parsing YAML amélioré
       const frontMatterText = match[1];
       const frontMatter = {};
       
@@ -313,10 +313,24 @@ class BlogAutomation {
         const colonIndex = line.indexOf(':');
         if (colonIndex > 0) {
           const key = line.substring(0, colonIndex).trim();
-          const value = line.substring(colonIndex + 1).trim().replace(/^["']|["']$/g, '');
+          let value = line.substring(colonIndex + 1).trim();
+          
+          // Nettoyer les guillemets
+          value = value.replace(/^["']|["']$/g, '');
+          
+          // Gérer les cas spéciaux
+          if (value === 'true') value = true;
+          if (value === 'false') value = false;
+          if (!isNaN(value) && value !== '') value = Number(value);
+          
           frontMatter[key] = value;
         }
       });
+
+      // S'assurer qu'on a au minimum un slug
+      if (!frontMatter.slug && frontMatter.title) {
+        frontMatter.slug = this.generateSlug(frontMatter.title);
+      }
 
       return {
         frontMatter,
@@ -445,8 +459,8 @@ export default Sitemap;`;
       }
     }
 
-    // Mettre à jour le sitemap
-    await this.updateSitemap();
+    // Mettre à jour le sitemap (temporairement désactivé)
+    // await this.updateSitemap();
     
     console.log('\n🎉 Automatisation terminée avec succès!');
   }
