@@ -1,0 +1,29 @@
+{
+  "prospectName": "Jean Dupont",
+  "companyName": "Restaurant Le Palmier",
+  "email": "jean@lepalmier.re",
+  "phone": "+262 692 123 456",
+  "industry": "Restauration",
+  "companySize": "5-10 employés",
+  "challenges": [
+    "Gestion manuelle des réservations",
+    "Prise de commandes téléphoniques chronophage",
+    "Suivi des stocks difficile"
+  ],
+  "goals": [
+    "Automatiser les réservations",
+    "Optimiser la prise de commandes",
+    "Améliorer la gestion des stocks"
+  ],
+  "budget": "8000",
+  "timeline": "2 mois",
+  "leadSource": "Google Ads",
+  "leadScore": 65,
+  "customMessage": "Nous avons remarqué que votre restaurant a d'excellents avis sur Google. Nous aimerions vous aider à automatiser vos processus pour vous permettre de vous concentrer sur ce que vous faites de mieux : la cuisine !",
+  "offerType": "premium",
+  "ctaText": "Réserver mon audit gratuit restaurant",
+  "ctaUrl": "https://calendly.com/velocitai/audit-restaurant",
+  "slug": "restaurant-le-palmier",
+  "createdAt": "2024-01-23T10:30:00.000Z",
+  "updatedAt": "2024-01-23T10:30:00.000Z"
+}

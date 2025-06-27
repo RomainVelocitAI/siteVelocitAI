@@ -1,0 +1,56 @@
+
+# Fichiers temporaires et de debug
+dev.pid
+debug-buttons.js
+fix-heroicons-conflict.js
+migrate-heroicons-to-react-icons.js
+clean-install.sh
+clean-rebuild.sh
+test-buttons.html
+test-calculateur.md
+
+# Configuration Claude
+.claude/
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Next.js
+.next/
+out/
+
+# Build outputs
+build/
+dist/
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo

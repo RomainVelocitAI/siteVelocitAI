@@ -1,0 +1,25 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Blog content - priorité pour l'indexation
+Allow: /blog/
+Allow: /blog/*
+
+# Pages importantes
+Allow: /sitemap.xml
+Allow: /favicon.ico
+
+# Bloquage des pages techniques
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /*?*
+Disallow: /_next/
+Disallow: /node_modules/
+
+# Crawl-delay pour optimiser la performance serveur
+Crawl-delay: 1
+
+# Sitemaps
+Sitemap: https://velocitai.com/sitemap.xml

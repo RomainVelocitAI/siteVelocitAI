@@ -1,0 +1,185 @@
+/* stylelint-disable */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* stylelint-enable */
+
+/* Custom styles */
+body {
+  @apply bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-200;
+}
+
+/* Animation pour le contour des vidéos témoignages */
+.testimonial-video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.bb {
+  --main-color: #8b5cf6; /* Couleur violette */
+  --box-size: 100%;
+  --anime-time: 8s;
+  --clip-distance: 0.05;
+  --clip-size: calc(var(--box-size) * (1 + var(--clip-distance) * 2));
+  --path-width: 2px;
+  
+  position: relative;
+  width: var(--box-size);
+  height: var(--box-size);
+  margin: 0;
+  color: var(--main-color);
+  box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.5);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.bb::before,
+.bb::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  margin: calc(-1 * var(--clip-distance) * 100%);
+  box-shadow: inset 0 0 0 var(--path-width) var(--main-color);
+  animation: clipMe var(--anime-time) linear infinite;
+  border-radius: 0.75rem;
+  pointer-events: none;
+}
+
+.bb::before {
+  animation-delay: calc(var(--anime-time) * -0.5);
+}
+
+@keyframes clipMe {
+  0%, 100% { clip-path: inset(0 calc(100% - var(--path-width)) calc(100% - var(--path-width)) 0); }
+  25% { clip-path: inset(0 0 calc(100% - var(--path-width)) calc(100% - var(--path-width))); }
+  50% { clip-path: inset(calc(100% - var(--path-width)) 0 0 calc(100% - var(--path-width))); }
+  75% { clip-path: inset(calc(100% - var(--path-width)) calc(100% - var(--path-width)) 0 0); }
+}
+
+/* Style pour la miniature de la vidéo */
+.video-thumbnail {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.video-thumbnail:hover {
+  transform: scale(1.02);
+}
+
+.video-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.video-thumbnail:hover .play-button {
+  transform: translate(-50%, -50%) scale(1.1);
+  background-color: white;
+}
+
+.play-icon {
+  width: 24px;
+  height: 24px;
+  color: #8b5cf6;
+  margin-left: 3px;
+}
+
+.container {
+  @apply mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Custom components */
+.btn {
+  @apply px-6 py-2 rounded-lg font-medium transition-colors duration-200;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700;
+}
+
+.btn-secondary {
+  @apply bg-green-600 text-white hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700;
+}
+
+/* 3D Flip Card Effect */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Smooth transitions */
+.transition-3d {
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card hover effect */
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Ensure proper card height */
+.min-h-card {
+  min-height: 450px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .min-h-card {
+    min-height: 400px;
+  }
+}
