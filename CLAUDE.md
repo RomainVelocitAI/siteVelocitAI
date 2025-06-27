@@ -194,4 +194,69 @@ pages/
 - Témoignages vidéo intégrés
 - FAQ structurée pour SEO
 - Call-to-actions optimisés
-EOF < /dev/null
+
+## 🎨 GÉNÉRATEUR D'IMAGES OPENAI INTÉGRÉ
+
+### Localisation du générateur
+Le générateur d'images OpenAI est disponible dans `/home/romain/Projet/openai-image-generator/`
+
+### Utilisation pour les articles de blog
+**IMPORTANT** : Lors de la rédaction d'articles de blog, tu PEUX utiliser le générateur d'images OpenAI pour créer des visuels personnalisés. Cependant, tu DOIS toujours demander l'autorisation avant de l'utiliser.
+
+### Processus obligatoire avant génération
+1. **Demander l'autorisation** avec les informations suivantes :
+   - Nombre d'images à générer
+   - Objectif/raison de chaque image
+   - Coût estimé en tokens OpenAI
+
+2. **Calcul du coût estimé** :
+   - Low quality (1024x1024) : 272 tokens
+   - Medium quality (1024x1024) : 1056 tokens  
+   - High quality (1024x1024) : 4160 tokens
+   - Autres tailles : voir documentation dans le générateur
+
+### Commandes pour générer des images
+```bash
+cd /home/romain/Projet/openai-image-generator
+
+# Génération simple
+node generate-image.js "prompt en anglais"
+
+# Avec options (recommandé pour blog)
+node generate-image.js "prompt" --size=1024x1024 --quality=medium --format=png
+```
+
+### Transfert des images vers VelocitAI
+Après génération, copier les images dans le dossier approprié du site :
+```bash
+# Créer le dossier si nécessaire
+mkdir -p /home/romain/Projet/siteVelocitAI-main/public/images/blog/[nom-article]/
+
+# Copier l'image
+cp /home/romain/Projet/openai-image-generator/generated-images/[nom-image].png /home/romain/Projet/siteVelocitAI-main/public/images/blog/[nom-article]/
+```
+
+### Bonnes pratiques pour les prompts d'images de blog
+- **Style cohérent** : "professional business illustration", "modern flat design"
+- **Couleurs VelocitAI** : mentionner "purple and blue color scheme" si approprié
+- **Format approprié** : landscape pour headers, square pour thumbnails
+- **LANGUE FRANÇAISE OBLIGATOIRE** : Les images doivent contenir uniquement du texte en français
+- **Éviter le texte anglais** : Spécifier "French text only" ou "texte en français uniquement" dans le prompt
+- **Localisation française** : Adapter les concepts pour le marché français/réunionnais
+- **ALTERNANCE OBLIGATOIRE** : Alterner entre illustrations/infographies et photos réalistes
+- **Photos réalistes** : "realistic professional photography", "modern office environment"
+- **Illustrations** : "professional business illustration", "modern infographic design"
+
+### Règles strictes
+1. ❌ **JAMAIS** générer d'images sans demander l'autorisation
+2. ✅ **TOUJOURS** fournir le coût estimé en tokens
+3. ✅ **TOUJOURS** expliquer pourquoi l'image est nécessaire
+4. ✅ **TOUJOURS** proposer des alternatives gratuites si possible
+5. ✅ **TOUJOURS** copier les images générées vers le dossier VelocitAI
+
+### Alternatives gratuites à considérer
+Avant de proposer la génération d'images, suggérer :
+- Images stock gratuites (Unsplash, Pexels)
+- Icônes existantes du site
+- Diagrammes/schémas simples créés en CSS
+- Images conceptuelles génériques

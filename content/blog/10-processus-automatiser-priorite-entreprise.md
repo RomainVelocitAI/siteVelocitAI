@@ -36,7 +36,7 @@ Notre analyse approfondie de plus de 200 entreprises françaises ayant réussi l
 
 Cette hiérarchisation stratégique des processus à automatiser constitue la différence fondamentale entre une transformation digitale rentable et un investissement technologique hasardeux. Les entreprises qui suivent cette approche méthodique observent non seulement des gains financiers immédiats, mais développent également une culture d'innovation qui propulse leur croissance à long terme.
 
-![Diagramme de workflow montrant l'interconnexion des processus d'entreprise prioritaires pour l'automatisation en 2025, avec des niveaux de priorité indiqués par des gradients de couleur violet et bleu](/images/blog/10-processus-automatiser-priorite-entreprise/automatisation-processus-prioritaires-2025.png)
+![Infographie professionnelle montrant les processus prioritaires d'automatisation avec labels en français : Processus Prioritaires, Automatisation, ROI](/images/blog/10-processus-automatiser-priorite-entreprise/processus-prioritaires-infographie.png)
 *Cartographie des processus d'entreprise prioritaires pour l'automatisation en 2025*
 
 ## Méthodologie de Priorisation des Processus d'Automatisation
@@ -49,7 +49,7 @@ L'expérience démontre que les processus générant le plus fort ROI partagent 
 
 La dimension temporelle joue également un rôle déterminant. Les processus automatisables rapidement (moins de 3 mois d'implémentation) créent une dynamique positive qui facilite l'adoption des projets suivants et génère des ressources pour financer la suite de la transformation digitale.
 
-![Schéma étape par étape du framework d'évaluation multicritères pour la priorisation des processus d'automatisation, incluant des icônes business et une matrice de décision avec critères de fréquence, temps, erreurs et impact client](/images/blog/10-processus-automatiser-priorite-entreprise/methodologie-evaluation-processus.png)
+![Illustration professionnelle du framework d'évaluation méthodologique avec labels français : Évaluation, Critères, Méthodologie](/images/blog/10-processus-automatiser-priorite-entreprise/methodologie-evaluation-framework.png)
 *Framework d'évaluation multicritères pour la priorisation des processus d'automatisation*
 
 ## 1. Gestion et Traitement des Factures Fournisseurs
@@ -65,6 +65,9 @@ L'impact financier dépasse les simples gains de productivité. L'automatisation
 La mise en œuvre de cette automatisation nécessite généralement 6 à 8 semaines, incluant l'intégration avec le système comptable existant, la formation des équipes, et la période d'ajustement des règles de validation. Cette rapidité d'implémentation permet un retour sur investissement quasi immédiat.
 
 ## 2. Automatisation de la Génération de Devis Clients
+
+![Bureau moderne français avec technologie d'automatisation, équipe travaillant avec ordinateurs et écrans numériques, environnement corporatif contemporain](/images/blog/10-processus-automatiser-priorite-entreprise/bureau-moderne-automatisation.png)
+*Bureau moderne équipé de technologies d'automatisation avancées*
 
 La génération automatisée de devis constitue le deuxième processus prioritaire, particulièrement pour les entreprises B2B proposant des solutions personnalisables. Cette automatisation transforme radicalement l'efficacité commerciale en accélérant les cycles de vente et en améliorant la qualité des propositions.
 
@@ -172,8 +175,11 @@ L'automatisation des réseaux sociaux maintient une présence régulière et eng
 
 Les analyses de performance automatisées mesurent l'efficacité de chaque canal, campagne, et contenu, permettant d'optimiser continuellement l'allocation budgétaire et les stratégies créatives. Cette approche data-driven maximise le retour sur investissement marketing.
 
-![Infographie comparative montrant les retours sur investissement de différents processus d'automatisation d'entreprise, avec des graphiques en barres et pourcentages mettant en évidence le ROI de 450% pour les factures fournisseurs, style visualisation de données moderne](/images/blog/10-processus-automatiser-priorite-entreprise/roi-comparison-infographic.png)
+![Infographie professionnelle comparant les ROI avec labels français : Retour sur Investissement, Processus, Gains, avec graphiques et pourcentages](/images/blog/10-processus-automatiser-priorite-entreprise/roi-comparaison-graphique.png)
 *Comparatif des retours sur investissement par processus d'automatisation d'entreprise*
+
+![Équipe française travaillant sur l'optimisation des processus, professionnels collaborant autour d'un bureau avec documents et ordinateurs portables, salle de réunion moderne](/images/blog/10-processus-automatiser-priorite-entreprise/equipe-optimisation-processus.png)
+*Équipe d'experts travaillant sur l'optimisation des processus d'entreprise*
 
 ## Stratégie d'Implémentation et Priorisation
 
