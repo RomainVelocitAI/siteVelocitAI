@@ -20,6 +20,7 @@ export default function ContactSection() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{success: boolean; message: string} | null>(null);
+  const [isFlying, setIsFlying] = useState(false);
 
   // Mettre à jour le message avec les données du calculateur uniquement si des tâches existent
   useEffect(() => {
@@ -34,29 +35,49 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setIsFlying(true);
     
     try {
-      // Ici, vous pourriez ajouter l'appel à votre API ou service de formulaire
-      // Par exemple avec fetch ou axios
-      // await submitContactForm(formData);
-      
-      // Simulation d'un envoi réussi
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      setSubmitStatus({
-        success: true,
-        message: 'Votre message a bien été envoyé ! Nous vous recontacterons rapidement.'
+      // Envoi vers le webhook N8N
+      const response = await fetch('https://n8n.srv765302.hstgr.cloud/webhook/b1446757-4f66-427c-b3da-73de23392de8', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          source: 'VelocitAI Website Contact Form',
+          timestamp: new Date().toISOString(),
+        }),
       });
-      
-      // Réinitialiser le formulaire
-      setFormData({ name: '', email: '', phone: '', message: '' });
+
+      if (response.ok) {
+        setSubmitStatus({
+          success: true,
+          message: 'Votre message a bien été envoyé ! Nous vous recontacterons rapidement.'
+        });
+        
+        // Réinitialiser le formulaire
+        setFormData({ name: '', email: '', phone: '', message: '' });
+      } else {
+        setSubmitStatus({
+          success: false,
+          message: 'Une erreur est survenue lors de l\'envoi. Veuillez réessayer ou nous contacter directement.'
+        });
+      }
     } catch (error) {
+      console.error('Erreur lors de l\'envoi du formulaire:', error);
       setSubmitStatus({
         success: false,
         message: 'Une erreur est survenue lors de l\'envoi de votre message. Veuillez réessayer plus tard.'
       });
     } finally {
       setIsSubmitting(false);
+      // Réinitialiser l'animation après un délai
+      setTimeout(() => setIsFlying(false), 2000);
     }
   };
 
@@ -182,13 +203,59 @@ export default function ContactSection() {
               </div>
 
               <div className="pt-2">
-                <button
+                <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors disabled:opacity-70"
+                  className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors disabled:opacity-70 relative overflow-hidden"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
-                </button>
+                  <span className={`transition-opacity duration-300 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
+                    Envoyer le message
+                  </span>
+                  
+                  {/* Avion en papier */}
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center"
+                    initial={{ opacity: 0, x: -50, y: 0, rotate: 0 }}
+                    animate={isFlying ? {
+                      opacity: [0, 1, 1, 0],
+                      x: [0, 20, 100, 200],
+                      y: [0, -10, -20, -30],
+                      rotate: [0, 15, 25, 35],
+                      scale: [1, 1.1, 0.8, 0.5]
+                    } : {
+                      opacity: 0,
+                      x: -50,
+                      y: 0,
+                      rotate: 0
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      ease: "easeOut",
+                      times: [0, 0.3, 0.7, 1]
+                    }}
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="text-white"
+                    >
+                      <path
+                        d="M2 21L23 12L2 3V10L17 12L2 14V21Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </motion.div>
+                  
+                  {/* Texte pendant l'envoi */}
+                  <span className={`transition-opacity duration-300 ${isSubmitting ? 'opacity-100' : 'opacity-0'} absolute inset-0 flex items-center justify-center`}>
+                    {isSubmitting ? 'Envoi en cours...' : ''}
+                  </span>
+                </motion.button>
               </div>
             </form>
           </div>
