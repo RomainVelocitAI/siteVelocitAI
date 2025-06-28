@@ -76,8 +76,8 @@ export default function ContactSection() {
       });
     } finally {
       setIsSubmitting(false);
-      // Réinitialiser l'animation après un délai
-      setTimeout(() => setIsFlying(false), 2000);
+      // Réinitialiser l'animation après la durée complète de l'animation (2.5s)
+      setTimeout(() => setIsFlying(false), 2500);
     }
   };
 
@@ -202,60 +202,119 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              <div className="pt-2">
+              <div className="pt-2 relative">
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
                   className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors disabled:opacity-70 relative overflow-hidden"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                  whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                  animate={isSubmitting ? {
+                    scaleX: [1, 0.8, 0.6, 0.4, 0.2, 0],
+                    scaleY: [1, 0.9, 0.7, 0.5, 0.3, 0],
+                    opacity: [1, 1, 1, 0.8, 0.5, 0]
+                  } : {
+                    scaleX: 1,
+                    scaleY: 1,
+                    opacity: 1
+                  }}
+                  transition={{
+                    duration: 0.8,
+                    ease: "easeInOut"
+                  }}
                 >
                   <span className={`transition-opacity duration-300 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                     Envoyer le message
                   </span>
+                </motion.button>
+
+                {/* Avion en papier violet qui émerge et vole */}
+                <motion.div
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10"
+                  initial={{ 
+                    opacity: 0, 
+                    scale: 0,
+                    x: 0, 
+                    y: 0, 
+                    rotate: 0 
+                  }}
+                  animate={isFlying ? {
+                    opacity: [0, 0, 1, 1, 1, 0],
+                    scale: [0, 0, 1, 1.2, 1.5, 1.8],
+                    x: [0, 0, 50, 150, 300, 500],
+                    y: [0, 0, -20, -60, -100, -150],
+                    rotate: [0, 0, 15, 25, 35, 45]
+                  } : {
+                    opacity: 0,
+                    scale: 0,
+                    x: 0,
+                    y: 0,
+                    rotate: 0
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    ease: "easeOut",
+                    times: [0, 0.3, 0.4, 0.6, 0.8, 1]
+                  }}
+                >
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="text-purple-600"
+                  >
+                    <path
+                      d="M2 21L23 12L2 3V10L17 12L2 14V21Z"
+                      fill="currentColor"
+                      stroke="currentColor"
+                      strokeWidth="0.5"
+                    />
+                  </svg>
                   
-                  {/* Avion en papier */}
+                  {/* Traînée de l'avion */}
                   <motion.div
-                    className="absolute inset-0 flex items-center justify-center"
-                    initial={{ opacity: 0, x: -50, y: 0, rotate: 0 }}
+                    className="absolute top-1/2 right-full transform -translate-y-1/2"
                     animate={isFlying ? {
-                      opacity: [0, 1, 1, 0],
-                      x: [0, 20, 100, 200],
-                      y: [0, -10, -20, -30],
-                      rotate: [0, 15, 25, 35],
-                      scale: [1, 1.1, 0.8, 0.5]
+                      opacity: [0, 0, 0.6, 0.8, 0.6, 0],
+                      scaleX: [0, 0, 1, 1.5, 2, 0],
+                      scaleY: [0, 0, 0.5, 0.3, 0.2, 0]
                     } : {
                       opacity: 0,
-                      x: -50,
-                      y: 0,
-                      rotate: 0
+                      scaleX: 0,
+                      scaleY: 0
                     }}
                     transition={{
-                      duration: 1.5,
+                      duration: 2.5,
                       ease: "easeOut",
-                      times: [0, 0.3, 0.7, 1]
+                      times: [0, 0.4, 0.5, 0.7, 0.9, 1]
                     }}
                   >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="text-white"
-                    >
-                      <path
-                        d="M2 21L23 12L2 3V10L17 12L2 14V21Z"
-                        fill="currentColor"
-                      />
-                    </svg>
+                    <div className="w-16 h-1 bg-gradient-to-r from-purple-400 to-transparent rounded-full opacity-60"></div>
                   </motion.div>
-                  
-                  {/* Texte pendant l'envoi */}
-                  <span className={`transition-opacity duration-300 ${isSubmitting ? 'opacity-100' : 'opacity-0'} absolute inset-0 flex items-center justify-center`}>
-                    {isSubmitting ? 'Envoi en cours...' : ''}
+                </motion.div>
+
+                {/* Message de succès qui apparaît après l'envol */}
+                <motion.div
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={isSubmitting ? {
+                    opacity: [0, 0, 0, 0, 1],
+                    scale: [0, 0, 0, 0, 1]
+                  } : {
+                    opacity: 0,
+                    scale: 0
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    times: [0, 0.6, 0.8, 0.9, 1]
+                  }}
+                >
+                  <span className="text-purple-600 font-medium text-sm whitespace-nowrap">
+                    Message envoyé !
                   </span>
-                </motion.button>
+                </motion.div>
               </div>
             </form>
           </div>
