@@ -10,6 +10,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import remarkGfm from 'remark-gfm';
 
 // Types
 interface BlogPost {
@@ -353,6 +354,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     
     // Convertir le markdown en HTML
     const processedContent = await remark()
+      .use(remarkGfm)
       .use(html)
       .process(content);
     const contentHtml = processedContent.toString();
