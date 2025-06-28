@@ -125,7 +125,7 @@ Dans le champ **Content**, utilisez EXACTEMENT cette syntaxe :
 - Remplissez les 6 champs Image X URL
 - Utilisez les 6 placeholders {{Image X URL}} dans le contenu
 - Le système ne fonctionnera pas sans les 6 images
-
+- Si besoin d'une image avec des texts, demander en francais
 ## 🚀 Commande cURL pour Créer un Article
 
 ```bash
