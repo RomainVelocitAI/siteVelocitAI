@@ -23,50 +23,49 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: 📥 Checkout repository
+    - name: Checkout repository
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 0
 
-    - name: 🔧 Setup Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
 
-    - name: 📦 Install dependencies
+    - name: Install dependencies
       run: |
-        npm ci --legacy-peer-deps
+        npm install --legacy-peer-deps
         npm install node-fetch@2
 
-    - name: 🔍 Verify environment
+    - name: Verify environment
       run: |
         echo "Node version: $(node --version)"
         echo "Working directory: $(pwd)"
         ls -la scripts/
 
-    - name: 🤖 Run blog automation
+    - name: Run blog automation
       env:
         AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
         AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
       run: |
-        echo "🚀 Démarrage de l'automatisation blog..."
+        echo "Démarrage de l'automatisation blog..."
         node scripts/auto-publish-blog.js
 
-    - name: 📝 Check for changes
+    - name: Check for changes
       id: changes
       run: |
         if git diff --quiet && git diff --cached --quiet; then
           echo "changes=false" >> $GITHUB_OUTPUT
-          echo "📭 Aucun nouvel article à publier"
+          echo "Aucun nouvel article à publier"
         else
           echo "changes=true" >> $GITHUB_OUTPUT
-          echo "📝 Nouveaux changements détectés"
+          echo "Nouveaux changements détectés"
           git status
         fi
 
-    - name: 🔄 Commit and push changes
+    - name: Commit and push changes
       if: steps.changes.outputs.changes == 'true'
       run: |
         git config --local user.email "action@github.com"
@@ -80,34 +79,34 @@ jobs:
         ARTICLE_COUNT=$(git diff --cached --name-only content/blog/ | wc -l)
         if [ $ARTICLE_COUNT -gt 0 ]; then
           ARTICLE_NAME=$(git diff --cached --name-only content/blog/ | head -1 | xargs basename -s .md)
-          git commit -m "🤖 Publication automatique: $ARTICLE_NAME
+          git commit -m "Publication automatique: $ARTICLE_NAME
 
           - Nouvel article publié depuis Airtable
           - Images récupérées depuis Airtable  
           - Prêt pour déploiement Netlify"
         else
-          git commit -m "🤖 Mise à jour automatique du blog"
+          git commit -m "Mise à jour automatique du blog"
         fi
         
         # Pousser les changements
         git push
 
-    - name: ✅ Success notification
+    - name: Success notification
       if: steps.changes.outputs.changes == 'true'
       run: |
-        echo "✅ Article publié avec succès !"
-        echo "🚀 Netlify va automatiquement déployer"
-        echo "📅 Prochain déclenchement dans 2 jours"
+        echo "Article publié avec succès !"
+        echo "Netlify va automatiquement déployer"
+        echo "Prochain déclenchement dans 2 jours"
 
-    - name: 📭 No changes notification
+    - name: No changes notification
       if: steps.changes.outputs.changes == 'false'
       run: |
-        echo "📭 Aucun article programmé pour aujourd'hui"
-        echo "📅 Prochain déclenchement dans 2 jours"
+        echo "Aucun article programmé pour aujourd'hui"
+        echo "Prochain déclenchement dans 2 jours"
 
-    - name: 📊 Summary
+    - name: Summary
       run: |
-        echo "## 📊 Résumé de l'exécution" >> $GITHUB_STEP_SUMMARY
+        echo "## Résumé de l'exécution" >> $GITHUB_STEP_SUMMARY
         echo "- **Date**: $(date)" >> $GITHUB_STEP_SUMMARY
         echo "- **Changements**: ${{ steps.changes.outputs.changes }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Prochain déclenchement**: Dans 2 jours à 11h00" >> $GITHUB_STEP_SUMMARY
