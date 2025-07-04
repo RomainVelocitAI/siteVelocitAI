@@ -38,9 +38,10 @@ class BlogAutomation {
       const execAsync = promisify(exec);
 
       const filterFormula = `AND({Status} = 'Scheduled', {Published} = FALSE())`;
-      const url = `${this.baseUrl}?filterByFormula=${encodeURIComponent(filterFormula)}&sort[0][field]=Created&sort[0][direction]=asc&maxRecords=1`;
+      const encodedFormula = encodeURIComponent(filterFormula);
+      const url = `${this.baseUrl}?filterByFormula=${encodedFormula}&sort[0][field]=Created&sort[0][direction]=asc&maxRecords=1`;
       
-      const command = `curl -H "Authorization: Bearer ${AIRTABLE_API_KEY}" "${url.replace(/ /g, '%20')}"`;
+      const command = `curl -H "Authorization: Bearer ${AIRTABLE_API_KEY}" "${url}"`;
       
       const { stdout, stderr } = await execAsync(command);
       
@@ -239,7 +240,7 @@ class BlogAutomation {
         updateFields['Publication Date'] = today;
       }
       
-      const command = `curl -X PATCH -H "Authorization: Bearer ${AIRTABLE_API_KEY}" -H "Content-Type: application/json" -d '{"fields":${JSON.stringify(updateFields)}}' "${url.replace(/ /g, '%20')}"`;
+      const command = `curl -X PATCH -H "Authorization: Bearer ${AIRTABLE_API_KEY}" -H "Content-Type: application/json" -d '{"fields":${JSON.stringify(updateFields)}}' "${url}"`;
       
       const { stdout, stderr } = await execAsync(command);
       
