@@ -56,7 +56,7 @@ export default function Home() {
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://velocit-ai.fr" />
-        <meta property="og:image" content="https://velocit-ai.fr/images/Color logo - no background.png" />
+        <meta property="og:image" content="https://velocit-ai.fr/favicon.ico" />
         <meta property="og:locale" content="fr_FR" />
         <meta property="og:site_name" content="VelocitAI" />
         
@@ -67,7 +67,7 @@ export default function Home() {
           name="twitter:description" 
           content="Automatisez vos tâches répétitives et créez des chatbots intelligents pour votre entreprise à La Réunion." 
         />
-        <meta name="twitter:image" content="https://velocit-ai.fr/images/Color logo - no background.png" />
+        <meta name="twitter:image" content="https://velocit-ai.fr/favicon.ico" />
         
         {/* Données structurées */}
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
