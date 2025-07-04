@@ -11,6 +11,8 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 import remarkGfm from 'remark-gfm';
+import RelatedArticles from '@/components/blog/RelatedArticles';
+import Breadcrumbs from '@/components/ui/Breadcrumbs';
 
 // Types
 interface BlogPost {
@@ -35,9 +37,10 @@ interface BlogPost {
 
 interface BlogPostPageProps {
   post: BlogPost;
+  allPosts: BlogPost[];
 }
 
-const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
+const BlogPostPage: React.FC<BlogPostPageProps> = ({ post, allPosts }) => {
   const { isDark } = useTheme();
 
   const formatDate = (dateString: string) => {
@@ -48,7 +51,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
     });
   };
 
-  const shareUrl = `https://velocitai.com/blog/${post.slug}`;
+  const shareUrl = `https://velocit-ai.fr/blog/${post.slug}`;
   const shareText = `${post.title} - ${post.description}`;
 
   const handleShare = async (platform: string) => {
@@ -80,11 +83,11 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
         <meta property="og:description" content={post.description} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={shareUrl} />
-        {post.image && <meta property="og:image" content={`https://velocitai.com${post.image}`} />}
+        {post.image && <meta property="og:image" content={`https://velocit-ai.fr${post.image}`} />}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.description} />
-        {post.image && <meta name="twitter:image" content={`https://velocitai.com${post.image}`} />}
+        {post.image && <meta name="twitter:image" content={`https://velocit-ai.fr${post.image}`} />}
         <link rel="canonical" href={post.seo.canonicalUrl || shareUrl} />
         <script
           type="application/ld+json"
@@ -94,19 +97,19 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               "@type": "BlogPosting",
               "headline": post.title,
               "description": post.description,
-              "image": post.image ? `https://velocitai.com${post.image}` : undefined,
+              "image": post.image ? `https://velocit-ai.fr${post.image}` : undefined,
               "author": {
                 "@type": "Organization",
                 "name": post.author,
-                "url": "https://velocitai.com"
+                "url": "https://velocit-ai.fr"
               },
               "publisher": {
                 "@type": "Organization",
                 "name": "VelocitAI",
-                "url": "https://velocitai.com",
+                "url": "https://velocit-ai.fr",
                 "logo": {
                   "@type": "ImageObject",
-                  "url": "https://velocitai.com/logo.png"
+                  "url": "https://velocit-ai.fr/favicon.ico"
                 }
               },
               "datePublished": post.date,
@@ -125,16 +128,25 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
       </Head>
 
       <main className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-        {/* Back Navigation */}
+        {/* Breadcrumbs Navigation */}
         <div className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <Link 
-              href="/blog"
-              className="inline-flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors"
-            >
-              <ArrowLeftIcon className="h-4 w-4 mr-2" />
-              Retour au blog
-            </Link>
+            <div className="flex items-center justify-between">
+              <Breadcrumbs
+                items={[
+                  { name: 'Accueil', href: '/' },
+                  { name: 'Blog', href: '/blog' },
+                  { name: post.title, current: true }
+                ]}
+              />
+              <Link 
+                href="/blog"
+                className="inline-flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors text-sm"
+              >
+                <ArrowLeftIcon className="h-4 w-4 mr-1" />
+                Retour au blog
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -291,32 +303,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
           </motion.div>
 
           {/* Related Articles */}
-          <motion.div
-            className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              Articles Recommandés
-            </h3>
-            <div className="text-center">
-              <Link
-                href="/blog"
-                className="inline-flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium"
-              >
-                Voir tous nos articles
-                <motion.div
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="ml-2"
-                >
-                  →
-                </motion.div>
-              </Link>
-            </div>
-          </motion.div>
+          <RelatedArticles currentPost={post} allPosts={allPosts} />
         </article>
       </main>
     </>
@@ -344,8 +331,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug as string;
   
   try {
-    // Lire le fichier markdown
     const contentDirectory = path.join(process.cwd(), 'content/blog');
+    
+    // Lire le fichier markdown du post courant
     const filePath = path.join(contentDirectory, `${slug}.md`);
     const fileContents = fs.readFileSync(filePath, 'utf8');
     
@@ -358,6 +346,38 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       .use(html)
       .process(content);
     const contentHtml = processedContent.toString();
+    
+    // Lire tous les autres posts pour les articles recommandés
+    const filenames = fs.readdirSync(contentDirectory);
+    const allPosts: BlogPost[] = [];
+    
+    for (const filename of filenames) {
+      if (filename.endsWith('.md')) {
+        const otherFilePath = path.join(contentDirectory, filename);
+        const otherFileContents = fs.readFileSync(otherFilePath, 'utf8');
+        const { data: otherData } = matter(otherFileContents);
+        
+        allPosts.push({
+          title: otherData.title,
+          description: otherData.description || otherData.excerpt || '',
+          slug: filename.replace('.md', ''),
+          date: otherData.date,
+          author: otherData.author,
+          category: otherData.category,
+          tags: otherData.tags || [],
+          image: otherData.image || null,
+          readTime: otherData.readingTime || otherData.readTime || 10,
+          featured: otherData.featured || false,
+          content: '', // Pas besoin du contenu pour les articles recommandés
+          seo: {
+            metaTitle: otherData.seoTitle || otherData.title,
+            metaDescription: otherData.seoDescription || otherData.description || otherData.excerpt || '',
+            keywords: otherData.keywords || otherData.tags || [],
+            ...(otherData.canonicalUrl && { canonicalUrl: otherData.canonicalUrl })
+          }
+        });
+      }
+    }
     
     const post: BlogPost = {
       title: data.title,
@@ -372,16 +392,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       featured: data.featured || false,
       content: contentHtml,
       seo: {
-        metaTitle: data.seoTitle || data.title,
-        metaDescription: data.seoDescription || data.description || data.excerpt || '',
-        keywords: data.keywords || data.tags || [],
-        ...(data.canonicalUrl && { canonicalUrl: data.canonicalUrl })
+        metaTitle: data.seo?.metaTitle || data.seoTitle || data.title,
+        metaDescription: data.seo?.metaDescription || data.seoDescription || data.description || data.excerpt || '',
+        keywords: data.seo?.keywords || data.keywords || data.tags || [],
+        ...(data.seo?.canonical && { canonicalUrl: data.seo.canonical })
       }
     };
 
     return {
       props: {
-        post
+        post,
+        allPosts
       },
       revalidate: 3600 // Revalidate every hour
     };

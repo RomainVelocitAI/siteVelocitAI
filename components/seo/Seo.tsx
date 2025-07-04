@@ -9,14 +9,14 @@ interface SeoProps {
 }
 
 export default function Seo({
-  title = 'Automatisation d\'entreprise | Votre Solution Digitale',
-  description = 'Découvrez nos solutions d\'automatisation pour entreprises. Augmentez votre productivité et réduisez les coûts grâce à nos services sur mesure.',
-  image = '/images/og-image.jpg',
+  title = 'VelocitAI | Automatisation d\'entreprise à La Réunion',
+  description = 'Automatisez vos tâches répétitives et créez des chatbots intelligents pour votre entreprise à La Réunion. Gagnez du temps et augmentez votre productivité.',
+  image = 'https://velocit-ai.fr/images/og/velocitai-og.jpg',
   article = false,
 }: SeoProps) {
   const router = useRouter();
-  const url = `https://www.velocit-ai.fr${router.asPath}`;
-  const siteName = 'Votre Entreprise';
+  const url = `https://velocit-ai.fr${router.asPath}`;
+  const siteName = 'VelocitAI';
 
   return (
     <Head>
