@@ -42,9 +42,9 @@ const BlogPreviewSection: React.FC<BlogPreviewSectionProps> = ({ posts }) => {
   // Default posts data (in production, these would come from props or API)
   const defaultPosts: BlogPost[] = [
     {
-      title: "5 Étapes Essentielles pour Automatiser vos Processus d'Entreprise",
-      description: "Découvrez notre méthode éprouvée en 5 étapes pour automatiser efficacement vos processus d'entreprise et gagner jusqu'à 70% de temps sur vos tâches répétitives.",
-      slug: "5-etapes-automatiser-processus-entreprise",
+      title: "10 Processus à Automatiser en Priorité dans votre Entreprise",
+      description: "Découvrez les 10 processus les plus impactants à automatiser en priorité pour transformer votre entreprise et gagner jusqu'à 70% de temps sur vos tâches répétitives.",
+      slug: "10-processus-automatiser-priorite-entreprise",
       date: "2024-06-24",
       author: "Équipe VelocitAI",
       category: "Automatisation",
@@ -53,9 +53,9 @@ const BlogPreviewSection: React.FC<BlogPreviewSectionProps> = ({ posts }) => {
       featured: true
     },
     {
-      title: "Chatbot IA : Révolutionnez votre Service Client en 2024",
+      title: "Chatbots IA : Révolutionnez votre Service Client en 2025",
       description: "Découvrez comment les chatbots IA transforment le service client. Guide complet avec cas d'usage, ROI et meilleures pratiques pour votre entreprise.",
-      slug: "chatbot-ia-service-client-2024",
+      slug: "chatbots-ia-service-client-2025",
       date: "2024-06-20",
       author: "Équipe VelocitAI",
       category: "Intelligence Artificielle",
@@ -64,13 +64,13 @@ const BlogPreviewSection: React.FC<BlogPreviewSectionProps> = ({ posts }) => {
       featured: true
     },
     {
-      title: "ROI de l'Automatisation : Comment Calculer et Maximiser vos Gains",
-      description: "Guide pratique pour calculer le ROI de vos projets d'automatisation. Méthodes éprouvées, outils de calcul et stratégies pour maximiser votre retour sur investissement.",
-      slug: "roi-automatisation-entreprise-calcul",
+      title: "Guide Stratégique de l'Automatisation d'Entreprise 2025",
+      description: "Guide complet pour développer une stratégie d'automatisation efficace. Méthodes éprouvées, outils recommandés et étapes clés pour transformer votre entreprise.",
+      slug: "automatisation-entreprise-guide-strategique-2025",
       date: "2024-06-18",
       author: "Équipe VelocitAI",
-      category: "ROI & Performance",
-      tags: ["ROI", "automatisation", "calcul"],
+      category: "Automatisation",
+      tags: ["automatisation", "stratégie", "guide"],
       readTime: 12,
       featured: false
     }
