@@ -32,12 +32,30 @@ class BlogAutomation {
    */
   async getNextArticleToPublish() {
     try {
-      // Utiliser node-fetch au lieu de curl pour éviter les problèmes d'encodage
-      const filterFormula = `AND({Status} = 'Scheduled', {Published} = FALSE())`;
-      const encodedFormula = encodeURIComponent(filterFormula);
-      const url = `${this.baseUrl}?filterByFormula=${encodedFormula}&sort[0][field]=Created&sort[0][direction]=asc&maxRecords=1`;
+      // Essayer d'abord sans filtre pour voir si la table existe
+      console.log('🔍 Test de connexion à la table...');
+      const testUrl = `${this.baseUrl}?maxRecords=1`;
       
-      console.log('🔗 URL de requête:', url);
+      const testResponse = await fetch(testUrl, {
+        method: 'GET',
+        headers: this.headers,
+        timeout: 30000
+      });
+
+      if (!testResponse.ok) {
+        const errorText = await testResponse.text();
+        console.error('❌ Erreur test connexion:', testResponse.status, errorText);
+        throw new Error(`Erreur test connexion Airtable: ${testResponse.status} ${testResponse.statusText}`);
+      }
+
+      console.log('✅ Table accessible, application du filtre...');
+      
+      // Essayer avec une formule plus simple
+      const filterFormula = `{Status} = 'Scheduled'`;
+      const encodedFormula = encodeURIComponent(filterFormula);
+      const url = `${this.baseUrl}?filterByFormula=${encodedFormula}&maxRecords=5`;
+      
+      console.log('🔗 URL avec filtre:', url);
       
       const response = await fetch(url, {
         method: 'GET',
@@ -46,11 +64,22 @@ class BlogAutomation {
       });
 
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error('❌ Erreur avec filtre:', testResponse.status, errorText);
         throw new Error(`Erreur Airtable: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
-      return data.records;
+      console.log(`📊 Trouvé ${data.records.length} article(s) avec statut 'Scheduled'`);
+      
+      // Filtrer les articles non publiés côté client
+      const unpublishedArticles = data.records.filter(record => 
+        !record.fields.Published || record.fields.Published === false
+      );
+      
+      console.log(`📝 Articles non publiés: ${unpublishedArticles.length}`);
+      return unpublishedArticles.slice(0, 1); // Retourner le premier
+      
     } catch (error) {
       console.error('Erreur lors de la récupération des articles:', error);
       throw error;
