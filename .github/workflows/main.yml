@@ -71,21 +71,24 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "Blog Automation Bot"
         
+        # Désactiver les hooks husky dans GitHub Actions
+        export HUSKY=0
+        
         # Ajouter les fichiers modifiés
         git add content/blog/
         git add pages/sitemap.xml.tsx || true
         
-        # Créer un commit
+        # Créer un commit (sans hooks)
         ARTICLE_COUNT=$(git diff --cached --name-only content/blog/ | wc -l)
         if [ $ARTICLE_COUNT -gt 0 ]; then
           ARTICLE_NAME=$(git diff --cached --name-only content/blog/ | head -1 | xargs basename -s .md)
-          git commit -m "Publication automatique: $ARTICLE_NAME
+          git commit --no-verify -m "Publication automatique: $ARTICLE_NAME
 
           - Nouvel article publié depuis Airtable
           - Images récupérées depuis Airtable  
           - Prêt pour déploiement Netlify"
         else
-          git commit -m "Mise à jour automatique du blog"
+          git commit --no-verify -m "Mise à jour automatique du blog"
         fi
         
         # Pousser les changements
