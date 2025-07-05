@@ -234,12 +234,42 @@ class BlogAutomation {
       // Vérifier si le répertoire existe
       if (!fs.existsSync(BLOG_CONTENT_DIR)) {
         fs.mkdirSync(BLOG_CONTENT_DIR, { recursive: true });
+        console.log(`📁 Répertoire créé: ${BLOG_CONTENT_DIR}`);
       }
 
       // Écrire le fichier
       fs.writeFileSync(filePath, articleData.content, 'utf8');
       
       console.log(`✅ Article sauvegardé: ${filePath}`);
+      
+      // Vérifier que le fichier existe bien
+      if (fs.existsSync(filePath)) {
+        const stats = fs.statSync(filePath);
+        console.log(`📊 Fichier créé: ${stats.size} bytes`);
+        
+        // Debug git pour voir si le fichier est détecté
+        const { exec } = require('child_process');
+        const { promisify } = require('util');
+        const execAsync = promisify(exec);
+        
+        try {
+          const { stdout: gitStatus } = await execAsync('git status --porcelain');
+          console.log('📋 Git status après création:');
+          console.log(gitStatus || 'Aucun changement détecté par git');
+          
+          // Ajouter explicitement le fichier
+          await execAsync(`git add "${filePath}"`);
+          console.log(`➕ Fichier ajouté à git: ${filePath}`);
+          
+          const { stdout: gitStatusAfter } = await execAsync('git status --porcelain');
+          console.log('📋 Git status après add:');
+          console.log(gitStatusAfter || 'Aucun changement en staging');
+          
+        } catch (gitError) {
+          console.error('⚠️ Erreur git debug:', gitError.message);
+        }
+      }
+      
       return filePath;
     } catch (error) {
       console.error('Erreur lors de la sauvegarde:', error);
