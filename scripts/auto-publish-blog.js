@@ -420,6 +420,10 @@ export default Sitemap;`;
       if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
         throw new Error('Variables d\'environnement Airtable manquantes');
       }
+      
+      // Debug des variables d'environnement (masqué)
+      console.log('🔐 API Key présente:', AIRTABLE_API_KEY ? `${AIRTABLE_API_KEY.substring(0, 6)}...` : 'NON');
+      console.log('🔐 Base ID présente:', AIRTABLE_BASE_ID ? `${AIRTABLE_BASE_ID.substring(0, 6)}...` : 'NON');
 
       // Vérifier si c'est un jour de publication
       if (!this.shouldPublishToday()) {
