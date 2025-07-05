@@ -32,24 +32,24 @@ class BlogAutomation {
    */
   async getNextArticleToPublish() {
     try {
-      // Utiliser curl pour éviter les problèmes de timeout avec node-fetch
-      const { exec } = require('child_process');
-      const { promisify } = require('util');
-      const execAsync = promisify(exec);
-
+      // Utiliser node-fetch au lieu de curl pour éviter les problèmes d'encodage
       const filterFormula = `AND({Status} = 'Scheduled', {Published} = FALSE())`;
       const encodedFormula = encodeURIComponent(filterFormula);
       const url = `${this.baseUrl}?filterByFormula=${encodedFormula}&sort[0][field]=Created&sort[0][direction]=asc&maxRecords=1`;
       
-      const command = `curl -H "Authorization: Bearer ${AIRTABLE_API_KEY}" '${url}'`;
+      console.log('🔗 URL de requête:', url);
       
-      const { stdout, stderr } = await execAsync(command);
-      
-      if (stderr && !stderr.includes('% Total')) {
-        throw new Error(`Erreur curl: ${stderr}`);
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: this.headers,
+        timeout: 30000
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erreur Airtable: ${response.status} ${response.statusText}`);
       }
 
-      const data = JSON.parse(stdout);
+      const data = await response.json();
       return data.records;
     } catch (error) {
       console.error('Erreur lors de la récupération des articles:', error);
@@ -223,10 +223,6 @@ class BlogAutomation {
    */
   async updateArticleStatus(recordId, published = true) {
     try {
-      const { exec } = require('child_process');
-      const { promisify } = require('util');
-      const execAsync = promisify(exec);
-
       const url = `${this.baseUrl}/${recordId}`;
       const today = new Date().toISOString().split('T')[0];
       
@@ -240,12 +236,15 @@ class BlogAutomation {
         updateFields['Publication Date'] = today;
       }
       
-      const command = `curl -X PATCH -H "Authorization: Bearer ${AIRTABLE_API_KEY}" -H "Content-Type: application/json" -d '{"fields":${JSON.stringify(updateFields)}}' '${url}'`;
-      
-      const { stdout, stderr } = await execAsync(command);
-      
-      if (stderr && !stderr.includes('% Total')) {
-        throw new Error(`Erreur curl: ${stderr}`);
+      const response = await fetch(url, {
+        method: 'PATCH',
+        headers: this.headers,
+        body: JSON.stringify({ fields: updateFields }),
+        timeout: 30000
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erreur Airtable: ${response.status} ${response.statusText}`);
       }
 
       console.log(`✅ Statut mis à jour dans Airtable pour l'enregistrement ${recordId}`);
