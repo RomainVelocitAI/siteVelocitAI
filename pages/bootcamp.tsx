@@ -1772,9 +1772,9 @@ export default function BootcampPage() {
                     "0 0 0px rgba(220, 38, 38, 0.5)",
                     "0 0 30px rgba(220, 38, 38, 0.8)",
                     "0 0 0px rgba(220, 38, 38, 0.5)"
-                  ]
+                  ],
+                  transition: { duration: 2, repeat: Infinity }
                 }}
-                transition={{ duration: 2, repeat: Infinity }}
               >
                 <span className="text-white font-bold text-xl">🚨 ALERTE ROUGE 🚨</span>
               </motion.div>
