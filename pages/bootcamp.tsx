@@ -1800,7 +1800,11 @@ export default function BootcampPage() {
                       "0 0 0px #f87171"
                     ]
                   }}
-                  transition={{ duration: 3, repeat: Infinity, delay: 1 }}
+                  style={{
+                    animationDuration: "3s",
+                    animationIterationCount: "infinite",
+                    animationDelay: "1s"
+                  }}
                 >
                   Avec ou sans toi.
                 </motion.span>
@@ -1959,9 +1963,9 @@ export default function BootcampPage() {
                         "0 0 0px rgba(234, 179, 8, 0.3)",
                         "0 0 20px rgba(234, 179, 8, 0.5)",
                         "0 0 0px rgba(234, 179, 8, 0.3)"
-                      ]
+                      ],
+                      transition: { duration: 3, repeat: Infinity, delay: 2 }
                     }}
-                    transition={{ duration: 3, repeat: Infinity, delay: 2 }}
                   >
                     <p className="text-yellow-300 font-semibold text-center">Tu repartiras avec TES agents qui fonctionnent</p>
                   </motion.div>
@@ -2075,9 +2079,9 @@ export default function BootcampPage() {
                     "0 0 0px rgba(220, 38, 38, 0.5)",
                     "0 0 30px rgba(220, 38, 38, 0.8)",
                     "0 0 0px rgba(220, 38, 38, 0.5)"
-                  ]
+                  ],
+                  transition: { duration: 2, repeat: Infinity }
                 }}
-                transition={{ duration: 2, repeat: Infinity }}
               >
                 ⏰ Plus que 3 semaines pour réserver
               </motion.div>
@@ -2093,9 +2097,9 @@ export default function BootcampPage() {
                     "0 0 0px #ffffff",
                     "0 0 40px #ffffff",
                     "0 0 0px #ffffff"
-                  ]
+                  ],
+                  transition: { duration: 3, repeat: Infinity, delay: 1 }
                 }}
-                transition={{ duration: 3, repeat: Infinity, delay: 1 }}
               >
                 DERNIÈRE CHANCE
               </motion.h3>
@@ -2126,9 +2130,9 @@ export default function BootcampPage() {
                           "0 0 0px #f87171",
                           "0 0 15px #f87171",
                           "0 0 0px #f87171"
-                        ]
+                        ],
+                        transition: { duration: 2, repeat: Infinity, delay: 2 + (index * 0.5) }
                       }}
-                      transition={{ duration: 2, repeat: Infinity, delay: 2 + (index * 0.5) }}
                     >
                       {text}
                     </motion.p>
