@@ -72,6 +72,7 @@ export default function Home() {
         {/* Données structurées */}
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         <meta name="author" content="VelocitAI" />
+        <meta name="last-modified" content={new Date().toISOString()} />
       </Head>
 
       <StructuredData data={[organizationSchema, websiteSchema, serviceSchema]} />
