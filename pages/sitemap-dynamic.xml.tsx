@@ -9,7 +9,7 @@ const Sitemap = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const baseUrl = 'https://velocitai.com';
+  const baseUrl = 'https://velocit-ai.fr';
   const currentDate = new Date().toISOString().split('T')[0];
   
   // Récupérer tous les articles de blog

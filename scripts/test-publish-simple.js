@@ -103,7 +103,7 @@ async function testPublish() {
     
     console.log('\n🎉 Publication réussie !');
     console.log(`📁 Fichier créé: content/blog/${fields.Slug}.md`);
-    console.log(`🔗 URL future: https://velocitai.com/blog/${fields.Slug}`);
+    console.log(`🔗 URL future: https://velocit-ai.fr/blog/${fields.Slug}`);
     
   } catch (error) {
     console.error('❌ Erreur:', error.message);

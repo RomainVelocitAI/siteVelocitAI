@@ -405,7 +405,7 @@ class BlogAutomation {
    * Génère le contenu du sitemap
    */
   generateSitemapContent(articles) {
-    const baseUrl = 'https://velocitai.com';
+    const baseUrl = 'https://velocit-ai.fr';
     const currentDate = new Date().toISOString().split('T')[0];
     
     let sitemapUrls = `  <url>

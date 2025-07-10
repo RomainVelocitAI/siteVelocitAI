@@ -22,4 +22,4 @@ Disallow: /node_modules/
 Crawl-delay: 1
 
 # Sitemaps
-Sitemap: https://velocitai.com/sitemap.xml
+Sitemap: https://velocit-ai.fr/sitemap.xml
