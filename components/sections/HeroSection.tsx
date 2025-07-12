@@ -5,13 +5,13 @@ import { FadeInUp as FadeIn, FadeInSide, StaggerContainer, StaggerItem, Parallax
 import { useEffect, useState } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
 
-// Mots-clés rotatifs pour l'automatisation IA
+// Bénéfices business rotatifs - focus transformation
 const heroWords = [
-  "Productivité",
-  "Efficacité", 
-  "Innovation",
   "Performance",
-  "Croissance"
+  "Autonomie",
+  "Efficacité", 
+  "Croissance",
+  "Excellence"
 ];
 
 // Composant de texte rotatif stylisé
@@ -199,6 +199,15 @@ const AIAnimation = () => {
 
 export default function HeroSection() {
   const { isDark } = useTheme();
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev: number) => (prev + 1) % heroWords.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <ParallaxSection speed={0.3} className="relative overflow-hidden bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 py-16 md:py-24">
@@ -215,10 +224,9 @@ export default function HeroSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                   >
-                    Automatisez votre{' '}
                     <span className="relative">
                       <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
-                        entreprise
+                        Écosystème d'Agents IA
                       </span>
                       <motion.div
                         className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 rounded-full"
@@ -227,9 +235,12 @@ export default function HeroSection() {
                         transition={{ delay: 1, duration: 0.8 }}
                       />
                     </span>
-                    {' '}avec l'IA
+                    <br className="hidden md:block" />
+                    {'pour Diriger avec '}
+                    <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                      {heroWords[currentIndex] || "Performance"}
+                    </span>
                   </motion.h1>
-                  <RotatingText />
                 </FadeIn>
               </StaggerItem>
               
@@ -241,8 +252,8 @@ export default function HeroSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
                   >
-                    Libérez le potentiel de votre entreprise à La Réunion avec nos solutions d'automatisation intelligentes. 
-                    Transformez vos processus, optimisez votre productivité et concentrez-vous sur ce qui compte vraiment.
+                    Nos agents IA spécialisés libèrent 25h par semaine à votre équipe et font tourner votre entreprise 24h/24. 
+                    Votre business devient autonome, vos processus s'optimisent en continu, vos équipes se concentrent sur la valeur ajoutée.
                   </motion.p>
                 </FadeIn>
               </StaggerItem>
@@ -266,7 +277,7 @@ export default function HeroSection() {
                       }}
                     >
                       <span className="relative z-10 flex items-center justify-center gap-2">
-                        🚀 Calculer mes gains
+                        📊 Calculer mon ROI et gains de temps
                       </span>
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-purple-700 via-blue-700 to-cyan-600"
@@ -286,7 +297,7 @@ export default function HeroSection() {
                       }}
                     >
                       <span className="relative z-10 flex items-center justify-center gap-2">
-                        📞 Prendre RDV
+                        🎯 Diagnostic gratuit personnalisé
                       </span>
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500"

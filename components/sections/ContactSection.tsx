@@ -109,24 +109,125 @@ export default function ContactSection() {
   return (
     <section id="contact" className="bg-gray-50 py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Bannière d'opportunité professionnelle */}
+        <motion.div 
+          className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 text-white text-center py-6 px-6 rounded-2xl mb-12 border border-blue-300 shadow-lg"
+          initial={{ opacity: 0, y: -20, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">🎯</span>
+              <span className="font-bold text-lg">AUDIT STRATÉGIQUE PERSONNALISÉ</span>
+            </div>
+            <div className="flex items-center gap-4 text-sm">
+              <span>Évaluation experte de vos <strong className="text-blue-200">processus prioritaires</strong> en 30 minutes</span>
+              <span className="hidden md:inline">•</span>
+              <span>Support premium avec équipe dédiée</span>
+            </div>
+          </div>
+        </motion.div>
+
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
-            Prêt à automatiser votre entreprise ?
-          </h2>
-          <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-            Discutons de votre projet et trouvons ensemble comment l'automatisation peut vous faire gagner du temps et de l'argent.
-          </p>
+          <motion.h2 
+            className="text-4xl font-extrabold text-gray-900 sm:text-5xl mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            Transformez Votre Entreprise avec 
+            <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent block md:inline md:ml-3">
+              l'Intelligence Artificielle
+            </span>
+          </motion.h2>
+          
+          <motion.div 
+            className="bg-blue-50 border-l-4 border-blue-400 p-6 max-w-4xl mx-auto rounded-r-xl shadow-sm mb-6"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                <span className="text-2xl">💡</span>
+              </div>
+              <div className="ml-3">
+                <p className="text-lg text-blue-800 font-semibold">
+                  L'excellence opérationnelle par l'IA : une opportunité stratégique
+                </p>
+                <p className="text-blue-700 mt-1">
+                  ROI mesurable dès le premier mois : libération de 25h/semaine par équipe et réduction de 40% des coûts opérationnels.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.p 
+            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <strong className="text-gray-900">Audit stratégique personnalisé de 30 minutes</strong> pour identifier 
+            vos processus à fort impact business. Nos experts vous présentent un plan d'action sur-mesure 
+            avec calcul précis du ROI potentiel et roadmap de déploiement.
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Formulaire de contact */}
-          <div className="bg-white p-8 rounded-xl shadow-lg">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">
-              Contactez-nous
-            </h3>
-            <p className="text-gray-600 mb-6">
-              Notre équipe vous répond sous 24h ouvrés.
-            </p>
+          <div className="bg-white p-8 rounded-xl shadow-lg border-l-4 border-blue-500">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-3xl">🎯</span>
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Audit Stratégique Personnalisé
+                </h3>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full">
+                    CONSULTATION EXPERTE
+                  </span>
+                  <span className="bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded-full">
+                    ÉVALUATION SUR-MESURE
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            <motion.div 
+              className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+            >
+              <div className="flex items-start gap-3">
+                <span className="text-blue-600 text-lg">💡</span>
+                <div>
+                  <p className="text-sm font-semibold text-blue-900 mb-1">
+                    Livrables de votre audit stratégique :
+                  </p>
+                  <ul className="text-sm text-blue-800 space-y-1">
+                    <li>• Cartographie des processus à fort ROI pour votre secteur</li>
+                    <li>• Calcul précis des gains opérationnels et financiers</li>
+                    <li>• Roadmap de déploiement personnalisée avec timeline</li>
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
+
+            <div className="flex items-center justify-between mb-6 bg-gray-50 p-3 rounded-lg">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-gray-700">Support premium avec équipe dédiée</span>
+              </div>
+              <span className="text-xs text-gray-500">98% de satisfaction client • 5+ ans de partenariat moyen</span>
+            </div>
             
             {submitStatus && (
               <div className={`mb-6 p-4 rounded-md ${submitStatus.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
@@ -224,7 +325,7 @@ export default function ContactSection() {
                   }}
                 >
                   <span className={`transition-opacity duration-300 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                    Envoyer le message
+                    📊 Planifier l'audit stratégique
                   </span>
                 </motion.button>
 
@@ -317,6 +418,26 @@ export default function ContactSection() {
                 </motion.div>
               </div>
             </form>
+            
+            {/* Section expertise post-formulaire */}
+            <motion.div 
+              className="mt-8 pt-6 border-t border-gray-200"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+            >
+              <div className="text-center">
+                <p className="text-sm text-gray-600 mb-3">
+                  🎯 <strong>Expertise :</strong> Certification ISO 27001 et conformité RGPD native
+                </p>
+                <div className="flex justify-center items-center gap-4 text-xs text-gray-500">
+                  <span>🛡️ Support premium 99.9% de disponibilité</span>
+                  <span>•</span>
+                  <span>📊 ROI garanti contractuellement</span>
+                </div>
+              </div>
+            </motion.div>
           </div>
 
           {/* Informations de contact */}

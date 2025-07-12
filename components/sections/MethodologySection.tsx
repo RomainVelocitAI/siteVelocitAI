@@ -14,65 +14,65 @@ import { FadeInUp, StaggerContainer, StaggerItem, ParallaxSection } from '../ui/
 const steps = [
   {
     number: '01',
-    name: 'Audit Gratuit',
-    title: 'Diagnostic complet',
-    description: 'Analyse détaillée de vos processus pour identifier les gains potentiels',
+    name: 'Audit IA Gratuit',
+    title: 'Diagnostic IA complet',
+    description: 'Analyse détaillée par IA de vos processus pour identifier les gains d\'automatisation potentiels',
     icon: MagnifyingGlassIcon,
     color: 'from-purple-600 to-blue-600',
     duration: '1-2 jours',
     deliverables: [
-      'Cartographie des processus actuels',
-      'Identification des goulots d\'étranglement',
-      'Calcul du ROI potentiel',
-      'Recommandations prioritaires'
+      'Cartographie IA des processus actuels',
+      'Identification prédictive des goulots d\'étranglement',
+      'Calcul du ROI d\'automatisation IA',
+      'Recommandations IA prioritaires personnalisées'
     ],
     highlight: 'Gratuit et sans engagement'
   },
   {
     number: '02',
-    name: 'Stratégie',
-    title: 'Plan d\'action sur mesure',
-    description: 'Conception d\'une roadmap personnalisée avec objectifs et KPIs',
+    name: 'Stratégie IA',
+    title: 'Plan d\'automatisation IA sur mesure',
+    description: 'Conception d\'une roadmap d\'automatisation IA personnalisée avec objectifs et KPIs mesurables',
     icon: LightBulbIcon,
     color: 'from-blue-600 to-cyan-500',
     duration: '3-5 jours',
     deliverables: [
-      'Stratégie d\'automatisation détaillée',
-      'Planning de déploiement',
-      'Budget et ressources nécessaires',
-      'Indicateurs de performance'
+      'Stratégie d\'automatisation IA détaillée',
+      'Planning de déploiement IA phasé',
+      'Budget et ressources IA nécessaires',
+      'KPIs et métriques de performance IA'
     ],
     highlight: 'Approche méthodique'
   },
   {
     number: '03',
-    name: 'Développement',
-    title: 'Mise en œuvre experte',
-    description: 'Développement et intégration des solutions avec tests rigoureux',
+    name: 'Développement IA',
+    title: 'Mise en œuvre IA experte',
+    description: 'Développement et intégration des solutions d\'automatisation IA avec tests rigoureux',
     icon: WrenchScrewdriverIcon,
     color: 'from-cyan-500 to-green-500',
     duration: '2-6 semaines',
     deliverables: [
-      'Solutions automatisées fonctionnelles',
-      'Tests complets et validation',
-      'Documentation technique',
-      'Intégration avec vos outils'
+      'Solutions d\'automatisation IA fonctionnelles',
+      'Tests IA complets et validation prédictive',
+      'Documentation technique IA détaillée',
+      'Intégration intelligente avec vos outils existants'
     ],
     highlight: 'Qualité garantie'
   },
   {
     number: '04',
-    name: 'Formation',
-    title: 'Autonomie assurée',
-    description: 'Formation complète et accompagnement pour une adoption réussie',
+    name: 'Formation IA',
+    title: 'Autonomie IA assurée',
+    description: 'Formation complète aux outils IA et accompagnement pour une adoption réussie',
     icon: AcademicCapIcon,
     color: 'from-green-500 to-purple-600',
     duration: '1-2 semaines',
     deliverables: [
-      'Formation utilisateurs personnalisée',
-      'Guide d\'utilisation détaillé',
-      'Support technique 3 mois',
-      'Optimisations continues'
+      'Formation IA utilisateurs personnalisée',
+      'Guide d\'utilisation IA détaillé',
+      'Support technique IA 3 mois',
+      'Optimisations IA continues et évolutives'
     ],
     highlight: 'Support inclus'
   }
@@ -123,7 +123,7 @@ export default function MethodologySection() {
               >
                 Notre{' '}
                 <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
-                  Méthode
+                  Méthode d'Automatisation IA
                 </span>
                 {' '}en 4 Étapes
               </motion.h2>
@@ -140,9 +140,9 @@ export default function MethodologySection() {
           <StaggerItem>
             <FadeInUp delay={0.2}>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                Une approche éprouvée et structurée pour transformer votre entreprise 
+                Une approche éprouvée et structurée pour transformer votre entreprise avec l'intelligence artificielle
                 <br className="hidden md:block" />
-                avec des résultats garantis à chaque étape.
+                avec des résultats mesurables et un ROI garanti à chaque étape.
               </p>
             </FadeInUp>
           </StaggerItem>
@@ -324,7 +324,7 @@ export default function MethodologySection() {
             >
               <span className="relative z-10 flex items-center gap-3">
                 <MagnifyingGlassIcon className="h-6 w-6" />
-                Commencer par un audit gratuit
+                Commencer par un audit IA gratuit
                 <motion.div
                   animate={{ x: [0, 5, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}

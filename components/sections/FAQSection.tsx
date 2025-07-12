@@ -13,38 +13,38 @@ interface FAQItem {
 const faqs: FAQItem[] = [
   {
     id: 1,
-    question: "Qu'est-ce que l'automatisation d'entreprise ?",
-    answer: "L'automatisation d'entreprise consiste à utiliser des technologies intelligentes pour automatiser les processus métier répétitifs et chronophages. Cela permet d'augmenter la productivité, de réduire les erreurs humaines et de libérer du temps pour des tâches à plus forte valeur ajoutée. Nos solutions s'intègrent parfaitement avec vos outils existants.",
-    icon: 'AI'
-  },
-  {
-    id: 2,
-    question: "Combien de temps pour mettre en place une automatisation ?",
-    answer: "Le temps de mise en place varie selon la complexité du projet. Pour des automatisations simples, nous pouvons avoir des résultats en 2-3 jours. Les projets plus complexes nécessitent généralement 2 à 6 semaines. Nous privilégions toujours une approche progressive pour des résultats rapides.",
-    icon: '⚡'
-  },
-  {
-    id: 3,
-    question: "Quel est le retour sur investissement (ROI) ?",
-    answer: "La plupart de nos clients constatent un retour sur investissement en moins de 30 jours grâce à la réduction drastique du temps passé sur les tâches répétitives. En moyenne, nos solutions permettent d'économiser 25h par semaine et d'augmenter la productivité de 300%. Le ROI moyen est de 400% la première année.",
+    question: "Comment mesurer concrètement le ROI de vos agents IA ?",
+    answer: "Nous garantissons un ROI positif dès le premier mois d'utilisation. Calcul concret : à partir de 197€/mois par agent, si vous économisez seulement 5h/semaine à 25€/h, c'est 500€ d'économies mensuelles pour 197€ d'investissement. Avec 10h/semaine économisées, c'est 1000€ d'économies. Nos clients constatent en moyenne 8 à 15h/semaine libérées par processus automatisé, 40% de réduction des coûts opérationnels, 90% de réduction des erreurs. ROI minimum : 150% dès le premier mois, souvent bien plus.",
     icon: '📊'
   },
   {
+    id: 2,
+    question: "Quelle est la complexité d'intégration avec nos systèmes existants ?",
+    answer: "Nos agents IA s'intègrent nativement avec plus de 500 outils business : ERP, CRM, comptabilité, e-commerce. Déploiement progressif sur 2 semaines avec formation complète de vos équipes. Aucune interruption de service pendant la migration. Nos experts techniques vous accompagnent à chaque étape avec une garantie de bon fonctionnement dès la mise en service.",
+    icon: '⚙️'
+  },
+  {
+    id: 3,
+    question: "Quel niveau d'autonomie peuvent atteindre nos processus métier ?",
+    answer: "Nos écosystèmes d'agents IA permettent 80% d'autonomie sur vos processus récurrents : gestion administrative, relation client, logistique, reporting. Vos agents apprennent en continu et s'améliorent automatiquement. Vous gardez le contrôle stratégique tout en libérant 25h/semaine minimum pour vous concentrer sur le développement business et l'innovation.",
+    icon: '🤖'
+  },
+  {
     id: 4,
-    question: "Mes données sont-elles en sécurité ?",
-    answer: "Absolument. La sécurité est notre priorité. Nous utilisons des protocoles de chiffrement de niveau bancaire, des solutions hébergées en Europe conformes au RGPD, et des sauvegardes automatiques. Vos données restent toujours sous votre contrôle et ne sont jamais partagées avec des tiers.",
+    question: "Quelles garanties de sécurité et de continuité de service ?",
+    answer: "Infrastructure cloud sécurisée avec certification ISO 27001 et conformité RGPD native. Disponibilité garantie 99.9% avec sauvegardes automatisées toutes les heures. En cas d'incident, restauration complète en moins de 15 minutes. Vos données restent en France, chiffrées de bout en bout. Support technique 24h/24 avec équipe dédiée. Aucune perte de données en 5 ans d'activité.",
     icon: '🛡️'
   },
   {
     id: 5,
-    question: "Avez-vous des solutions pour petites entreprises ?",
-    answer: "Bien sûr ! Nous sommes spécialisés dans l'accompagnement des TPE et PME. Nos solutions sont modulaires et évolutives, s'adaptant parfaitement à votre budget et à vos besoins. Nous proposons des formules sur mesure, des paiements échelonnés et un accompagnement personnalisé pour chaque entreprise.",
-    icon: '🏢'
+    question: "Quel est l'investissement nécessaire pour une PME de notre taille ?",
+    answer: "Nos solutions sont dimensionnées pour les PME de 5 à 200 personnes. Investissement à partir de 197€/mois par agent IA, soit l'équivalent de 10% du coût d'un salarié. Retour sur investissement immédiat dès le premier mois : même avec seulement 5h économisées × 25€/h = 500€ d'économies pour 197€ d'investissement. ROI minimum de 150% garanti, souvent 300-500% selon les processus automatisés. Financement échelonné possible, sans engagement de durée.",
+    icon: '💰'
   },
   {
     id: 6,
-    question: "Que se passe-t-il si j'ai besoin d'aide après la mise en place ?",
-    answer: "Chaque projet inclut 3 mois de support technique gratuit. Nous proposons également de la formation pour votre équipe, une documentation complète et un accès à notre équipe d'experts. Notre objectif est de vous rendre autonome tout en restant disponible quand vous en avez besoin.",
+    question: "Quel niveau de support et d'accompagnement proposez-vous ?",
+    answer: "Support premium inclus avec équipe dédiée francophone. Temps de réponse garanti sous 2h en jours ouvrés, 24h/24 pour les urgences critiques. Formation initiale complète de vos équipes et accompagnement personnalisé les 3 premiers mois. Mises à jour et améliorations incluses. Taux de satisfaction client 98% avec durée moyenne de partenariat de 5+ ans.",
     icon: '🎯'
   }
 ];
@@ -121,9 +121,9 @@ export default function FaqSection() {
           <StaggerItem>
             <FadeInUp delay={0.2}>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                Trouvez rapidement les réponses à vos questions sur l'automatisation d'entreprise.
+                Réponses expertes aux questions stratégiques des dirigeants sur le déploiement d'écosystèmes d'agents IA.
                 <br className="hidden md:block" />
-                Notre équipe d'experts est là pour vous accompagner dans votre transformation digitale.
+                Notre accompagnement vous garantit une transformation digitale réussie et un ROI mesurable.
               </p>
             </FadeInUp>
           </StaggerItem>
@@ -154,8 +154,8 @@ export default function FaqSection() {
               </div>
               
               <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                Nos experts en automatisation répondent à toutes vos questions et vous accompagnent 
-                dans votre projet de transformation digitale.
+                Nos consultants spécialisés en écosystèmes d'agents IA vous accompagnent dans l'audit stratégique, 
+                le déploiement professionnel et l'optimisation continue de votre transformation business.
               </p>
               
               <motion.a 
@@ -307,10 +307,10 @@ export default function FaqSection() {
         >
           <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 border border-gray-200/50 dark:border-gray-700/50 shadow-lg max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Vous avez d'autres questions ?
+              Besoin d'une expertise spécialisée pour votre secteur ?
             </h3>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
-              Notre équipe d'experts est disponible pour répondre à toutes vos questions personnalisées.
+              Nos consultants experts vous proposent un audit stratégique personnalisé et des recommandations sectorielles adaptées.
             </p>
             <motion.a
               href="#contact"
@@ -323,7 +323,7 @@ export default function FaqSection() {
               }}
             >
               <QuestionMarkCircleIcon className="h-5 w-5" />
-              Contactez-nous maintenant
+              Planifier l'audit stratégique
               <motion.div
                 animate={{ x: [0, 5, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}

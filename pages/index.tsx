@@ -22,6 +22,10 @@ const TestimonialsSection = dynamic(() => import('@/components/sections/Testimon
   loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
 });
 
+const BeforeAfterSection = dynamic(() => import('@/components/sections/BeforeAfterSection'), {
+  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
+});
+
 const FAQSection = dynamic(() => import('@/components/sections/FAQSection'), {
   loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
 });
@@ -38,21 +42,21 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <Head>
-        <title>Velocit.AI | Automatisation d'entreprise à La Réunion</title>
+        <title>Velocit.AI | Automatisation IA sur Mesure pour Entreprises</title>
         <meta 
           name="description" 
-          content="Automatisez vos tâches répétitives et créez des chatbots intelligents pour votre entreprise à La Réunion. Gagnez du temps et augmentez votre productivité." 
+          content="Solutions d'automatisation IA sur mesure pour votre entreprise. Dashboard intelligent, processus automatisés, prédictions IA - libérez le potentiel de votre business." 
         />
-        <meta name="keywords" content="automatisation, chatbot, La Réunion, entreprise, productivité, workflow, IA" />
+        <meta name="keywords" content="automatisation IA, intelligence artificielle entreprise, dashboard IA, processus automatisés, solutions IA sur mesure, productivité IA, automatisation entreprise, écosystème IA" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://velocit-ai.fr" />
         
         {/* Balises Open Graph pour le partage sur les réseaux sociaux */}
-        <meta property="og:title" content="Velocit.AI - Automatisation d'entreprise à La Réunion" />
+        <meta property="og:title" content="Velocit.AI - Automatisation IA sur Mesure pour Entreprises" />
         <meta 
           property="og:description" 
-          content="Automatisez vos tâches répétitives et créez des chatbots intelligents pour votre entreprise à La Réunion." 
+          content="Solutions d'automatisation IA sur mesure : dashboard intelligent, processus automatisés, prédictions IA. Libérez le potentiel de votre entreprise." 
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://velocit-ai.fr" />
@@ -62,10 +66,10 @@ export default function Home() {
         
         {/* Balises Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Velocit.AI - Automatisation d'entreprise à La Réunion" />
+        <meta name="twitter:title" content="Velocit.AI - Automatisation IA sur Mesure pour Entreprises" />
         <meta 
           name="twitter:description" 
-          content="Automatisez vos tâches répétitives et créez des chatbots intelligents pour votre entreprise à La Réunion." 
+          content="Solutions d'automatisation IA sur mesure : dashboard intelligent, processus automatisés, prédictions IA. Libérez le potentiel de votre entreprise." 
         />
         <meta name="twitter:image" content="https://velocit-ai.fr/images/og/velocitai-og.jpg" />
         
@@ -90,6 +94,9 @@ export default function Home() {
         </section>
         <section id="solutions">
           <SolutionsSection />
+        </section>
+        <section id="avant-apres">
+          <BeforeAfterSection />
         </section>
         <section id="methodologie">
           <MethodologySection />

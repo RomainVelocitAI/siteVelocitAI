@@ -1,11 +1,11 @@
-# Stratégie SEO - Écosystèmes d'Automatisation IA pour Entreprises
+# Stratégie SEO Hybride - Automatisation IA pour Entreprises
 
 ## Contexte Initial (Brief)
 
 Tu es un expert en SEO et stratégie de contenu. Aide-moi à identifier les meilleurs mots-clés pour positionner mon site.
 
 Voici mon contexte :
-* **Thématique principale** : vente d'écosystèmes d'automatisation IA pour entreprises
+* **Thématique principale** : solutions d'automatisation IA sur mesure pour entreprises
 * **Public cible** : chefs d'entreprise en France, générant plus de 100K€/an
 * **Objectif SEO** : générer du trafic qualifié et convertir
 * **Niveau de concurrence** : forte sur les sujets liés à l'IA, faible sur l'automatisation d'entreprise
@@ -24,8 +24,9 @@ Je veux que tu me proposes :
 
 | Mot-clé | Volume mensuel estimé | Concurrence | Intention | Priorité |
 |---------|---------------------|-------------|-----------|----------|
+| automatisation IA entreprise | 1900-2400 | Moyenne | Informationnelle/Transactionnelle | ⭐⭐⭐⭐⭐ |
 | automatisation entreprise | 1900-2400 | Moyenne | Informationnelle/Transactionnelle | ⭐⭐⭐⭐⭐ |
-| automatisation processus entreprise | 800-1200 | Faible-Moyenne | Transactionnelle | ⭐⭐⭐⭐⭐ |
+| automatisation processus IA | 800-1200 | Faible-Moyenne | Transactionnelle | ⭐⭐⭐⭐⭐ |
 | solution automatisation IA | 400-600 | Faible | Transactionnelle | ⭐⭐⭐⭐⭐ |
 | logiciel automatisation entreprise | 600-900 | Moyenne | Transactionnelle | ⭐⭐⭐⭐ |
 | automatisation tâches entreprise | 300-500 | Faible | Informationnelle | ⭐⭐⭐⭐ |
@@ -38,23 +39,27 @@ Je veux que tu me proposes :
 ### 2. Mots-clés Longue Traîne (Long-tail Keywords)
 
 #### 🎯 Haute Valeur Commerciale
-- "automatisation processus administratifs entreprise"
+- "automatisation IA processus administratifs entreprise"
 - "comment automatiser son entreprise avec l'IA"
-- "solution automatisation pour PME française"
+- "solution automatisation IA pour PME française"
 - "automatiser gestion clients intelligence artificielle"
-- "écosystème automatisation sur mesure entreprise"
+- "écosystème automatisation IA sur mesure entreprise"
 - "automatisation comptabilité IA entreprise"
-- "automatiser processus vente B2B"
-- "plateforme automatisation entreprise tout-en-un"
+- "automatiser processus vente IA B2B"
+- "plateforme automatisation IA entreprise tout-en-un"
+- "dashboard automatisation IA entreprise"
+- "solutions automatisation IA sur mesure"
 
 #### 💼 Ciblage Décideurs
 - "automatisation IA pour dirigeants d'entreprise"
-- "ROI automatisation processus entreprise"
+- "ROI automatisation IA processus entreprise"
 - "réduire coûts opérationnels automatisation IA"
-- "automatisation entreprise 100k chiffre affaires"
-- "transformation digitale PME automatisation"
-- "gain productivité automatisation entreprise"
-- "automatiser sans licencier équipe"
+- "automatisation IA entreprise 100k chiffre affaires"
+- "transformation intelligente PME automatisation IA"
+- "gain productivité automatisation IA entreprise"
+- "automatiser avec IA sans licencier équipe"
+- "investissement automatisation IA entreprise"
+- "budget automatisation IA PME"
 
 #### 🔧 Cas d'Usage Spécifiques
 - "automatiser service client chatbot IA"
@@ -67,15 +72,15 @@ Je veux que tu me proposes :
 
 ### 3. Stratégie de Contenu par Cluster Thématique
 
-#### Cluster 1 : Guide de l'Automatisation d'Entreprise
-**Page Pilier** : "Guide Complet de l'Automatisation d'Entreprise en 2025"
+#### Cluster 1 : Guide de l'Automatisation IA d'Entreprise
+**Page Pilier** : "Guide Complet de l'Automatisation IA d'Entreprise en 2025"
 
 **Articles Satellites** :
-1. "10 Processus à Automatiser en Priorité dans votre Entreprise"
-2. "Calculateur de ROI : Combien Économiser avec l'Automatisation ?"
-3. "Automatisation vs Embauche : Quelle Stratégie pour Croître ?"
-4. "Étude de Cas : Comment [Client X] a Doublé sa Productivité"
-5. "Les Erreurs à Éviter lors de l'Automatisation de votre Entreprise"
+1. "10 Processus à Automatiser avec l'IA en Priorité dans votre Entreprise"
+2. "Calculateur de ROI : Combien Économiser avec l'Automatisation IA ?"
+3. "Automatisation IA vs Embauche : Quelle Stratégie pour Croître ?"
+4. "Étude de Cas : Comment [Client X] a Doublé sa Productivité avec l'IA"
+5. "Les Erreurs à Éviter lors de l'Automatisation IA de votre Entreprise"
 
 #### Cluster 2 : IA et Transformation Digitale
 **Page Pilier** : "L'Intelligence Artificielle au Service des Entreprises Françaises"
@@ -87,15 +92,15 @@ Je veux que tu me proposes :
 4. "IA vs Outils Traditionnels : Comparatif pour Entreprises"
 5. "Préparer son Entreprise à l'IA : Checklist Complète"
 
-#### Cluster 3 : Solutions par Département
-**Page Pilier** : "Écosystème d'Automatisation : Une Solution pour Chaque Service"
+#### Cluster 3 : Solutions d'Automatisation IA par Département
+**Page Pilier** : "Écosystème d'Automatisation IA : Une Solution Intelligente pour Chaque Service"
 
 **Articles Satellites** :
-1. "Automatiser le Service Commercial : De la Prospection au Closing"
-2. "Marketing Automation avec l'IA : Guide Pratique"
-3. "Automatisation RH : Recrutement et Gestion des Talents"
-4. "Finance et Comptabilité : L'IA au Service de la Précision"
-5. "Service Client Augmenté : Chatbots et IA Conversationnelle"
+1. "Automatiser le Service Commercial avec l'IA : De la Prospection au Closing"
+2. "Marketing Automation avec l'IA : Guide Pratique et ROI"
+3. "Automatisation IA RH : Recrutement et Gestion Intelligente des Talents"
+4. "Finance et Comptabilité IA : L'Intelligence Artificielle au Service de la Précision"
+5. "Service Client Augmenté : Chatbots IA et Intelligence Conversationnelle"
 
 ### 4. Calendrier Éditorial Suggéré (3 premiers mois)
 

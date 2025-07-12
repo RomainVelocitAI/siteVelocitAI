@@ -1,0 +1,27 @@
+{
+  "name": "velocitai-google-ads",
+  "version": "1.0.0",
+  "description": "Google Ads API integration for VelocitAI campaign automation",
+  "main": "scripts/create-campaign.js",
+  "scripts": {
+    "setup": "node scripts/setup-oauth.js",
+    "test": "node scripts/test-connection.js",
+    "create-campaign": "node scripts/create-campaign.js",
+    "install-deps": "npm install google-ads-api google-auth-library dotenv",
+    "init": "npm run install-deps && cp config/.env.example config/.env && echo '✅ Configuration initialisée. Renseignez vos identifiants dans config/.env'"
+  },
+  "dependencies": {
+    "google-ads-api": "^11.0.0",
+    "google-auth-library": "^9.0.0",
+    "dotenv": "^16.0.0"
+  },
+  "keywords": [
+    "google-ads",
+    "api",
+    "automation",
+    "velocitai",
+    "campaigns"
+  ],
+  "author": "VelocitAI <contact@velocit-ai.fr>",
+  "license": "MIT"
+}
