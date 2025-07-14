@@ -80,6 +80,7 @@ export default function QuotePage({ quoteData, error }: QuotePageProps) {
     setIsAccepting(true);
     
     try {
+      // Appel à l'API interne
       const response = await fetch('/api/devis/accept', {
         method: 'POST',
         headers: {
@@ -92,6 +93,22 @@ export default function QuotePage({ quoteData, error }: QuotePageProps) {
       });
       
       if (response.ok) {
+        // Appel au webhook n8n
+        await fetch('https://n8n.srv765302.hstgr.cloud/webhook/7a82ee39-d91e-40eb-b2d4-272a7d2f2a52', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            devisId: quoteData.id,
+            numeroDevis: quoteData.numeroDevis,
+            client: quoteData.client,
+            totalHT: quoteData.totaux.totalHT,
+            statut: 'Accepté',
+            dateAcceptation: new Date().toISOString()
+          }),
+        });
+        
         setHasAccepted(true);
       } else {
         alert('Erreur lors de l\'acceptation du devis. Veuillez réessayer.');
@@ -124,7 +141,7 @@ export default function QuotePage({ quoteData, error }: QuotePageProps) {
     `Bonjour ! Je viens de consulter mon devis VelocitAI nÂ°${quoteData.numeroDevis}. J'aimerais en discuter avec vous.`
   );
 
-  const whatsappUrl = `https://wa.me/262692123456?text=${whatsappMessage}`;
+  const whatsappUrl = `https://wa.me/262692470141?text=${whatsappMessage}`;
 
   return (
     <>
@@ -322,7 +339,7 @@ export default function QuotePage({ quoteData, error }: QuotePageProps) {
                 </div>
                 
                 <div className="px-6 py-4 space-y-3">
-                  {!hasAccepted && quoteData.statut !== 'AcceptÃ©' && (
+                  {!hasAccepted && quoteData.statut !== 'Accepté' && (
                     <button
                       onClick={handleAcceptQuote}
                       disabled={isAccepting}
@@ -377,7 +394,7 @@ export default function QuotePage({ quoteData, error }: QuotePageProps) {
                 <h3 className="text-sm font-medium text-gray-900 mb-3">VelocitAI</h3>
                 <div className="space-y-2 text-xs text-gray-600">
                   <p>ð Automatisation d'entreprise</p>
-                  <p>ð Le Tampon, La RÃ©union</p>
+                  <p>📍 Le Tampon, La Réunion</p>
                   <p>ð§ contact@velocit-ai.fr</p>
                   <p>ð velocit-ai.fr</p>
                 </div>
@@ -393,7 +410,7 @@ export default function QuotePage({ quoteData, error }: QuotePageProps) {
               <p>
                 Devis gÃ©nÃ©rÃ© automatiquement par VelocitAI â¢ 
                 <a href="https://velocit-ai.fr" className="text-purple-600 hover:text-purple-500 ml-1">
-                  Mentions lÃ©gales
+                  Mentions légales
                 </a>
               </p>
             </div>
@@ -460,11 +477,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     // Extraire le lien de paiement Stripe s'il existe
     const stripePaymentLink = extractStripePaymentLink(devisText);
 
-    // Calculer la TVA (8.5% Ã  La RÃ©union)
+    // Pas de TVA pour les devis
     const totalHT = fields['Total HT'] || 0;
-    const tauxTVA = 8.5;
-    const tva = Math.round(totalHT * (tauxTVA / 100));
-    const totalTTC = totalHT + tva;
+    const tauxTVA = 0;
+    const tva = 0;
+    const totalTTC = totalHT;
 
     const quoteData: QuoteData = {
       id: record.id,
