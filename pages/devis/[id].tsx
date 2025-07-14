@@ -620,6 +620,6 @@ function extractNumeroDevis(url: string): string {
 
 // Fonction pour extraire le lien de paiement Stripe depuis le texte
 function extractStripePaymentLink(devisText: string): string | undefined {
-  const stripeMatch = devisText.match(/Lien de paiement Stripe:\s*(https:\/\/buy\.stripe\.com\/[^\s\n]+)/);
+  const stripeMatch = devisText.match(/🔗 LIEN DE PAIEMENT STRIPE[^:]*:\s*(https:\/\/buy\.stripe\.com\/[^\s\n]+)/);
   return stripeMatch ? stripeMatch[1] : undefined;
 }
