@@ -110,6 +110,7 @@ export default function QuotePage({ quoteData, error }: QuotePageProps) {
         });
         
         setHasAccepted(true);
+        alert('Devis accepté avec succès !');
       } else {
         alert('Erreur lors de l\'acceptation du devis. Veuillez réessayer.');
       }
@@ -164,7 +165,7 @@ export default function QuotePage({ quoteData, error }: QuotePageProps) {
                 </div>
                 <div className="hidden sm:block h-6 w-px bg-gray-300" />
                 <div className="hidden sm:block">
-                  <p className="text-sm text-gray-500">Devis PersonnalisÃ©</p>
+                  <p className="text-sm text-gray-500">Devis Personnalisé</p>
                 </div>
               </div>
               {getStatusBadge()}
@@ -184,7 +185,7 @@ export default function QuotePage({ quoteData, error }: QuotePageProps) {
                 <CheckCircleIcon className="h-5 w-5 text-green-400" />
                 <div className="ml-3">
                   <h3 className="text-sm font-medium text-green-800">
-                    Devis acceptÃ© avec succÃ¨s !
+                    Devis accepté avec succès !
                   </h3>
                   <p className="mt-1 text-sm text-green-700">
                     Merci pour votre confiance. Nous vous contacterons dans les 24h pour la suite.
@@ -393,10 +394,10 @@ export default function QuotePage({ quoteData, error }: QuotePageProps) {
               >
                 <h3 className="text-sm font-medium text-gray-900 mb-3">VelocitAI</h3>
                 <div className="space-y-2 text-xs text-gray-600">
-                  <p>ð Automatisation d'entreprise</p>
+                  <p>🚀 Automatisation d'entreprise</p>
                   <p>📍 Le Tampon, La Réunion</p>
-                  <p>ð§ contact@velocit-ai.fr</p>
-                  <p>ð velocit-ai.fr</p>
+                  <p>📧 contact@velocit-ai.fr</p>
+                  <p>🌐 velocit-ai.fr</p>
                 </div>
               </motion.div>
             </div>
