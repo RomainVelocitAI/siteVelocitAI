@@ -83,10 +83,29 @@ export default async function handler(req, res) {
 
     const updatedRecord = await uploadResponse.json();
 
+    // Stocker l'URL du PDF dans le nouveau champ
+    const pdfUrl = `http://srv765302.hstgr.cloud:3005/api/devis/pdf/${recordId}`;
+    
+    const urlUpdateResponse = await fetch(
+      `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_ID}/${recordId}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          fields: {
+            'URL PDF': pdfUrl
+          }
+        })
+      }
+    );
+
     return res.status(200).json({
       success: true,
-      pdfUrl: updatedRecord.fields['PDF Devis']?.[0]?.url,
-      message: 'PDF généré et uploadé avec succès'
+      pdfUrl: pdfUrl,
+      message: 'PDF généré et URL stockée avec succès'
     });
 
   } catch (error) {
