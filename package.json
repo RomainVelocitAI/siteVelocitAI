@@ -31,6 +31,7 @@
     "@heroicons/react": "^2.2.0",
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.18.0",
+    "@types/puppeteer": "^5.4.7",
     "@types/three": "^0.155.1",
     "airtable": "^0.12.2",
     "crypto-js": "^4.2.0",

@@ -110,7 +110,6 @@ export default function QuotePage({ quoteData, error }: QuotePageProps) {
         });
         
         setHasAccepted(true);
-        alert('Devis accepté avec succès !');
       } else {
         alert('Erreur lors de l\'acceptation du devis. Veuillez réessayer.');
       }
@@ -311,17 +310,17 @@ export default function QuotePage({ quoteData, error }: QuotePageProps) {
                 <div className="px-6 py-4 space-y-3">
                   <div className="flex justify-between">
                     <span className="text-sm text-gray-600">Sous-total HT</span>
-                    <span className="font-medium">{quoteData.totaux.totalHT.toLocaleString('fr-FR')}€</span>
+                    <span className="font-medium text-gray-900">{quoteData.totaux.totalHT.toLocaleString('fr-FR')}€{quoteData.services.some(s => s.nom.includes('/mois') || s.description.includes('/mois')) ? '/mois' : ''}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-sm text-gray-600">TVA ({quoteData.totaux.tauxTVA}%)</span>
-                    <span className="font-medium">{quoteData.totaux.tva.toLocaleString('fr-FR')}€</span>
+                    <span className="font-medium text-gray-900">{quoteData.totaux.tva.toLocaleString('fr-FR')}€</span>
                   </div>
                   <div className="border-t border-gray-200 pt-3">
                     <div className="flex justify-between">
                       <span className="text-base font-medium text-gray-900">Total TTC</span>
                       <span className="text-xl font-bold text-purple-600">
-                        {quoteData.totaux.totalTTC.toLocaleString('fr-FR')}€
+                        {quoteData.totaux.totalTTC.toLocaleString('fr-FR')}€{quoteData.services.some(s => s.nom.includes('/mois') || s.description.includes('/mois')) ? '/mois' : ''}
                       </span>
                     </div>
                   </div>
@@ -409,7 +408,7 @@ export default function QuotePage({ quoteData, error }: QuotePageProps) {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="text-center text-xs text-gray-500">
               <p>
-                Devis gÃ©nÃ©rÃ© automatiquement par VelocitAI â¢ 
+                Devis généré automatiquement par VelocitAI • 
                 <a href="https://velocit-ai.fr" className="text-purple-600 hover:text-purple-500 ml-1">
                   Mentions légales
                 </a>
