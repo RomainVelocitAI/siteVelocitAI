@@ -38,6 +38,7 @@ interface QuoteData {
   dateCreation: string;
   notes?: string;
   stripePaymentLink?: string;
+  urlPdf?: string;
 }
 
 interface QuotePageProps {
