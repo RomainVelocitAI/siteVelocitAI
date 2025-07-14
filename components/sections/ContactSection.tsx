@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { EnvelopeIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import { useCalculator } from '@/contexts/CalculatorContext';
 
@@ -21,6 +21,7 @@ export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{success: boolean; message: string} | null>(null);
   const [isFlying, setIsFlying] = useState(false);
+  const [animationPhase, setAnimationPhase] = useState<'idle' | 'collect' | 'fold' | 'stamp' | 'fly' | 'complete'>('idle');
 
   // Mettre à jour le message avec les données du calculateur uniquement si des tâches existent
   useEffect(() => {
@@ -35,7 +36,13 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setIsFlying(true);
+    
+    // Démarrer l'animation enveloppe
+    setAnimationPhase('collect');
+    setTimeout(() => setAnimationPhase('fold'), 800);
+    setTimeout(() => setAnimationPhase('stamp'), 1600);
+    setTimeout(() => setAnimationPhase('fly'), 2200);
+    setTimeout(() => setAnimationPhase('complete'), 2800);
     
     try {
       // Envoi vers le webhook N8N
@@ -76,8 +83,11 @@ export default function ContactSection() {
       });
     } finally {
       setIsSubmitting(false);
-      // Réinitialiser l'animation après la durée complète de l'animation (2.5s)
-      setTimeout(() => setIsFlying(false), 2500);
+      // Réinitialiser l'animation après la durée complète
+      setTimeout(() => {
+        setIsFlying(false);
+        setAnimationPhase('idle');
+      }, 3500);
     }
   };
 
@@ -180,8 +190,30 @@ export default function ContactSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Formulaire de contact */}
-          <div className="bg-white p-8 rounded-xl shadow-lg border-l-4 border-blue-500">
+          {/* Formulaire de contact avec animation */}
+          <AnimatePresence mode="wait">
+            {animationPhase === 'idle' || animationPhase === 'collect' || animationPhase === 'fold' ? (
+              <motion.div 
+                key="form"
+                className="bg-white p-8 rounded-xl shadow-lg border-l-4 border-blue-500 relative overflow-hidden"
+                style={{ 
+                  transformStyle: 'preserve-3d',
+                  perspective: '1000px'
+                }}
+                initial={{ scale: 1, rotateX: 0, rotateY: 0 }}
+                animate={
+                  animationPhase === 'collect' ? {
+                    scale: 0.95,
+                    transition: { duration: 0.8, ease: "easeInOut" }
+                  } : {}
+                }
+                exit={{
+                  scale: 0.7,
+                  rotateX: [0, 15, 0],
+                  rotateY: [0, 5, 0],
+                  transition: { duration: 1.2, ease: "easeInOut" }
+                }}
+              >
             <div className="flex items-center gap-3 mb-4">
               <span className="text-3xl">🎯</span>
               <div>
@@ -199,35 +231,6 @@ export default function ContactSection() {
               </div>
             </div>
             
-            <motion.div 
-              className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-            >
-              <div className="flex items-start gap-3">
-                <span className="text-blue-600 text-lg">💡</span>
-                <div>
-                  <p className="text-sm font-semibold text-blue-900 mb-1">
-                    Livrables de votre audit stratégique :
-                  </p>
-                  <ul className="text-sm text-blue-800 space-y-1">
-                    <li>• Cartographie des processus à fort ROI pour votre secteur</li>
-                    <li>• Calcul précis des gains opérationnels et financiers</li>
-                    <li>• Roadmap de déploiement personnalisée avec timeline</li>
-                  </ul>
-                </div>
-              </div>
-            </motion.div>
-
-            <div className="flex items-center justify-between mb-6 bg-gray-50 p-3 rounded-lg">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-gray-700">Support premium avec équipe dédiée</span>
-              </div>
-              <span className="text-xs text-gray-500">98% de satisfaction client • 5+ ans de partenariat moyen</span>
-            </div>
             
             {submitStatus && (
               <div className={`mb-6 p-4 rounded-md ${submitStatus.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
@@ -438,7 +441,184 @@ export default function ContactSection() {
                 </div>
               </div>
             </motion.div>
-          </div>
+                
+                {/* Coins qui se plient pour l'animation enveloppe */}
+                {/* Top Left */}
+                <motion.div
+                  className="absolute top-0 left-0 w-16 h-16 bg-white border-r border-b border-gray-300"
+                  style={{ 
+                    transformOrigin: 'bottom right',
+                    clipPath: 'polygon(0 0, 100% 0, 0 100%)'
+                  }}
+                  animate={animationPhase === 'fold' ? {
+                    rotateZ: 135,
+                    transition: { duration: 0.3, delay: 0.2, ease: "easeOut" }
+                  } : {}}
+                />
+                
+                {/* Top Right */}
+                <motion.div
+                  className="absolute top-0 right-0 w-16 h-16 bg-white border-l border-b border-gray-300"
+                  style={{ 
+                    transformOrigin: 'bottom left',
+                    clipPath: 'polygon(0 0, 100% 0, 100% 100%)'
+                  }}
+                  animate={animationPhase === 'fold' ? {
+                    rotateZ: -135,
+                    transition: { duration: 0.3, delay: 0.4, ease: "easeOut" }
+                  } : {}}
+                />
+                
+                {/* Bottom Left */}
+                <motion.div
+                  className="absolute bottom-0 left-0 w-16 h-16 bg-white border-r border-t border-gray-300"
+                  style={{ 
+                    transformOrigin: 'top right',
+                    clipPath: 'polygon(0 0, 0 100%, 100% 100%)'
+                  }}
+                  animate={animationPhase === 'fold' ? {
+                    rotateZ: -135,
+                    transition: { duration: 0.3, delay: 0.6, ease: "easeOut" }
+                  } : {}}
+                />
+                
+                {/* Bottom Right */}
+                <motion.div
+                  className="absolute bottom-0 right-0 w-16 h-16 bg-white border-l border-t border-gray-300"
+                  style={{ 
+                    transformOrigin: 'top left',
+                    clipPath: 'polygon(100% 0, 0 100%, 100% 100%)'
+                  }}
+                  animate={animationPhase === 'fold' ? {
+                    rotateZ: 135,
+                    transition: { duration: 0.3, delay: 0.8, ease: "easeOut" }
+                  } : {}}
+                />
+              </motion.div>
+            ) : animationPhase === 'stamp' || animationPhase === 'fly' ? (
+              // Animation enveloppe - Timbre et envol
+              <motion.div
+                key="envelope"
+                className="relative w-full h-[600px] flex items-center justify-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                {/* Enveloppe */}
+                <motion.div
+                  className="relative w-80 h-48 bg-white rounded-lg shadow-xl border border-gray-300"
+                  animate={animationPhase === 'fly' ? {
+                    scale: 0.3,
+                    x: 400,
+                    y: -200,
+                    rotateZ: 25,
+                    transition: { duration: 0.6, ease: "easeOut" }
+                  } : {}}
+                >
+                  {/* Timbre */}
+                  <motion.div
+                    className="absolute top-4 right-4 w-12 h-16 bg-gradient-to-b from-blue-500 to-blue-700 rounded-sm shadow-lg border-2 border-white"
+                    initial={{ opacity: 0, scale: 0, rotateZ: -10 }}
+                    animate={animationPhase === 'stamp' ? {
+                      opacity: 1,
+                      scale: 1,
+                      rotateZ: -10,
+                      transition: { duration: 0.3, ease: "backOut" }
+                    } : {}}
+                  >
+                    <div className="p-1 text-white text-xs text-center">
+                      <div className="text-[6px] font-bold">FRANCE</div>
+                      <div className="text-[8px] mt-1">✈️</div>
+                      <div className="text-[6px] mt-1">LETTRE</div>
+                    </div>
+                    <div className="absolute inset-0 border border-white border-dashed opacity-50 rounded-sm"></div>
+                  </motion.div>
+
+                  {/* Cachet postal */}
+                  <motion.div
+                    className="absolute top-8 left-4 w-16 h-16 rounded-full border-2 border-red-600 bg-red-50/80 flex items-center justify-center"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={animationPhase === 'stamp' ? {
+                      opacity: [0, 1, 0.8],
+                      scale: [0, 1.2, 1],
+                      transition: { duration: 0.4, delay: 0.2, ease: "backOut" }
+                    } : {}}
+                  >
+                    <div className="text-center text-red-600 text-xs font-bold">
+                      <div>LA RÉUNION</div>
+                      <div className="text-[8px]">ENVOYÉ</div>
+                      <div className="text-[8px]">{new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })}</div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+
+                {/* Boîte aux lettres de destination */}
+                <motion.div
+                  className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-32"
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={animationPhase === 'fly' ? {
+                    opacity: 1,
+                    x: 0,
+                    transition: { duration: 0.4, ease: "easeOut" }
+                  } : {}}
+                >
+                  <svg width="80" height="100" viewBox="0 0 80 100" fill="none" className="text-blue-600">
+                    <rect x="35" y="60" width="10" height="35" fill="currentColor" />
+                    <rect x="10" y="20" width="60" height="45" rx="8" fill="currentColor" />
+                    <motion.rect
+                      x="15" y="30" width="50" height="25" rx="4" 
+                      fill="white" 
+                      stroke="currentColor" 
+                      strokeWidth="2"
+                      animate={animationPhase === 'fly' ? {
+                        rotateX: [-10, 0],
+                        transition: { duration: 0.2, delay: 0.2 }
+                      } : {}}
+                      style={{ transformOrigin: 'top center' }}
+                    />
+                    <rect x="20" y="25" width="40" height="2" fill="currentColor" />
+                    <motion.rect
+                      x="70" y="35" width="8" height="6" 
+                      fill="red"
+                      animate={animationPhase === 'fly' ? {
+                        rotateZ: [0, 20, 0],
+                        transition: { duration: 0.3, delay: 0.3 }
+                      } : {}}
+                      style={{ transformOrigin: 'left center' }}
+                    />
+                  </svg>
+                </motion.div>
+              </motion.div>
+            ) : animationPhase === 'complete' ? (
+              // Message de confirmation final
+              <motion.div
+                key="success"
+                className="flex items-center justify-center h-[600px]"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, ease: "backOut" }}
+              >
+                <div className="bg-white px-8 py-12 rounded-lg shadow-2xl border border-gray-200 text-center relative overflow-hidden max-w-md">
+                  {/* Effet de brillance */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-200/30 to-transparent"
+                    initial={{ x: '-100%' }}
+                    animate={{ x: '100%' }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                  />
+                  
+                  <div className="relative z-10">
+                    <div className="text-3xl font-bold text-green-600 mb-4">
+                      📬 Votre demande est envoyée !
+                    </div>
+                    <div className="text-gray-600">
+                      Nous vous recontacterons rapidement
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
 
           {/* Informations de contact */}
           <div>

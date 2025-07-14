@@ -1,0 +1,129 @@
+/* Optimisations performance pour les animations */
+
+/* GPU acceleration pour tous les éléments animés */
+.gpu-accelerated {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Animation optimisée pour l'enveloppe */
+.envelope-fold {
+  transform-style: preserve-3d;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.envelope-corner {
+  will-change: transform;
+  transform-origin: var(--transform-origin);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animation optimisée pour la sphère */
+.energy-sphere {
+  will-change: transform, opacity, filter;
+  transform: translateZ(0);
+  filter: blur(0); /* Force GPU layer */
+}
+
+.energy-particle {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  contain: layout style paint;
+}
+
+/* Gradient radial optimisé */
+.radial-energy {
+  background: radial-gradient(
+    circle at 30% 30%, 
+    rgba(96, 165, 250, 0.9), 
+    rgba(139, 92, 246, 0.8), 
+    rgba(124, 58, 237, 0.7)
+  );
+  filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.4));
+}
+
+/* Animations pour reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .envelope-fold,
+  .energy-sphere,
+  .energy-particle {
+    animation-duration: 0.01s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01s !important;
+  }
+  
+  /* Fallback simple pour accessibility */
+  .reduced-motion-fallback {
+    opacity: 0;
+    animation: fadeInOut 1s ease-in-out;
+  }
+  
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+}
+
+/* Optimisations pour mobile */
+@media (max-width: 768px) {
+  .envelope-fold {
+    transform-style: flat; /* Simplifie pour mobile */
+  }
+  
+  .energy-particle {
+    display: none; /* Retire les particules sur mobile */
+  }
+  
+  /* Animations simplifiées mobile */
+  .mobile-simple-animation {
+    animation: mobileSuccess 2s ease-in-out;
+  }
+  
+  @keyframes mobileSuccess {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(0.8); opacity: 0.7; }
+    100% { transform: scale(1.1); opacity: 0; }
+  }
+}
+
+/* Conteneurs pour éviter les reflows */
+.animation-container {
+  contain: layout style paint;
+  isolation: isolate;
+}
+
+/* Optimisation pour les particules */
+.particle-container {
+  pointer-events: none;
+  contain: strict;
+  will-change: contents;
+}
+
+/* Effet de glow optimisé */
+.energy-glow {
+  filter: drop-shadow(0 0 8px currentColor) 
+          drop-shadow(0 0 16px currentColor) 
+          drop-shadow(0 0 24px currentColor);
+}
+
+/* Transitions fluides pour les états */
+.smooth-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Loading state optimisé */
+.loading-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

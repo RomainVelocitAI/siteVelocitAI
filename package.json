@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -H 0.0.0.0 -p 3000",
+    "dev": "next dev -H 0.0.0.0 -p 3005",
     "build": "next build",
     "start": "next start",
     "lint": "next lint --fix",
@@ -32,6 +32,8 @@
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.18.0",
     "@types/three": "^0.155.1",
+    "airtable": "^0.12.2",
+    "crypto-js": "^4.2.0",
     "framer-motion": "^12.17.3",
     "gray-matter": "^4.0.3",
     "next": "^14.2.29",
@@ -42,7 +44,8 @@
     "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1",
     "replicate": "^1.0.1",
-    "three": "^0.155.0"
+    "three": "^0.155.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^14.2.30",
