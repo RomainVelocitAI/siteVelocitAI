@@ -102,7 +102,7 @@ node flux-image-generator.js "nom-article"
 ### 3. Upload Airtable
 ```bash
 curl -X POST \
-  -H "Authorization: Bearer patQ1wcNaHGSuFDRQ.792c6418500e584f18a01b17f4c761ee5d1331230e1b40fc361e7591f5d01741" \
+  -H "Authorization: Bearer [VOTRE_CLE_API_AIRTABLE]" \
   -H "Content-Type: application/json" \
   -d '{"fields": {...}}' \
   https://api.airtable.com/v0/appBsMKnq8zWDIMNr/Blog%20Articles

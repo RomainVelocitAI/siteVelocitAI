@@ -4,7 +4,7 @@
 Créer des articles de blog pour VelocitAI (automatisation IA pour PME) en utilisant l'API Airtable. Vous rédigez librement le contenu, ce guide vous indique uniquement quoi mettre dans chaque champ du record Airtable.
 
 ## 🔑 Accès Airtable
-**API Key** : `patQ1wcNaHGSuFDRQ.792c6418500e584f18a01b17f4c761ee5d1331230e1b40fc361e7591f5d01741`
+**API Key** : `[VOTRE_CLE_API_AIRTABLE]`
 **Base ID** : `appBsMKnq8zWDIMNr`
 **Table** : `Blog Articles`
 
@@ -130,7 +130,7 @@ Dans le champ **Content**, utilisez EXACTEMENT cette syntaxe :
 
 ```bash
 curl -X POST \
-  -H "Authorization: Bearer patQ1wcNaHGSuFDRQ.792c6418500e584f18a01b17f4c761ee5d1331230e1b40fc361e7591f5d01741" \
+  -H "Authorization: Bearer [VOTRE_CLE_API_AIRTABLE]" \
   -H "Content-Type: application/json" \
   -d '{
     "fields": {

@@ -10,7 +10,7 @@ const { exec } = require('child_process');
 const { promisify } = require('util');
 const execAsync = promisify(exec);
 
-const AIRTABLE_API_KEY = 'patQ1wcNaHGSuFDRQ.792c6418500e584f18a01b17f4c761ee5d1331230e1b40fc361e7591f5d01741';
+const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
 const AIRTABLE_BASE_ID = 'appBsMKnq8zWDIMNr';
 const BLOG_CONTENT_DIR = path.join(process.cwd(), 'content/blog');
 

@@ -13,7 +13,7 @@
 ## 🔑 Accès et Configuration Technique
 
 ### Airtable Configuration
-- **API Key** : `patQ1wcNaHGSuFDRQ.***********************************************361e7591f5d01741`
+- **API Key** : `[VOTRE_CLE_API_AIRTABLE]`
 - **Base ID** : `appBsMKnq8zWDIMNr`
 - **Table** : `Blog Articles`
 - **URL API** : `https://api.airtable.com/v0/appBsMKnq8zWDIMNr/Blog%20Articles`
@@ -329,7 +329,7 @@ node generate-image.js "prompt français optimisé" --size=1024x1024 --quality=h
 ### Étape 3 : Upload Airtable
 ```bash
 curl -X POST \
-  -H "Authorization: Bearer patQ1wcNaHGSuFDRQ.***********************************************361e7591f5d01741" \
+  -H "Authorization: Bearer [VOTRE_CLE_API_AIRTABLE]" \
   -H "Content-Type: application/json" \
   -d '{
     "fields": {

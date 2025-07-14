@@ -8,7 +8,7 @@
 const fetch = require('node-fetch');
 
 // Configuration
-const AIRTABLE_API_KEY = 'patQ1wcNaHGSuFDRQ.792c6418500e584f18a01b17f4c761ee5d1331230e1b40fc361e7591f5d01741';
+const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
 
 class AirtableBlogSetup {
   constructor() {

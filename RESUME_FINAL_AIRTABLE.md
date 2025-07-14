@@ -5,7 +5,7 @@
 ### 1. **Base Airtable Créée et Configurée**
 - **Base** : "Blog" (ID: `appBsMKnq8zWDIMNr`)
 - **Table** : "Blog Articles" avec 16 champs
-- **API Key** : `patQ1wcNaHGSuFDRQ.792c6418500e584f18a01b17f4c761ee5d1331230e1b40fc361e7591f5d01741`
+- **API Key** : `[VOTRE_CLE_API_AIRTABLE]`
 
 ### 2. **Article d'Exemple Modifié**
 L'article de test montre maintenant **exactement** comment les 6 images fonctionnent :
