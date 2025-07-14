@@ -375,21 +375,14 @@ export default function QuotePage({ quoteData, error }: QuotePageProps) {
                     </a>
                   )}
                   
-                  <button
-                    onClick={() => {
-                      const pdfUrl = quoteData.urlPdf || `/api/devis/pdf/${quoteData.numeroDevis}`;
-                      const link = document.createElement('a');
-                      link.href = pdfUrl;
-                      link.download = `devis-${quoteData.client.entreprise || 'client'}-${quoteData.numeroDevis}.pdf`;
-                      document.body.appendChild(link);
-                      link.click();
-                      document.body.removeChild(link);
-                    }}
+                  <a
+                    href={quoteData.urlPdf || `/api/devis/pdf/${quoteData.numeroDevis}`}
+                    download={`devis-${quoteData.client.entreprise || 'client'}-${quoteData.numeroDevis}.pdf`}
                     className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors"
                   >
                     <DocumentArrowDownIcon className="h-4 w-4 mr-2" />
                     Télécharger PDF
-                  </button>
+                  </a>
                 </div>
               </motion.div>
 
