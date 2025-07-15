@@ -423,13 +423,15 @@ export default function BootcampPage() {
 
       {/* Hero Section avec animations premium */}
       <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
-        {/* Floating Particles Background */}
-        <FloatingParticles />
+        {/* Floating Particles Background - Hidden on mobile */}
+        <div className="hidden md:block">
+          <FloatingParticles />
+        </div>
         
         {/* Background Effects Animés */}
         <div className="absolute inset-0">
           <motion.div 
-            className="absolute top-20 left-20 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"
+            className="absolute top-20 left-4 md:left-20 w-48 md:w-72 h-48 md:h-72 bg-purple-500/10 rounded-full blur-3xl"
             animate={{
               x: [0, 30, 0],
               y: [0, -20, 0],
@@ -438,7 +440,7 @@ export default function BootcampPage() {
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div 
-            className="absolute bottom-20 right-20 w-96 h-96 bg-red-500/10 rounded-full blur-3xl"
+            className="absolute bottom-20 right-4 md:right-20 w-64 md:w-96 h-64 md:h-96 bg-red-500/10 rounded-full blur-3xl"
             animate={{
               x: [0, -40, 0],
               y: [0, 30, 0],
@@ -449,7 +451,7 @@ export default function BootcampPage() {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 py-8">
           <div className="max-w-5xl mx-auto text-center">
             
             {/* Urgence Badge Pulsant */}
@@ -476,7 +478,7 @@ export default function BootcampPage() {
 
             {/* Main Headline avec Staggered Animation */}
             <motion.h1 
-              className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-tight"
+              className="text-4xl md:text-6xl lg:text-8xl font-black text-white mb-4 md:mb-8 leading-tight"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -500,7 +502,7 @@ export default function BootcampPage() {
               </motion.span>
               
               <motion.span 
-                className="block text-3xl md:text-4xl lg:text-5xl text-gray-300"
+                className="block text-2xl md:text-3xl lg:text-4xl text-gray-300"
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, delay: 1.2 }}
@@ -511,7 +513,7 @@ export default function BootcampPage() {
 
             {/* Subtitle */}
             <motion.div 
-              className="text-2xl md:text-3xl text-gray-300 mb-12 space-y-2"
+              className="text-lg md:text-2xl text-gray-300 mb-6 md:mb-12 space-y-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.5 }}
@@ -535,9 +537,9 @@ export default function BootcampPage() {
                   }}
                   transition={{ duration: 3, repeat: Infinity }}
                 />
-                <div className="relative bg-slate-800/40 backdrop-blur-xl rounded-3xl p-8 border border-white/10">
+                <div className="relative bg-slate-800/40 backdrop-blur-xl rounded-3xl p-4 md:p-8 border border-white/10">
                   <motion.h2 
-                    className="text-3xl md:text-4xl font-bold text-white mb-6"
+                    className="text-2xl md:text-3xl font-bold text-white mb-6"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 2.2 }}
@@ -1930,13 +1932,12 @@ export default function BootcampPage() {
                     }}
                     transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
                   >
-                    🎯 JOUR 2 : 100% création pratique
+                    🚀 JOUR 2 : Passer à la vitesse supérieure
                   </motion.h3>
                   <div className="space-y-6">
                     {[
-                      { time: "9h-12h : Création agents en groupe", desc: "Chacun crée ses agents selon ses besoins spécifiques" },
-                      { time: "14h-17h : Finalisation et tests", desc: "Supervision et aide personnalisée pour que ça marche" },
-                      { time: "17h-18h : Plan de maintenance", desc: "Comment améliorer et faire évoluer tes agents" }
+                      { time: "9h-12h : Nouvelle génération d'IA", desc: "Découverte des assistants qui codent, analysent et créent pour toi" },
+                      { time: "14h-18h : Atelier personnalisé", desc: "Application directe sur TON business avec accompagnement individuel" }
                     ].map((item, index) => (
                       <motion.div 
                         key={index}
