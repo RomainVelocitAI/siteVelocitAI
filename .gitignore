@@ -14,7 +14,7 @@ test-calculateur.md
 
 # Dependencies
 node_modules/
-package-lock.json
+# package-lock.json (needed for npm ci on Netlify)
 
 # Next.js
 .next/
