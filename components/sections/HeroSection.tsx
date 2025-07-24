@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FadeInUp as FadeIn, FadeInSide, StaggerContainer, StaggerItem, ParallaxSection } from '../ui/animations';
 import { useEffect, useState } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
+import { SplineScene } from '../ui/SplineScene';
+import { Spotlight } from '../ui/Spotlight';
 
 // Bénéfices business rotatifs - focus transformation
 const heroWords = [
@@ -49,153 +51,6 @@ const RotatingText = () => {
   );
 };
 
-// Composant d'animation IA ultra stylisée
-const AIAnimation = () => {
-  return (
-    <div className="relative w-full h-96 xl:h-[500px] flex items-center justify-center">
-      {/* Cercle central avec gradient animé */}
-      <motion.div
-        className="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-500 shadow-2xl"
-        animate={{
-          rotate: 360,
-          scale: [1, 1.05, 1],
-        }}
-        transition={{
-          rotate: {
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          },
-          scale: {
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }
-        }}
-      >
-        {/* Effet de lueur */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-400 via-blue-400 to-cyan-400 opacity-50 blur-xl animate-pulse" />
-        
-        {/* Centre avec logo ou icône IA */}
-        <div className="absolute inset-4 rounded-full bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm flex items-center justify-center">
-          <motion.div
-            className="text-white text-2xl md:text-4xl font-bold tracking-wider"
-            animate={{
-              scale: [1, 1.1, 1],
-              opacity: [0.8, 1, 0.8]
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            AI
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Anneaux orbitaux */}
-      {[1, 2, 3].map((ring) => (
-        <motion.div
-          key={ring}
-          className="absolute border-2 border-gradient-to-r from-purple-400/30 to-cyan-400/30 rounded-full"
-          style={{
-            width: `${200 + ring * 60}px`,
-            height: `${200 + ring * 60}px`,
-            borderImage: `linear-gradient(45deg, rgba(147, 51, 234, 0.3), rgba(6, 182, 212, 0.3)) 1`
-          }}
-          animate={{
-            rotate: ring % 2 === 0 ? 360 : -360,
-          }}
-          transition={{
-            duration: 15 + ring * 5,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        >
-          {/* Particules sur les anneaux */}
-          {[...Array(3)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 bg-gradient-to-r from-purple-400 to-cyan-400 rounded-full"
-              style={{
-                top: `${i * 33.33}%`,
-                left: "50%",
-                transform: "translateX(-50%)"
-              }}
-              animate={{
-                scale: [0.5, 1, 0.5],
-                opacity: [0.3, 1, 0.3]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                delay: i * 0.5,
-                ease: "easeInOut"
-              }}
-            />
-          ))}
-        </motion.div>
-      ))}
-
-      {/* Particules flottantes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={`particle-${i}`}
-            className="absolute w-1 h-1 bg-gradient-to-r from-purple-400 to-cyan-400 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -100, 0],
-              x: [0, Math.random() * 50 - 25, 0],
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0]
-            }}
-            transition={{
-              duration: 8 + Math.random() * 8,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Réseau de connexions */}
-      <svg className="absolute inset-0 w-full h-full opacity-20" style={{ zIndex: -1 }}>
-        <defs>
-          <linearGradient id="networkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#8B5CF6" />
-            <stop offset="100%" stopColor="#06B6D4" />
-          </linearGradient>
-        </defs>
-        {[...Array(8)].map((_, i) => (
-          <motion.line
-            key={i}
-            x1={`${Math.random() * 100}%`}
-            y1={`${Math.random() * 100}%`}
-            x2={`${Math.random() * 100}%`}
-            y2={`${Math.random() * 100}%`}
-            stroke="url(#networkGradient)"
-            strokeWidth="1"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.5 }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "reverse",
-              delay: i * 0.3
-            }}
-          />
-        ))}
-      </svg>
-    </div>
-  );
-};
 
 export default function HeroSection() {
   const { isDark } = useTheme();
@@ -211,6 +66,12 @@ export default function HeroSection() {
 
   return (
     <ParallaxSection speed={0.3} className="relative overflow-hidden bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 py-16 md:py-24">
+      {/* Effet Spotlight qui suit la souris sur toute la section */}
+      <Spotlight
+        className="-top-40 -left-40 md:left-60 md:-top-20"
+        fill="purple"
+        size={1000}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-center">
           {/* Colonne de gauche - Contenu */}
@@ -224,16 +85,8 @@ export default function HeroSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                   >
-                    <span className="relative">
-                      <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
-                        Écosystème d'Agents IA
-                      </span>
-                      <motion.div
-                        className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 rounded-full"
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ delay: 1, duration: 0.8 }}
-                      />
+                    <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                      Écosystème d'Agents IA
                     </span>
                     <br className="hidden md:block" />
                     {'pour Diriger avec '}
@@ -312,14 +165,18 @@ export default function HeroSection() {
             </StaggerContainer>
           </div>
 
-          {/* Colonne de droite - Animation IA */}
-          <div className="w-full lg:w-1/2 mt-12 lg:mt-0">
+          {/* Colonne de droite - Robot 3D Spline */}
+          <div className="w-full lg:w-1/2 mt-12 lg:mt-0 relative h-[400px] md:h-[500px] lg:h-[600px]">
             <motion.div
+              className="w-full h-full"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.8, duration: 1, ease: "easeOut" }}
             >
-              <AIAnimation />
+              <SplineScene 
+                scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                className="w-full h-full rounded-2xl"
+              />
             </motion.div>
           </div>
         </div>
