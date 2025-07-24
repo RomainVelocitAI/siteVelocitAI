@@ -1,9 +1,9 @@
 [build]
   publish = ".next"
-  command = "npm ci --legacy-peer-deps && npm run build"
+  command = "npm ci --legacy-peer-deps && node --version && ls -la node_modules/@splinetool/ && npm run build"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
 
 [[plugins]]
