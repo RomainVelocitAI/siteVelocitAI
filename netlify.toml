@@ -1,6 +1,6 @@
 [build]
   publish = ".next"
-  command = "rm -rf node_modules package-lock.json && npm install --legacy-peer-deps --force && npm run build"
+  command = "echo '=== Node/npm versions ===' && node --version && npm --version && echo '=== Installing dependencies ===' && npm ci --legacy-peer-deps && echo '=== Checking critical packages ===' && ls -la node_modules/ | grep -E 'clsx|tailwind-merge|@splinetool' || echo 'Packages not found!' && echo '=== Package count ===' && find node_modules -maxdepth 1 -type d | wc -l && npm run build"
 
 [build.environment]
   NODE_VERSION = "20"
