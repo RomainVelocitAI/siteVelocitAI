@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ClockIcon, 
@@ -6,286 +6,317 @@ import {
   FaceFrownIcon,
   CalendarDaysIcon,
   HeartIcon,
-  ExclamationTriangleIcon
+  ExclamationTriangleIcon,
+  CheckIcon,
+  XMarkIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon
 } from '@heroicons/react/24/outline';
 import { FadeInUp, StaggerContainer, StaggerItem } from '../ui/animations';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const beforeDay = {
-  title: "AVANT : La Journée Galère",
-  subtitle: "Vous vous reconnaissez ?",
-  mood: "😤",
-  timeSlots: [
-    {
-      time: "07h00",
-      activity: "Réveil avec l'angoisse des emails",
-      stress: "high",
-      description: "50 emails non lus + 3 urgences"
-    },
-    {
-      time: "08h30",
-      activity: "Saisie factures en retard",
-      stress: "high", 
-      description: "2h perdues sur de la paperasse"
-    },
-    {
-      time: "11h00",
-      activity: "Réunion annulée (client pas rappelé)",
-      stress: "high",
-      description: "Prospect perdu faute de suivi"
-    },
-    {
-      time: "14h00",
-      activity: "Recherche d'infos dans 10 logiciels",
-      stress: "medium",
-      description: "Impossible de retrouver les données"
-    },
-    {
-      time: "17h00",
-      activity: "Rattrapage des vraies urgences",
-      stress: "high",
-      description: "Le business passe après l'admin"
-    },
-    {
-      time: "20h00",
-      activity: "Travail à la maison (encore)",
-      stress: "high", 
-      description: "Les enfants se couchent sans papa"
-    },
-    {
-      time: "22h30",
-      activity: "Endormissement difficile",
-      stress: "high",
-      description: "Demain sera pareil..."
-    }
-  ]
-};
+// Register GSAP plugins
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
-const afterDay = {
-  title: "APRÈS : La Journée Libérée",
-  subtitle: "Votre nouvelle vie",
-  mood: "😎",
-  timeSlots: [
-    {
-      time: "07h30",
-      activity: "Réveil tranquille",
-      stress: "low",
-      description: "L'IA a tout géré pendant la nuit"
+const comparisonData = [
+  {
+    category: "GESTION DES EMAILS",
+    before: {
+      title: "CHAOS QUOTIDIEN",
+      value: "100+ EMAILS",
+      description: "Noyé sous les spams",
+      icon: XMarkIcon,
+      color: "red"
     },
-    {
-      time: "09h00", 
-      activity: "Focus sur les vrais enjeux",
-      stress: "low",
-      description: "Stratégie, développement, vision"
-    },
-    {
-      time: "11h00",
-      activity: "RDV avec prospect qualifié",
-      stress: "low", 
-      description: "Le chatbot a fait le tri"
-    },
-    {
-      time: "14h00",
-      activity: "Déjeuner d'affaires détendu",
-      stress: "low",
-      description: "Plus de stress admin"
-    },
-    {
-      time: "16h00",
-      activity: "Analyse des rapports auto-générés",
-      stress: "low",
-      description: "Vision claire en 5 minutes"
-    },
-    {
-      time: "18h00",
-      activity: "Fermeture du bureau",
-      stress: "low",
-      description: "L'entreprise tourne sans vous"
-    },
-    {
-      time: "19h30",
-      activity: "Dîner en famille",
-      stress: "low",
-      description: "Enfin présent pour vos proches"
+    after: {
+      title: "INBOX ZERO",
+      value: "100% TRIÉS",
+      description: "IA filtre et répond",
+      icon: CheckIcon,
+      color: "green"
     }
-  ]
-};
+  },
+  {
+    category: "ADMINISTRATION",
+    before: {
+      title: "PAPERASSE INFINIE",
+      value: "2H/JOUR",
+      description: "Saisie manuelle répétitive",
+      icon: XMarkIcon,
+      color: "red"
+    },
+    after: {
+      title: "TOUT AUTOMATISÉ",
+      value: "0H/JOUR",
+      description: "Factures auto-générées",
+      icon: CheckIcon,
+      color: "green"
+    }
+  },
+  {
+    category: "SUIVI CLIENT",
+    before: {
+      title: "PROSPECTS PERDUS",
+      value: "60% D'OUBLIS",
+      description: "Pas de relance systématique",
+      icon: XMarkIcon,
+      color: "red"
+    },
+    after: {
+      title: "RELANCE AUTO",
+      value: "100% SUIVIS",
+      description: "CRM intelligent 24/7",
+      icon: CheckIcon,
+      color: "green"
+    }
+  },
+  {
+    category: "TEMPS LIBRE",
+    before: {
+      title: "WEEK-END AU BUREAU",
+      value: "70H/SEMAINE",
+      description: "Burn-out garanti",
+      icon: XMarkIcon,
+      color: "red"
+    },
+    after: {
+      title: "VIE ÉQUILIBRÉE",
+      value: "35H/SEMAINE",
+      description: "Famille et loisirs",
+      icon: CheckIcon,
+      color: "green"
+    }
+  }
+];
 
 export default function BeforeAfterSection() {
-  const [activeTab, setActiveTab] = useState<'before' | 'after'>('before');
-  const currentDay = activeTab === 'before' ? beforeDay : afterDay;
+  const sectionRef = useRef<HTMLElement>(null);
+  const comparisonRef = useRef<HTMLDivElement>(null);
+  const [sliderPosition, setSliderPosition] = useState(50);
+  const [isDragging, setIsDragging] = useState(false);
 
-  const getStressColor = (stress: string) => {
-    switch (stress) {
-      case 'high': return 'bg-red-500';
-      case 'medium': return 'bg-orange-500'; 
-      case 'low': return 'bg-green-500';
-      default: return 'bg-gray-500';
-    }
-  };
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Animate comparison cards on scroll
+      gsap.from('.comparison-card', {
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: comparisonRef.current,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
+      });
+    }, sectionRef);
 
-  const getStressText = (stress: string) => {
-    switch (stress) {
-      case 'high': return 'Stress élevé';
-      case 'medium': return 'Stress moyen';
-      case 'low': return 'Détendu';
-      default: return '';
-    }
+    return () => ctx.revert();
+  }, []);
+
+  const handleSliderMove = (e: React.MouseEvent | React.TouchEvent) => {
+    const container = e.currentTarget as HTMLElement;
+    const rect = container.getBoundingClientRect();
+    const x = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const relativeX = x - rect.left;
+    const percentage = (relativeX / rect.width) * 100;
+    
+    setSliderPosition(Math.min(Math.max(percentage, 0), 100));
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/20 text-white overflow-hidden">
+    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-gray-50 to-white overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center mb-16">
-          <FadeInUp>
-            <h2 className="text-4xl md:text-5xl xl:text-6xl font-bold mb-6">
-              La{' '}
-              <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                Vérité Brutale
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Voici à quoi ressemble vraiment votre journée... avant et après l'automatisation IA
-            </p>
-          </FadeInUp>
+          <motion.h2 
+            className="text-4xl md:text-5xl xl:text-6xl font-bold mb-6 text-gray-900"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="block mb-2">LA DIFFÉRENCE QUE</span>
+            <span className="text-red-600">PERSONNE</span>{' '}
+            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              NE VOUS MONTRE
+            </span>
+          </motion.h2>
+          <motion.p 
+            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Glissez pour découvrir comment l'IA transforme votre quotidien d'entrepreneur
+          </motion.p>
         </div>
 
-        {/* Toggle Buttons */}
-        <div className="flex justify-center mb-12">
-          <div className="bg-gray-800/50 p-2 rounded-2xl backdrop-blur-sm border border-gray-700/50">
-            <motion.button
-              onClick={() => setActiveTab('before')}
-              className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 ${
-                activeTab === 'before' 
-                  ? 'bg-red-600 text-white shadow-lg' 
-                  : 'text-gray-400 hover:text-white'
-              }`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+        {/* Interactive Comparison Slider */}
+        <div ref={comparisonRef} className="mb-16 max-w-6xl mx-auto">
+          <div 
+            className="relative h-[800px] md:h-[900px] rounded-2xl overflow-hidden cursor-ew-resize shadow-2xl border-8 border-gray-900"
+            onMouseMove={handleSliderMove}
+            onTouchMove={handleSliderMove}
+          >
+            {/* Left side - AVANT (La Galère) */}
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-black">
+              <div className="p-6 md:p-10 h-full flex flex-col">
+                {/* Effet sombre */}
+                <div className="absolute inset-0 opacity-20">
+                  <div className="absolute top-10 left-10 w-64 h-64 bg-red-600 rounded-full blur-3xl animate-pulse" />
+                </div>
+                
+                <h3 className="text-2xl md:text-4xl font-bold text-white mb-1">
+                  VOTRE QUOTIDIEN
+                </h3>
+                <h4 className="text-3xl md:text-5xl font-bold text-red-600 mb-6 animate-pulse">
+                  SANS IA
+                </h4>
+                
+                <div className="flex-1">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-5xl mx-auto">
+                    {comparisonData.map((item, index) => (
+                      <div 
+                        key={index}
+                        className="comparison-card bg-gray-900 border-2 border-red-600 p-3 md:p-4 rounded-xl transform hover:scale-105 transition-transform"
+                      >
+                        <div className="flex items-center gap-2 mb-2">
+                          <item.before.icon className="w-6 h-6 md:w-8 md:h-8 text-red-600 flex-shrink-0" strokeWidth={3} />
+                          <h5 className="font-bold text-white text-sm md:text-base">{item.category}</h5>
+                        </div>
+                        <div className="text-center mb-2">
+                          <p className="text-xl md:text-2xl font-bold text-red-500 mb-1">{item.before.value}</p>
+                          <p className="text-xs text-gray-400">{item.before.title}</p>
+                        </div>
+                        <p className="text-red-400 text-xs text-center font-medium">
+                          {item.before.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="text-center mt-4">
+                  <p className="text-3xl md:text-4xl font-bold text-red-600 mb-2 animate-pulse">ÉPUISEMENT TOTAL</p>
+                  <p className="text-gray-400 uppercase tracking-wider">
+                    Vous survivez au lieu de vivre
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right side - APRÈS (La Liberté) */}
+            <div 
+              className="absolute inset-0 bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-500"
+              style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
             >
-              <span className="flex items-center gap-2">
-                <FaceFrownIcon className="h-5 w-5" />
-                AVANT (La Galère)
-              </span>
-            </motion.button>
-            <motion.button
-              onClick={() => setActiveTab('after')}
-              className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 ${
-                activeTab === 'after' 
-                  ? 'bg-green-600 text-white shadow-lg' 
-                  : 'text-gray-400 hover:text-white'
-              }`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              <div className="p-6 md:p-10 h-full flex flex-col">
+                {/* Effet brillant */}
+                <div className="absolute inset-0 opacity-20">
+                  <div className="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse" />
+                </div>
+                
+                <h3 className="text-2xl md:text-4xl font-bold text-white mb-1">
+                  VOTRE NOUVEAU
+                </h3>
+                <h4 className="text-3xl md:text-5xl font-bold text-white mb-6" style={{ textShadow: '3px 3px 0 rgba(0,0,0,0.3)' }}>
+                  QUOTIDIEN AVEC L'IA
+                </h4>
+                
+                <div className="flex-1">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-5xl mx-auto">
+                    {comparisonData.map((item, index) => (
+                      <div 
+                        key={index}
+                        className="comparison-card bg-white/20 backdrop-blur-md border-2 border-white p-3 md:p-4 rounded-xl transform hover:scale-105 transition-transform shadow-xl"
+                      >
+                        <div className="flex items-center gap-2 mb-2">
+                          <item.after.icon className="w-6 h-6 md:w-8 md:h-8 text-white flex-shrink-0" strokeWidth={3} />
+                          <h5 className="font-bold text-white text-sm md:text-base">{item.category}</h5>
+                        </div>
+                        <div className="text-center mb-2">
+                          <p className="text-xl md:text-2xl font-bold text-white mb-1">{item.after.value}</p>
+                          <p className="text-xs text-white/80">{item.after.title}</p>
+                        </div>
+                        <p className="text-white/90 text-xs text-center font-medium">
+                          {item.after.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="text-center mt-4">
+                  <p className="text-3xl md:text-4xl font-bold text-white mb-2" style={{ textShadow: '2px 2px 0 rgba(0,0,0,0.3)' }}>
+                    LIBERTÉ RETROUVÉE
+                  </p>
+                  <p className="text-white/90 uppercase tracking-wider">
+                    Enfin du temps pour ce qui compte vraiment
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Slider handle */}
+            <div 
+              className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize"
+              style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
             >
-              <span className="flex items-center gap-2">
-                <FaceSmileIcon className="h-5 w-5" />
-                APRÈS (La Liberté)
-              </span>
-            </motion.button>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-2xl flex items-center justify-center border-4 border-gray-900">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="text-gray-900">
+                  <path d="M8 9L5 12L8 15M16 9L19 12L16 15" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        {/* Day Content */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto"
+        {/* Final CTA Section */}
+        <motion.div 
+          className="text-center mt-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            STOP À LA SOUFFRANCE INUTILE
+          </h3>
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            Chaque jour sans automatisation = du temps perdu avec votre famille
+          </p>
+          
+          <motion.a
+            href="#calculateur"
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector('#calculateur')?.scrollIntoView({ behavior: 'smooth' });
+            }}
           >
-            
-            {/* Day Header */}
-            <div className="text-center mb-12">
-              <div className="text-6xl mb-4">{currentDay.mood}</div>
-              <h3 className="text-3xl font-bold mb-2">{currentDay.title}</h3>
-              <p className="text-lg text-gray-300">{currentDay.subtitle}</p>
-            </div>
-
-            {/* Timeline */}
-            <div className="space-y-6">
-              {currentDay.timeSlots.map((slot, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.6 }}
-                  className="flex items-start gap-6 p-6 rounded-2xl bg-gray-800/30 backdrop-blur-sm border border-gray-700/30 hover:bg-gray-800/50 transition-all duration-300"
-                >
-                  
-                  {/* Time */}
-                  <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center font-bold text-sm">
-                      {slot.time}
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h4 className="text-lg font-semibold">{slot.activity}</h4>
-                      <div className="flex items-center gap-2">
-                        <div className={`w-3 h-3 rounded-full ${getStressColor(slot.stress)}`}></div>
-                        <span className="text-sm text-gray-400">{getStressText(slot.stress)}</span>
-                      </div>
-                    </div>
-                    <p className="text-gray-300">{slot.description}</p>
-                  </div>
-
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Bottom CTA */}
-            <motion.div
-              className="text-center mt-12"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
+            <CalendarDaysIcon className="w-6 h-6" />
+            Je veux récupérer ma vie
+            <motion.span
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
             >
-              {activeTab === 'before' ? (
-                <motion.button
-                  onClick={() => setActiveTab('after')}
-                  className="bg-gradient-to-r from-green-600 via-green-500 to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-3"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span>Voir la solution</span>
-                  <motion.div
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    →
-                  </motion.div>
-                </motion.button>
-              ) : (
-                <motion.a
-                  href="#calculateur"
-                  className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-3"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.querySelector('#calculateur')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                >
-                  <CalendarDaysIcon className="h-5 w-5" />
-                  <span>Je veux cette vie</span>
-                  <motion.div
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    →
-                  </motion.div>
-                </motion.a>
-              )}
-            </motion.div>
-
-          </motion.div>
-        </AnimatePresence>
+              →
+            </motion.span>
+          </motion.a>
+          
+          <p className="mt-6 text-sm text-gray-500">
+            Découvrez votre potentiel de temps libéré en 2 minutes
+          </p>
+        </motion.div>
 
       </div>
     </section>

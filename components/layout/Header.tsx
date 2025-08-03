@@ -6,6 +6,7 @@ import { Bars3Icon, XMarkIcon, SparklesIcon } from '@heroicons/react/24/outline'
 import { useTheme } from '@/contexts/ThemeContext';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { GlassCard } from '@/components/ui/GlassCard';
+import { HomeIcon, LightningIcon, CalculatorIcon, TargetIcon, PhoneIcon, RocketIcon } from '@/components/ui/Icons';
 
 // Composant d'animation réutilisable
 type FadeInProps = {
@@ -65,11 +66,11 @@ export default function Header() {
   }, []);
 
   const navLinks = [
-    { name: 'Accueil', href: '#hero', icon: '🏠' },
-    { name: 'Solutions', href: '#solutions', icon: '⚡' },
-    { name: 'Calculateur', href: '#calculateur', icon: '🧮' },
-    { name: 'À propos', href: '#about', icon: '🎯' },
-    { name: 'Contact', href: '#contact', icon: '📞' },
+    { name: 'Accueil', href: '#hero', icon: HomeIcon },
+    { name: 'Solutions', href: '#solutions', icon: LightningIcon },
+    { name: 'Calculateur', href: '#calculateur', icon: CalculatorIcon },
+    { name: 'À propos', href: '#about', icon: TargetIcon },
+    { name: 'Contact', href: '#contact', icon: PhoneIcon },
   ];
 
   return (
@@ -133,7 +134,7 @@ export default function Header() {
                 href={link.href}
                 className="relative px-4 py-2 rounded-xl text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-all duration-300 group flex items-center space-x-2"
               >
-                <span className="text-sm">{link.icon}</span>
+                <link.icon className="w-4 h-4" />
                 <span className="font-medium">{link.name}</span>
                 
                 {/* Effet de survol glassmorphism */}
@@ -157,7 +158,7 @@ export default function Header() {
               href="#contact"
               className="relative ml-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-2.5 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2 group overflow-hidden"
             >
-              <span>🚀</span>
+              <RocketIcon className="w-5 h-5" />
               <span>Prendre RDV</span>
               
               {/* Effet de lueur */}
@@ -245,7 +246,7 @@ export default function Header() {
                         href={link.href}
                         className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 group"
                       >
-                        <span className="text-lg">{link.icon}</span>
+                        <link.icon className="w-5 h-5" />
                         <span className="font-medium">{link.name}</span>
                         
                         {/* Effet de hover */}
@@ -271,7 +272,7 @@ export default function Header() {
                       href="#contact"
                       className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group"
                     >
-                      <span>🚀</span>
+                      <RocketIcon className="w-5 h-5" />
                       <span>Prendre RDV</span>
                       
                       {/* Effet de lueur */}

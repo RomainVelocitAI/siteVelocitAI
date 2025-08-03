@@ -10,6 +10,7 @@ import {
   SparklesIcon 
 } from '@heroicons/react/24/outline';
 import { FadeInUp, StaggerContainer, StaggerItem, ParallaxSection } from '../ui/animations';
+import { CheckIcon, LightningIcon, TargetIcon } from '../ui/Icons';
 
 const steps = [
   {
@@ -341,13 +342,26 @@ export default function MethodologySection() {
             </motion.a>
             
             <motion.p
-              className="text-sm text-gray-500 dark:text-gray-400"
+              className="text-sm text-gray-500 dark:text-gray-400 flex items-center justify-center gap-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 1, duration: 0.6 }}
               viewport={{ once: true }}
             >
-              ✅ Sans engagement • ⚡ Réponse sous 24h • 🎯 100% personnalisé
+              <span className="flex items-center gap-1">
+                <CheckIcon className="w-4 h-4 text-green-500" />
+                Sans engagement
+              </span>
+              <span className="text-gray-300 dark:text-gray-600">•</span>
+              <span className="flex items-center gap-1">
+                <LightningIcon className="w-4 h-4 text-yellow-500" />
+                Réponse sous 24h
+              </span>
+              <span className="text-gray-300 dark:text-gray-600">•</span>
+              <span className="flex items-center gap-1">
+                <TargetIcon className="w-4 h-4 text-purple-600" />
+                100% personnalisé
+              </span>
             </motion.p>
           </motion.div>
         </motion.div>

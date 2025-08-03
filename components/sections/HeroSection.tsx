@@ -5,6 +5,7 @@ import { FadeInUp as FadeIn, FadeInSide, StaggerContainer, StaggerItem, Parallax
 import { useEffect, useState } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
 import VaporizeTextCycle, { Tag } from '../ui/VaporizeTextEffect';
+import { ChartIcon, TargetIcon } from '../ui/Icons';
 
 // Bénéfices business rotatifs - focus transformation
 const heroWords = [
@@ -115,7 +116,8 @@ export default function HeroSection() {
                       }}
                     >
                       <span className="relative z-10 flex items-center justify-center gap-2">
-                        📊 Calculer mon ROI et gains de temps
+                        <ChartIcon className="w-5 h-5" />
+                        Calculer mon ROI et gains de temps
                       </span>
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-purple-700 via-blue-700 to-cyan-600"
@@ -135,7 +137,8 @@ export default function HeroSection() {
                       }}
                     >
                       <span className="relative z-10 flex items-center justify-center gap-2">
-                        🎯 Diagnostic gratuit personnalisé
+                        <TargetIcon className="w-5 h-5" />
+                        Diagnostic gratuit personnalisé
                       </span>
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500"

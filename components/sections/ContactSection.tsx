@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { EnvelopeIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import { useCalculator } from '@/contexts/CalculatorContext';
+import { TargetIcon, LightBulbIcon, ChartIcon, SecurityIcon, PlaneIcon, MailBoxIcon } from '@/components/ui/Icons';
 
 interface FormData {
   name: string;
@@ -129,7 +130,7 @@ export default function ContactSection() {
         >
           <div className="flex flex-col md:flex-row items-center justify-center gap-4">
             <div className="flex items-center gap-3">
-              <span className="text-2xl">🎯</span>
+              <TargetIcon className="w-8 h-8 text-white" />
               <span className="font-bold text-lg">AUDIT STRATÉGIQUE PERSONNALISÉ</span>
             </div>
             <div className="flex items-center gap-4 text-sm">
@@ -163,7 +164,7 @@ export default function ContactSection() {
           >
             <div className="flex items-start">
               <div className="flex-shrink-0">
-                <span className="text-2xl">💡</span>
+                <LightBulbIcon className="w-8 h-8 text-blue-400" />
               </div>
               <div className="ml-3">
                 <p className="text-lg text-blue-800 font-semibold">
@@ -215,7 +216,7 @@ export default function ContactSection() {
                 }}
               >
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl">🎯</span>
+              <TargetIcon className="w-12 h-12 text-blue-500" />
               <div>
                 <h3 className="text-2xl font-bold text-gray-900">
                   Audit Stratégique Personnalisé
@@ -327,8 +328,9 @@ export default function ContactSection() {
                     ease: "easeInOut"
                   }}
                 >
-                  <span className={`transition-opacity duration-300 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                    📊 Planifier l'audit stratégique
+                  <span className={`transition-opacity duration-300 ${isSubmitting ? 'opacity-0' : 'opacity-100'} flex items-center gap-2`}>
+                    <ChartIcon className="w-5 h-5" />
+                    Planifier l'audit stratégique
                   </span>
                 </motion.button>
 
@@ -431,13 +433,20 @@ export default function ContactSection() {
               transition={{ delay: 0.6 }}
             >
               <div className="text-center">
-                <p className="text-sm text-gray-600 mb-3">
-                  🎯 <strong>Expertise :</strong> Certification ISO 27001 et conformité RGPD native
+                <p className="text-sm text-gray-600 mb-3 flex items-center gap-2">
+                  <TargetIcon className="w-4 h-4 text-purple-600" />
+                  <span><strong>Expertise :</strong> Certification ISO 27001 et conformité RGPD native</span>
                 </p>
                 <div className="flex justify-center items-center gap-4 text-xs text-gray-500">
-                  <span>🛡️ Support premium 99.9% de disponibilité</span>
+                  <span className="flex items-center gap-1">
+                    <SecurityIcon className="w-4 h-4 text-blue-600" />
+                    Support premium 99.9% de disponibilité
+                  </span>
                   <span>•</span>
-                  <span>📊 ROI garanti contractuellement</span>
+                  <span className="flex items-center gap-1">
+                    <ChartIcon className="w-4 h-4 text-green-600" />
+                    ROI garanti contractuellement
+                  </span>
                 </div>
               </div>
             </motion.div>
@@ -528,7 +537,7 @@ export default function ContactSection() {
                   >
                     <div className="p-1 text-white text-xs text-center">
                       <div className="text-[6px] font-bold">FRANCE</div>
-                      <div className="text-[8px] mt-1">✈️</div>
+                      <PlaneIcon className="w-3 h-3 mx-auto text-white" />
                       <div className="text-[6px] mt-1">LETTRE</div>
                     </div>
                     <div className="absolute inset-0 border border-white border-dashed opacity-50 rounded-sm"></div>
@@ -609,7 +618,8 @@ export default function ContactSection() {
                   
                   <div className="relative z-10">
                     <div className="text-3xl font-bold text-green-600 mb-4">
-                      📬 Votre demande est envoyée !
+                      <MailBoxIcon className="w-8 h-8 text-green-600 inline-block mr-2" />
+                      Votre demande est envoyée !
                     </div>
                     <div className="text-gray-600">
                       Nous vous recontacterons rapidement

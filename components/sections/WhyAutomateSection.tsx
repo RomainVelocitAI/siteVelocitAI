@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, Variants } from 'framer-motion';
 import { ClockIcon, BoltIcon, ShieldCheckIcon, ChartBarIcon, CurrencyDollarIcon, UserGroupIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { FadeInUp, StaggerContainer, StaggerItem } from '../ui/animations';
+import { RocketIcon, ArrowRightIcon } from '../ui/Icons';
 
 const stats = [
   { 
@@ -336,14 +337,13 @@ export default function WhyAutomateSection() {
               }}
             >
               <span className="relative z-10 flex items-center gap-3">
-                🚀 Calculer mon potentiel
+                <RocketIcon className="w-6 h-6" />
+                <span>Calculer mon potentiel</span>
                 <motion.div
                   animate={{ x: [0, 5, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
+                  <ArrowRightIcon className="w-5 h-5" />
                 </motion.div>
               </span>
               <motion.div

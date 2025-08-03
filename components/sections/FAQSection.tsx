@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDownIcon, ChevronUpIcon, QuestionMarkCircleIcon, SparklesIcon } from '@heroicons/react/24/outline';
 import { FadeInUp, StaggerContainer, StaggerItem, ParallaxSection } from '../ui/animations';
+import { ChartIcon, SettingsIcon, RobotIcon, SecurityIcon, MoneyIcon, TargetIcon } from '../ui/Icons';
 
 interface FAQItem {
   id: number;
   question: string;
   answer: string;
-  icon: string;
+  icon: React.FC<{ className?: string; size?: number; color?: string }>;
 }
 
 const faqs: FAQItem[] = [
@@ -15,37 +16,37 @@ const faqs: FAQItem[] = [
     id: 1,
     question: "Comment mesurer concrètement le ROI de vos agents IA ?",
     answer: "Nous garantissons un ROI positif dès le premier mois d'utilisation. Calcul concret : à partir de 197€/mois par agent, si vous économisez seulement 5h/semaine à 25€/h, c'est 500€ d'économies mensuelles pour 197€ d'investissement. Avec 10h/semaine économisées, c'est 1000€ d'économies. Nos clients constatent en moyenne 8 à 15h/semaine libérées par processus automatisé, 40% de réduction des coûts opérationnels, 90% de réduction des erreurs. ROI minimum : 150% dès le premier mois, souvent bien plus.",
-    icon: '📊'
+    icon: ChartIcon
   },
   {
     id: 2,
     question: "Quelle est la complexité d'intégration avec nos systèmes existants ?",
     answer: "Nos agents IA s'intègrent nativement avec plus de 500 outils business : ERP, CRM, comptabilité, e-commerce. Déploiement progressif sur 2 semaines avec formation complète de vos équipes. Aucune interruption de service pendant la migration. Nos experts techniques vous accompagnent à chaque étape avec une garantie de bon fonctionnement dès la mise en service.",
-    icon: '⚙️'
+    icon: SettingsIcon
   },
   {
     id: 3,
     question: "Quel niveau d'autonomie peuvent atteindre nos processus métier ?",
     answer: "Nos écosystèmes d'agents IA permettent 80% d'autonomie sur vos processus récurrents : gestion administrative, relation client, logistique, reporting. Vos agents apprennent en continu et s'améliorent automatiquement. Vous gardez le contrôle stratégique tout en libérant 25h/semaine minimum pour vous concentrer sur le développement business et l'innovation.",
-    icon: '🤖'
+    icon: RobotIcon
   },
   {
     id: 4,
     question: "Quelles garanties de sécurité et de continuité de service ?",
     answer: "Infrastructure cloud sécurisée avec certification ISO 27001 et conformité RGPD native. Disponibilité garantie 99.9% avec sauvegardes automatisées toutes les heures. En cas d'incident, restauration complète en moins de 15 minutes. Vos données restent en France, chiffrées de bout en bout. Support technique 24h/24 avec équipe dédiée. Aucune perte de données en 5 ans d'activité.",
-    icon: '🛡️'
+    icon: SecurityIcon
   },
   {
     id: 5,
     question: "Quel est l'investissement nécessaire pour une PME de notre taille ?",
     answer: "Nos solutions sont dimensionnées pour les PME de 5 à 200 personnes. Investissement à partir de 197€/mois par agent IA, soit l'équivalent de 10% du coût d'un salarié. Retour sur investissement immédiat dès le premier mois : même avec seulement 5h économisées × 25€/h = 500€ d'économies pour 197€ d'investissement. ROI minimum de 150% garanti, souvent 300-500% selon les processus automatisés. Financement échelonné possible, sans engagement de durée.",
-    icon: '💰'
+    icon: MoneyIcon
   },
   {
     id: 6,
     question: "Quel niveau de support et d'accompagnement proposez-vous ?",
     answer: "Support premium inclus avec équipe dédiée francophone. Temps de réponse garanti sous 2h en jours ouvrés, 24h/24 pour les urgences critiques. Formation initiale complète de vos équipes et accompagnement personnalisé les 3 premiers mois. Mises à jour et améliorations incluses. Taux de satisfaction client 98% avec durée moyenne de partenariat de 5+ ans.",
-    icon: '🎯'
+    icon: TargetIcon
   }
 ];
 
@@ -229,7 +230,7 @@ export default function FaqSection() {
                             : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 group-hover:bg-purple-100 dark:group-hover:bg-purple-900/20'
                         }`}
                       >
-                        <span className="text-sm font-bold">{faq.icon}</span>
+                        <faq.icon className="w-6 h-6" />
                       </div>
                       <h3 className={`text-lg font-semibold transition-colors duration-300 ${
                         openIndex === index 

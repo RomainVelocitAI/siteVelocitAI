@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useCalculator } from '@/contexts/CalculatorContext';
+import { SparklesIcon, ClockIcon, CalendarIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { MoneyIcon, RocketIcon, TargetIcon, ChartIcon, LightBulbIcon } from '@/components/ui/Icons';
 
 // Composant Tooltip pour les infobulles explicatives
 function Tooltip({ children, content, position = "top" }: { children: React.ReactNode; content: string; position?: string }) {
@@ -75,7 +77,12 @@ function HolographicPackCard({ forfaitRecommandation }: { forfaitRecommandation:
         {/* Contenu 3D */}
         <div className="relative z-10 text-center">
           <div className="mb-6">
-            <div className="text-sm font-bold text-purple-300 mb-2">📦 Pack Recommandé</div>
+            <div className="text-sm font-bold text-purple-300 mb-2 flex items-center justify-center gap-2">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+              </svg>
+              <span>Pack Recommandé</span>
+            </div>
             <h3 
               className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-violet-400 to-indigo-400 mb-4 transform group-hover:scale-110 transition-transform duration-500"
               style={{ 
@@ -105,7 +112,10 @@ function HolographicPackCard({ forfaitRecommandation }: { forfaitRecommandation:
             </p>
             
             <div className="bg-gradient-to-r from-purple-800/50 to-violet-800/50 rounded-2xl p-4 mt-6">
-              <div className="text-sm text-purple-300 mb-2">💰 Économies avec ce pack :</div>
+              <div className="text-sm text-purple-300 mb-2 flex items-center justify-center gap-2">
+                <MoneyIcon className="w-5 h-5" />
+                <span>Économies avec ce pack :</span>
+              </div>
               <div className="text-2xl font-bold text-green-400">
                 {forfaitRecommandation.economieMensuelle.toLocaleString('fr-FR')}€/mois
               </div>
@@ -238,7 +248,10 @@ function AddTaskModal({ isOpen, onClose, onAddTask }: {
           
           <div className="flex items-center justify-between relative z-10">
             <div>
-              <h3 className="text-2xl font-black mb-2">✨ Ajouter une tâche</h3>
+              <h3 className="text-2xl font-black mb-2 flex items-center gap-2">
+                <SparklesIcon className="w-6 h-6" />
+                <span>Ajouter une tâche</span>
+              </h3>
               <p className="text-purple-100 text-sm">Choisissez un modèle ou créez une tâche personnalisée</p>
             </div>
             <button
@@ -255,7 +268,10 @@ function AddTaskModal({ isOpen, onClose, onAddTask }: {
         <div className="p-8 space-y-8 max-h-96 overflow-y-auto">
           {/* Tâches prédéfinies avec effets wow */}
           <div>
-            <h4 className="font-black text-gray-900 mb-4 text-lg">🚀 Tâches courantes</h4>
+            <h4 className="font-black text-gray-900 mb-4 text-lg flex items-center gap-2">
+              <RocketIcon className="w-5 h-5 text-purple-600" />
+              <span>Tâches courantes</span>
+            </h4>
             <div className="grid grid-cols-1 gap-3">
               {predefinedTasks.map((task, index) => (
                 <button
@@ -273,7 +289,10 @@ function AddTaskModal({ isOpen, onClose, onAddTask }: {
                     </div>
                   </div>
                   <div className="text-xs text-gray-600 mt-2 group-hover:text-purple-600 transition-colors duration-300">
-                    ⏱️ {task.time}h/jour • 📅 {task.frequency}x/semaine • 👥 {task.employees} pers. • 💰 {task.cost}€/h
+                    <span className="flex items-center gap-1"><ClockIcon className="w-4 h-4" /> {task.time}h/jour</span> • 
+                    <span className="flex items-center gap-1"><CalendarIcon className="w-4 h-4" /> {task.frequency}x/semaine</span> • 
+                    <span className="flex items-center gap-1"><UsersIcon className="w-4 h-4" /> {task.employees} pers.</span> • 
+                    <span className="flex items-center gap-1"><MoneyIcon className="w-4 h-4" /> {task.cost}€/h</span>
                   </div>
                 </button>
               ))}
@@ -282,7 +301,10 @@ function AddTaskModal({ isOpen, onClose, onAddTask }: {
 
           {/* Tâche personnalisée */}
           <div>
-            <h4 className="font-black text-gray-900 mb-4 text-lg">🎨 Tâche personnalisée</h4>
+            <h4 className="font-black text-gray-900 mb-4 text-lg flex items-center gap-2">
+              <LightBulbIcon className="w-5 h-5 text-purple-600" />
+              <span>Tâche personnalisée</span>
+            </h4>
             <div className="space-y-4">
               <input
                 type="text"
@@ -297,7 +319,10 @@ function AddTaskModal({ isOpen, onClose, onAddTask }: {
                 disabled={!taskName.trim()}
                 className="w-full py-4 bg-gradient-to-r from-purple-600 to-violet-600 text-white rounded-2xl font-black text-lg disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-2xl transition-all duration-300 hover:scale-105 disabled:hover:scale-100"
               >
-                ✨ Créer la tâche
+                <span className="flex items-center gap-2">
+                  <SparklesIcon className="w-5 h-5" />
+                  <span>Créer la tâche</span>
+                </span>
               </button>
             </div>
           </div>
@@ -359,7 +384,10 @@ export default function CalculatorSection() {
             Calculez vos économies potentielles
           </h2>
           <p className="text-xl lg:text-2xl text-gray-200 max-w-4xl mx-auto font-medium animate-in slide-in-from-top duration-1000" style={{ animationDelay: '200ms' }}>
-            🚀 Découvrez combien vous pourriez économiser en automatisant vos tâches répétitives
+            <span className="flex items-center justify-center gap-2">
+              <RocketIcon className="w-6 h-6" />
+              <span>Découvrez combien vous pourriez économiser en automatisant vos tâches répétitives</span>
+            </span>
           </p>
         </div>
 
@@ -373,7 +401,9 @@ export default function CalculatorSection() {
               {/* Contenu */}
               <div className="relative z-10">
                 <div className="mb-8">
-                  <div className="text-6xl mb-6 animate-bounce">🎯</div>
+                  <div className="text-6xl mb-6 animate-bounce flex justify-center">
+                    <TargetIcon className="w-16 h-16 text-purple-600" />
+                  </div>
                   <h3 className="text-3xl font-black text-white mb-6">
                     Commencez par ajouter une tâche
                   </h3>
@@ -386,7 +416,7 @@ export default function CalculatorSection() {
                   onClick={() => setIsAddModalOpen(true)}
                   className="group inline-flex items-center px-12 py-6 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 text-white font-black text-xl rounded-3xl shadow-2xl hover:shadow-[0_20px_80px_rgba(147,51,234,0.4)] transform hover:scale-105 transition-all duration-500 hover:-translate-y-2"
                 >
-                  <span className="text-2xl mr-4 group-hover:animate-spin">✨</span>
+                  <SparklesIcon className="w-8 h-8 mr-4 group-hover:animate-spin text-white" />
                   Ajouter ma première tâche
                   <svg className="w-6 h-6 ml-4 group-hover:translate-x-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -401,14 +431,14 @@ export default function CalculatorSection() {
             <div className="bg-gray-800/90 backdrop-blur-xl rounded-3xl shadow-2xl p-10 border border-gray-700/50 animate-in slide-in-from-left duration-1000">
               <div className="flex items-center justify-between mb-10">
                 <h3 className="text-3xl font-black flex items-center justify-center gap-3">
-                  <span className="text-4xl">🎯</span>
+                  <TargetIcon className="w-10 h-10 text-purple-600" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-violet-600">Vos tâches à automatiser</span>
                 </h3>
                 <button
                   onClick={() => setIsAddModalOpen(true)}
                   className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-violet-600 text-white font-bold rounded-2xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 hover:-translate-y-1"
                 >
-                  <span className="text-lg mr-3 group-hover:rotate-180 transition-transform duration-300">✨</span>
+                  <SparklesIcon className="w-5 h-5 mr-3 group-hover:rotate-180 transition-transform duration-300" />
                   Ajouter une tâche
                 </button>
               </div>
@@ -444,7 +474,10 @@ export default function CalculatorSection() {
                     <div className="mb-6">
                       <Tooltip content={tooltips.name} position="top">
                         <label className="flex items-center space-x-2 text-sm font-bold text-gray-300 mb-3">
-                          <span>📝 Nom de la tâche</span>
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          <span>Nom de la tâche</span>
                           <svg className="w-4 h-4 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
@@ -466,7 +499,8 @@ export default function CalculatorSection() {
                       <div>
                         <Tooltip content={tooltips.timeSpent} position="top">
                           <label className="flex items-center space-x-2 text-sm font-bold text-gray-300 mb-3">
-                            <span>⏱️ Temps/jour (h)</span>
+                            <ClockIcon className="w-4 h-4" />
+                            <span>Temps/jour (h)</span>
                             <svg className="w-4 h-4 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -503,7 +537,8 @@ export default function CalculatorSection() {
                       <div>
                         <Tooltip content={tooltips.frequency} position="top">
                           <label className="flex items-center space-x-2 text-sm font-bold text-gray-300 mb-3">
-                            <span>📅 Fois/semaine</span>
+                            <CalendarIcon className="w-4 h-4" />
+                            <span>Fois/semaine</span>
                             <svg className="w-4 h-4 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -540,7 +575,8 @@ export default function CalculatorSection() {
                       <div>
                         <Tooltip content={tooltips.employeeCount} position="top">
                           <label className="flex items-center space-x-2 text-sm font-bold text-gray-300 mb-3">
-                            <span>👥 Personnes</span>
+                            <UsersIcon className="w-4 h-4" />
+                            <span>Personnes</span>
                             <svg className="w-4 h-4 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -576,7 +612,8 @@ export default function CalculatorSection() {
                       <div>
                         <Tooltip content={tooltips.employeeCost} position="top">
                           <label className="flex items-center space-x-2 text-sm font-bold text-gray-300 mb-3">
-                            <span>💰 Coût/h (€)</span>
+                            <MoneyIcon className="w-4 h-4" />
+                            <span>Coût/h (€)</span>
                             <svg className="w-4 h-4 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -619,13 +656,17 @@ export default function CalculatorSection() {
               <div className="space-y-12 animate-in slide-in-from-bottom duration-1000">
                 <h3 className="text-4xl font-black text-center mb-4">
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-violet-600">Vos résultats époustouflants</span>
-                  <div className="text-5xl mt-2">🎉</div>
+                  <div className="mt-2 flex justify-center">
+                    <svg className="w-16 h-16 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                    </svg>
+                  </div>
                 </h3>
                 
                 {/* Cartes principales avec animations époustouflantes */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   <ResultCard
-                    title="⏱️ Temps économisé par an"
+                    title="Temps économisé par an"
                     value={`${result.totalHoursPerYear}h`}
                     subtitle={`Soit ${result.totalWorkDaysPerYear} jours de travail`}
                     gradient="from-cyan-500 via-blue-500 to-indigo-600"
@@ -638,7 +679,7 @@ export default function CalculatorSection() {
                   />
                   
                   <ResultCard
-                    title="💸 Coût actuel par an"
+                    title="Coût actuel par an"
                     value={`${result.totalYearlyCost.toLocaleString('fr-FR')}€`}
                     subtitle="Coût de la main d'œuvre"
                     gradient="from-orange-500 via-red-500 to-pink-600"
@@ -651,7 +692,7 @@ export default function CalculatorSection() {
                   />
                   
                   <ResultCard
-                    title="💰 Économies potentielles"
+                    title="Économies potentielles"
                     value={`${result.totalYearlySavings.toLocaleString('fr-FR')}€`}
                     subtitle={`${result.totalMonthlySavings.toLocaleString('fr-FR')}€ par mois`}
                     gradient="from-green-500 via-emerald-500 to-teal-600"
@@ -676,7 +717,9 @@ export default function CalculatorSection() {
                 <div className="bg-gray-800/90 backdrop-blur-xl rounded-3xl shadow-2xl p-10 border border-gray-700/50">
                   <div className="text-center mb-8">
                     <h4 className="text-3xl font-black mb-4 flex items-center justify-center gap-3">
-                      <span className="text-4xl">🚨</span>
+                      <svg className="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                      </svg>
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-violet-600">Niveau d'urgence</span>
                     </h4>
                     <p className="text-lg text-gray-300 font-medium">Basé sur vos économies potentielles</p>
@@ -710,10 +753,10 @@ export default function CalculatorSection() {
                     <div className="text-center">
                       <p className="text-2xl font-black text-white mb-4">
                         {result.emergencyLevel > 70
-                          ? "🚨 Automatisation fortement recommandée"
+                          ? "Automatisation fortement recommandée"
                           : result.emergencyLevel > 40
-                          ? "📈 Pensez à automatiser bientôt"
-                          : "💡 À considérer pour l'avenir"}
+                          ? "Pensez à automatiser bientôt"
+                          : "À considérer pour l'avenir"}
                       </p>
                       <p className="text-lg text-gray-300 font-medium">
                         {result.emergencyLevel > 70
@@ -734,13 +777,18 @@ export default function CalculatorSection() {
                     rel="noopener noreferrer"
                     className="group inline-flex items-center px-12 py-6 bg-gradient-to-r from-green-500 via-green-600 to-emerald-600 text-white font-black text-xl rounded-3xl shadow-2xl hover:shadow-[0_20px_80px_rgba(34,197,94,0.4)] transform hover:scale-105 transition-all duration-500 hover:-translate-y-2"
                   >
-                    <span className="text-2xl mr-4 group-hover:animate-bounce">💬</span>
+                    <svg className="w-8 h-8 mr-4 group-hover:animate-bounce" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                    </svg>
                     Discuter de votre projet
                     <svg className="w-6 h-6 ml-4 group-hover:translate-x-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
                   </a>
-                  <p className="text-gray-300 text-lg mt-4 font-medium">✨ Réponse garantie sous 24h</p>
+                  <p className="text-gray-300 text-lg mt-4 font-medium flex items-center justify-center gap-2">
+                    <SparklesIcon className="w-5 h-5" />
+                    <span>Réponse garantie sous 24h</span>
+                  </p>
                 </div>
               </div>
             )}
