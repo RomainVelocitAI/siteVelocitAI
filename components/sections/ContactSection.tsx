@@ -136,7 +136,7 @@ export default function ContactSection() {
             <div className="flex items-center gap-4 text-sm">
               <span>Évaluation experte de vos <strong className="text-blue-200">processus prioritaires</strong> en 30 minutes</span>
               <span className="hidden md:inline">•</span>
-              <span>Support premium avec équipe dédiée</span>
+              <span>Support premium personnalisé</span>
             </div>
           </div>
         </motion.div>
@@ -435,17 +435,17 @@ export default function ContactSection() {
               <div className="text-center">
                 <p className="text-sm text-gray-600 mb-3 flex items-center gap-2">
                   <TargetIcon className="w-4 h-4 text-purple-600" />
-                  <span><strong>Expertise :</strong> Certification ISO 27001 et conformité RGPD native</span>
+                  <span><strong>Expertise :</strong> Conformité RGPD et sécurité renforcée</span>
                 </p>
                 <div className="flex justify-center items-center gap-4 text-xs text-gray-500">
                   <span className="flex items-center gap-1">
                     <SecurityIcon className="w-4 h-4 text-blue-600" />
-                    Support premium 99.9% de disponibilité
+                    Support premium haute disponibilité
                   </span>
                   <span>•</span>
                   <span className="flex items-center gap-1">
                     <ChartIcon className="w-4 h-4 text-green-600" />
-                    ROI garanti contractuellement
+                    ROI mesurable et transparent
                   </span>
                 </div>
               </div>
@@ -666,16 +666,6 @@ export default function ContactSection() {
                 ))}
               </div>
 
-            <div className="mt-10">
-              <h4 className="text-sm font-medium text-gray-900 mb-4">
-                Heures d'ouverture
-              </h4>
-              <div className="space-y-2">
-                <p className="text-sm text-gray-600">Lundi - Vendredi: 9h - 18h</p>
-                <p className="text-sm text-gray-600">Samedi: 9h - 12h</p>
-                <p className="text-sm text-gray-600">Dimanche: Fermé</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>

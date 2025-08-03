@@ -1,0 +1,25 @@
+
+> velocitai-website@1.0.0 dev
+> next dev -H 0.0.0.0 -p 3005
+
+  ▲ Next.js 14.2.30
+  - Local:        http://localhost:3005
+  - Network:      http://0.0.0.0:3005
+  - Environments: .env.local
+  - Experiments (use with caution):
+    · scrollRestoration
+
+ ✓ Starting...
+ ✓ Ready in 3.2s
+ ○ Compiling / ...
+ ✓ Compiled / in 8.9s (880 modules)
+ ✓ Compiled in 1026ms (880 modules)
+ GET / 200 in 10790ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1096ms (880 modules)
+ ⚠ You have added a custom /_error page without a custom /404 page. This prevents the 404 page from being auto statically optimized.
+See here for info: https://nextjs.org/docs/messages/custom-error-no-custom-404
+ GET /_next/static/webpack/911cc239ed49e4a5.webpack.hot-update.json 404 in 1211ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET / 200 in 91ms
+[?25h

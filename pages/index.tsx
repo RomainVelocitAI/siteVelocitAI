@@ -1,9 +1,11 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
+import { GetServerSideProps } from 'next';
 import HeroSection from '@/components/sections/HeroSection';
 import WhyAutomateSection from '@/components/sections/WhyAutomateSection';
 import StructuredData from '@/components/StructuredData';
 import { organizationSchema, websiteSchema, serviceSchema } from '@/lib/structured-data';
+import { getSimpleTestimonials, SimpleFormattedTestimonial } from '@/lib/airtable-simple';
 
 // Dynamic imports for better performance
 const CalculatorSection = dynamic(() => import('@/components/sections/CalculatorSection'), {
@@ -18,7 +20,7 @@ const MethodologySection = dynamic(() => import('@/components/sections/Methodolo
   loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
 });
 
-const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'), {
+const InstagramTestimonialsSection = dynamic(() => import('@/components/sections/InstagramTestimonialsSection'), {
   loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
 });
 
@@ -38,7 +40,11 @@ const ContactSection = dynamic(() => import('@/components/sections/ContactSectio
   loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
 });
 
-export default function Home() {
+interface HomeProps {
+  testimonials: SimpleFormattedTestimonial[];
+}
+
+export default function Home({ testimonials }: HomeProps) {
   return (
     <div className="min-h-screen">
       <Head>
@@ -102,7 +108,7 @@ export default function Home() {
           <MethodologySection />
         </section>
         <section id="temoignages">
-          <TestimonialsSection />
+          <InstagramTestimonialsSection testimonials={testimonials} />
         </section>
         <section id="faq">
           <FAQSection />
@@ -117,3 +123,13 @@ export default function Home() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const testimonials = await getSimpleTestimonials();
+  
+  return {
+    props: {
+      testimonials,
+    },
+  };
+};

@@ -1,6 +1,8 @@
-import { motion, Variants, useScroll, useTransform } from 'framer-motion';
-import { ReactNode, useRef } from 'react';
+import { motion, Variants, useTransform, useScroll } from 'framer-motion';
+import { useSafeScroll } from '@/hooks/useSafeScroll';
+import { ReactNode, useRef, useState, useEffect } from 'react';
 import { usePrefersReducedMotion } from '@/hooks/useMediaQuery';
+import React from 'react';
 
 type AnimationProps = {
   children: React.ReactNode;
@@ -117,8 +119,33 @@ export const ParallaxSection = ({
   className?: string 
 }) => {
   const ref = useRef(null);
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Si pas monté, retourner le contenu sans animation
+  if (!mounted) {
+    return (
+      <section className={`relative overflow-hidden ${className}`}>
+        {children}
+      </section>
+    );
+  }
+
+  // Composant interne qui utilise useScroll
+  return <ParallaxInner ref={ref} speed={speed} className={className}>{children}</ParallaxInner>;
+};
+
+// Composant interne qui gère l'animation
+const ParallaxInner = React.forwardRef<HTMLElement, { 
+  children: ReactNode; 
+  speed: number; 
+  className: string 
+}>(({ children, speed, className }, ref) => {
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: ref as React.RefObject<HTMLElement>,
     offset: ["start end", "end start"]
   });
 
@@ -133,7 +160,9 @@ export const ParallaxSection = ({
       {children}
     </motion.section>
   );
-};
+});
+
+ParallaxInner.displayName = 'ParallaxInner';
 
 // Composant pour la grille de galerie
 export const GridGallery = ({ 

@@ -33,7 +33,7 @@ const faqs: FAQItem[] = [
   {
     id: 4,
     question: "Quelles garanties de sécurité et de continuité de service ?",
-    answer: "Infrastructure cloud sécurisée avec certification ISO 27001 et conformité RGPD native. Disponibilité garantie 99.9% avec sauvegardes automatisées toutes les heures. En cas d'incident, restauration complète en moins de 15 minutes. Vos données restent en France, chiffrées de bout en bout. Support technique 24h/24 avec équipe dédiée. Aucune perte de données en 5 ans d'activité.",
+    answer: "Infrastructure cloud sécurisée avec certification ISO 27001 et conformité RGPD native. Disponibilité garantie 99.9% avec sauvegardes automatisées toutes les heures. Restauration complète garantie. Vos données restent en Europe, chiffrées de bout en bout. Support technique 24h/24 avec serveur VPS dédié. Aucune perte de données en 5 ans d'activité.",
     icon: SecurityIcon
   },
   {
@@ -45,7 +45,7 @@ const faqs: FAQItem[] = [
   {
     id: 6,
     question: "Quel niveau de support et d'accompagnement proposez-vous ?",
-    answer: "Support premium inclus avec équipe dédiée francophone. Temps de réponse garanti sous 2h en jours ouvrés, 24h/24 pour les urgences critiques. Formation initiale complète de vos équipes et accompagnement personnalisé les 3 premiers mois. Mises à jour et améliorations incluses. Taux de satisfaction client 98% avec durée moyenne de partenariat de 5+ ans.",
+    answer: "Nous visons un véritable partenariat à long terme avec nos clients. Support premium francophone avec temps de réponse sous 24h. Meetings réguliers organisés pour analyser et améliorer continuellement vos processus automatisés. Notre objectif : vous amener toujours plus loin dans votre transformation. Formation complète de vos équipes et accompagnement personnalisé. Mises à jour et optimisations continues incluses. Taux de satisfaction client 98%.",
     icon: TargetIcon
   }
 ];

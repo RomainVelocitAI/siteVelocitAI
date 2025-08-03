@@ -63,7 +63,7 @@ const solutions = [
     benefits: [
       'Scalabilité maîtrisée sans complexité opérationnelle',
       'Amélioration continue mesurée et documentée',
-      'ROI garanti contractuellement sur 12 mois',
+      'ROI mesurable et suivi transparent sur 12 mois',
       'Autonomie opérationnelle avec supervision stratégique'
     ],
     ctaText: 'Déployer l\'\u00e9cosystème complet'

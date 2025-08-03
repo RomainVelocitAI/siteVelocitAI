@@ -20,6 +20,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'source.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'v5.airtableusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.airtableusercontent.com',
+      },
     ],
     formats: ['image/avif', 'image/webp'],
   },

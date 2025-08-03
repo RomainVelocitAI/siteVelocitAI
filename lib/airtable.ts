@@ -1,87 +1,188 @@
 import Airtable from 'airtable';
 
+// Types pour les témoignages Airtable
+export interface AirtableTestimonial {
+  id: string;
+  fields: {
+    name: string;
+    role: string;
+    company: string;
+    companyLogo?: {
+      url: string;
+    }[];
+    thumbnail?: {
+      url: string;
+    }[];
+    videoUrl?: string;
+    quote: string;
+    highlight?: string;
+    metrics?: string; // JSON string avec les métriques
+    rating?: number;
+    featured?: boolean;
+    tags?: string[];
+    date?: string;
+    ordre?: number;
+    statut?: 'actif' | 'inactif';
+  };
+}
+
+export interface FormattedTestimonial {
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  companyLogo?: string;
+  thumbnail: string;
+  videoUrl: string;
+  quote: string;
+  highlight?: string;
+  metrics: {
+    label: string;
+    value: string;
+    icon?: string;
+  }[];
+  rating: number;
+  featured: boolean;
+  tags: string[];
+  date: string;
+  ordre: number;
+}
+
 // Configuration Airtable
-const base = new Airtable({
-  apiKey: process.env.AIRTABLE_API_KEY
-}).base(process.env.AIRTABLE_DEVIS_BASE_ID!);
+let airtableClient: Airtable | null = null;
 
-export interface AirtableQuoteData {
-  numeroDevis: string;
-  clientNom: string;
-  clientEntreprise?: string;
-  clientEmail: string;
-  clientTelephone?: string;
-  servicesDetails: string;
-  totalHT: number;
-  totalTTC: number;
-  tauxTVA: number;
-  statut: string;
-  dateCreation: string;
-  dateValidite: string;
-  notes?: string;
-  urlDevis: string;
-}
-
-export async function createQuoteInAirtable(quoteData: AirtableQuoteData): Promise<string> {
-  try {
-    const record = await base('Devis Clients').create([
-      {
-        fields: {
-          'Numéro Devis': quoteData.numeroDevis,
-          'Client Nom': quoteData.clientNom,
-          'Client Entreprise': quoteData.clientEntreprise || '',
-          'Client Email': quoteData.clientEmail,
-          'Client Téléphone': quoteData.clientTelephone || '',
-          'Services Détails': quoteData.servicesDetails,
-          'Total HT': quoteData.totalHT,
-          'Total TTC': quoteData.totalTTC,
-          'Taux TVA': quoteData.tauxTVA,
-          'Statut': quoteData.statut,
-          'Date Création': quoteData.dateCreation,
-          'Date Validité': quoteData.dateValidite,
-          'Notes': quoteData.notes || '',
-          'URL Devis': quoteData.urlDevis
-        }
-      }
-    ]);
-
-    console.log('✅ Devis créé dans Airtable:', record[0].getId());
-    return record[0].getId();
-  } catch (error) {
-    console.error('❌ Erreur lors de la création du devis dans Airtable:', error);
-    throw new Error('Impossible de sauvegarder le devis dans Airtable');
+export function getAirtableClient() {
+  if (!airtableClient && process.env.AIRTABLE_API_KEY) {
+    airtableClient = new Airtable({
+      apiKey: process.env.AIRTABLE_API_KEY
+    });
   }
+  return airtableClient;
 }
 
-export async function getQuoteFromAirtable(recordId: string) {
-  try {
-    const record = await base('Devis Clients').find(recordId);
-    return {
-      id: record.getId(),
-      fields: record.fields
-    };
-  } catch (error) {
-    console.error('❌ Erreur lors de la récupération du devis:', error);
-    throw new Error('Devis introuvable');
+// Récupérer les témoignages depuis Airtable
+export async function getTestimonials(): Promise<FormattedTestimonial[]> {
+  const client = getAirtableClient();
+  
+  if (!client || !process.env.AIRTABLE_BASE_ID || !process.env.AIRTABLE_TABLE_NAME) {
+    console.error('Configuration Airtable manquante');
+    return getFallbackTestimonials();
   }
-}
 
-export async function updateQuoteStatus(recordId: string, newStatus: string) {
   try {
-    const record = await base('Devis Clients').update([
-      {
-        id: recordId,
-        fields: {
-          'Statut': newStatus,
-          'Date Modification': new Date().toISOString()
-        }
-      }
-    ]);
+    const base = client.base(process.env.AIRTABLE_BASE_ID);
+    const table = base(process.env.AIRTABLE_TABLE_NAME);
     
-    console.log('✅ Statut du devis mis à jour:', newStatus);
-    return record[0];
+    const records = await table
+      .select({
+        filterByFormula: "{statut} = 'actif'"
+      })
+      .all();
+
+    return records.map(formatTestimonial).filter(Boolean) as FormattedTestimonial[];
   } catch (error) {
-    console.error('❌ Erreur lors de la mise à jour du statut:', error);
-    throw new Error('Impossible de mettre à jour le statut');
+    console.error('Erreur lors de la récupération des témoignages:', error);
+    return getFallbackTestimonials();
   }
+}
+
+// Formater un témoignage Airtable
+function formatTestimonial(record: AirtableTestimonial): FormattedTestimonial | null {
+  const { fields } = record;
+  
+  if (!fields.name || !fields.quote) {
+    return null;
+  }
+
+  // Parser les métriques JSON si présentes
+  let metrics = [];
+  if (fields.metrics) {
+    try {
+      metrics = JSON.parse(fields.metrics);
+    } catch (e) {
+      console.error('Erreur parsing métriques:', e);
+      metrics = [];
+    }
+  }
+
+  return {
+    id: record.id,
+    name: fields.name,
+    role: fields.role || '',
+    company: fields.company || '',
+    companyLogo: fields.companyLogo?.[0]?.url,
+    thumbnail: fields.thumbnail?.[0]?.url || '/images/default-testimonial.jpg',
+    videoUrl: fields.videoUrl || '',
+    quote: fields.quote,
+    highlight: fields.highlight || '',
+    metrics: metrics,
+    rating: fields.rating || 5,
+    featured: fields.featured || false,
+    tags: fields.tags || [],
+    date: fields.date || new Date().toISOString(),
+    ordre: fields.ordre || 999
+  };
+}
+
+// Témoignages de fallback si Airtable n'est pas disponible
+function getFallbackTestimonials(): FormattedTestimonial[] {
+  return [
+    {
+      id: '1',
+      name: 'Romain Caillot',
+      role: 'Gérant',
+      company: 'Caillot Immobilier',
+      thumbnail: '/images/romain_miniature.png',
+      videoUrl: 'videos/romain_temoignage.mp4',
+      quote: "VelocitAI a transformé notre façon de travailler. Les résultats dépassent toutes nos attentes.",
+      highlight: "3x plus de dossiers traités",
+      metrics: [
+        { label: 'Gain de temps', value: '+75%', icon: 'chart' },
+        { label: 'ROI', value: '420%', icon: 'trending' },
+      ],
+      rating: 5,
+      featured: true,
+      tags: ['Immobilier', 'Automatisation', 'IA'],
+      date: 'Décembre 2023',
+      ordre: 1
+    },
+    {
+      id: '2',
+      name: 'Julien Etoke',
+      role: 'Gérant',
+      company: 'Scaleable Agency',
+      thumbnail: '/images/julien_miniature.png',
+      videoUrl: 'videos/julien_temoignage.mp4',
+      quote: "Une expertise technique exceptionnelle doublée d'une compréhension profonde des enjeux business.",
+      highlight: "Croissance x2 sans coûts supplémentaires",
+      metrics: [
+        { label: 'Productivité', value: '+90%', icon: 'sparkles' },
+        { label: 'Clients satisfaits', value: '100%', icon: 'check' },
+      ],
+      rating: 5,
+      featured: false,
+      tags: ['Marketing', 'Growth', 'SaaS'],
+      date: 'Novembre 2023',
+      ordre: 2
+    },
+    {
+      id: '3',
+      name: 'Anna Grieux',
+      role: 'Coach en entreprise',
+      company: 'Douceur Passion',
+      thumbnail: '/images/anna_miniature.png',
+      videoUrl: 'videos/anna_temoignage.mp4',
+      quote: "L'automatisation m'a permis de me concentrer sur l'essentiel : accompagner mes clients.",
+      highlight: "20h/semaine économisées",
+      metrics: [
+        { label: 'Temps économisé', value: '20h/sem', icon: 'clock' },
+        { label: 'Croissance', value: '+150%', icon: 'trending' },
+      ],
+      rating: 5,
+      featured: false,
+      tags: ['Coaching', 'Formation', 'B2B'],
+      date: 'Octobre 2023',
+      ordre: 3
+    }
+  ];
 }
