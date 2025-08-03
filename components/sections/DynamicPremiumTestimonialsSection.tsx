@@ -70,7 +70,7 @@ const DynamicPremiumTestimonialsInner = React.forwardRef<HTMLElement, {
   const otherTestimonials = testimonials.filter(t => !t.featured);
 
   return (
-    <section ref={ref} className="relative py-32 overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-50">
+    <section ref={ref} className="relative py-32 overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-violet-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
@@ -90,17 +90,17 @@ const DynamicPremiumTestimonialsInner = React.forwardRef<HTMLElement, {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-violet-50 rounded-full mb-6">
-              <SparklesIcon className="w-5 h-5 text-violet-600" />
-              <span className="text-sm font-semibold text-violet-600">Témoignages Premium</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-violet-50 dark:bg-violet-950/50 rounded-full mb-6">
+              <SparklesIcon className="w-5 h-5 text-violet-600 dark:text-violet-400" />
+              <span className="text-sm font-semibold text-violet-600 dark:text-violet-400">Témoignages Premium</span>
             </div>
-            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
               Des résultats qui
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-purple-600">
                 parlent d'eux-mêmes
               </span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Découvrez comment nos clients leaders ont transformé leur entreprise grâce à l'automatisation intelligente
             </p>
           </motion.div>
@@ -117,7 +117,7 @@ const DynamicPremiumTestimonialsInner = React.forwardRef<HTMLElement, {
           >
             <div className="relative group">
               {/* Glassmorphism card */}
-              <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-100/50 overflow-hidden">
+              <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-100/50 dark:border-gray-700/50 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-violet-50/50 to-purple-50/50"></div>
                 
                 <div className="relative grid lg:grid-cols-2 gap-0">
@@ -147,9 +147,9 @@ const DynamicPremiumTestimonialsInner = React.forwardRef<HTMLElement, {
 
                     {/* Badge */}
                     <div className="absolute top-6 left-6 z-20">
-                      <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2">
-                        <CheckBadgeIcon className="w-5 h-5 text-violet-600" />
-                        <span className="text-sm font-semibold text-gray-900">Client Premium</span>
+                      <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2">
+                        <CheckBadgeIcon className="w-5 h-5 text-violet-600 dark:text-violet-400" />
+                        <span className="text-sm font-semibold text-gray-900 dark:text-white">Client Premium</span>
                       </div>
                     </div>
                   </div>
@@ -158,18 +158,18 @@ const DynamicPremiumTestimonialsInner = React.forwardRef<HTMLElement, {
                   <div className="p-12 flex flex-col justify-center">
                     {/* Quote */}
                     <div className="mb-8">
-                      <svg className="w-10 h-10 text-violet-200 mb-4" fill="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-10 h-10 text-violet-200 dark:text-violet-700 mb-4" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                       </svg>
-                      <p className="text-2xl font-light text-gray-700 italic leading-relaxed">
+                      <p className="text-2xl font-light text-gray-700 dark:text-gray-200 italic leading-relaxed">
                         "{featuredTestimonial.quote}"
                       </p>
                     </div>
 
                     {/* Author */}
                     <div className="mb-8">
-                      <h3 className="text-2xl font-bold text-gray-900">{featuredTestimonial.name}</h3>
-                      <p className="text-lg text-gray-600">
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{featuredTestimonial.name}</h3>
+                      <p className="text-lg text-gray-600 dark:text-gray-400">
                         {featuredTestimonial.role} • {featuredTestimonial.company}
                       </p>
                       
@@ -192,11 +192,11 @@ const DynamicPremiumTestimonialsInner = React.forwardRef<HTMLElement, {
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: index * 0.1 }}
                             viewport={{ once: true }}
-                            className="bg-gradient-to-br from-violet-50 to-purple-50 p-4 rounded-2xl"
+                            className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/30 dark:to-purple-950/30 p-4 rounded-2xl"
                           >
-                            <IconComponent className="w-6 h-6 text-violet-600 mb-2" />
-                            <p className="text-2xl font-bold text-gray-900">{metric.value}</p>
-                            <p className="text-sm text-gray-600">{metric.label}</p>
+                            <IconComponent className="w-6 h-6 text-violet-600 dark:text-violet-400 mb-2" />
+                            <p className="text-2xl font-bold text-gray-900 dark:text-white">{metric.value}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{metric.label}</p>
                           </motion.div>
                         );
                       })}
@@ -212,21 +212,21 @@ const DynamicPremiumTestimonialsInner = React.forwardRef<HTMLElement, {
         {otherTestimonials.length > 0 && (
           <div className="relative">
             <div className="flex items-center justify-between mb-8">
-              <h3 className="text-2xl font-bold text-gray-900">Plus de témoignages</h3>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Plus de témoignages</h3>
               <div className="flex gap-2">
                 <button
                   onClick={prevTestimonial}
-                  className="p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                   disabled={otherTestimonials.length <= 1}
                 >
-                  <ChevronLeftIcon className="w-5 h-5 text-gray-700" />
+                  <ChevronLeftIcon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
                 </button>
                 <button
                   onClick={nextTestimonial}
-                  className="p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                   disabled={otherTestimonials.length <= 1}
                 >
-                  <ChevronRightIcon className="w-5 h-5 text-gray-700" />
+                  <ChevronRightIcon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
                 </button>
               </div>
             </div>
@@ -238,7 +238,7 @@ const DynamicPremiumTestimonialsInner = React.forwardRef<HTMLElement, {
               >
                 {otherTestimonials.map((testimonial) => (
                   <div key={testimonial.id} className="w-full flex-shrink-0">
-                    <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300">
+                    <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300">
                       <div className="flex items-start gap-6">
                         {/* Thumbnail */}
                         <div 
@@ -258,10 +258,10 @@ const DynamicPremiumTestimonialsInner = React.forwardRef<HTMLElement, {
 
                         {/* Content */}
                         <div className="flex-1">
-                          <p className="text-gray-700 mb-4 italic">"{testimonial.quote}"</p>
+                          <p className="text-gray-700 dark:text-gray-200 mb-4 italic">"{testimonial.quote}"</p>
                           <div>
-                            <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                            <p className="text-sm text-gray-600">{testimonial.role} • {testimonial.company}</p>
+                            <h4 className="font-semibold text-gray-900 dark:text-white">{testimonial.name}</h4>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{testimonial.role} • {testimonial.company}</p>
                           </div>
                           
                           {/* Mini metrics */}
@@ -271,7 +271,7 @@ const DynamicPremiumTestimonialsInner = React.forwardRef<HTMLElement, {
                               return (
                                 <div key={idx} className="flex items-center gap-2">
                                   <IconComponent className="w-4 h-4 text-violet-600" />
-                                  <span className="text-sm font-semibold text-gray-700">{metric.value}</span>
+                                  <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">{metric.value}</span>
                                 </div>
                               );
                             })}
@@ -292,7 +292,7 @@ const DynamicPremiumTestimonialsInner = React.forwardRef<HTMLElement, {
                     key={index}
                     onClick={() => setCurrentIndex(index)}
                     className={`h-2 rounded-full transition-all duration-300 ${
-                      index === currentIndex ? 'w-8 bg-violet-600' : 'w-2 bg-gray-300'
+                      index === currentIndex ? 'w-8 bg-violet-600' : 'w-2 bg-gray-300 dark:bg-gray-600'
                     }`}
                   />
                 ))}

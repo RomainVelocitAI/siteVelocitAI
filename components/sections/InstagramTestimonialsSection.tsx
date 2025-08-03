@@ -97,7 +97,7 @@ const InstagramTestimonialsSection = ({ testimonials }: InstagramTestimonialsPro
   }
 
   return (
-    <section className="relative py-20 bg-gradient-to-b from-white to-purple-50/30 overflow-hidden">
+    <section className="relative py-20 bg-gradient-to-b from-white to-purple-50/30 dark:from-gray-900 dark:to-purple-950/20 overflow-hidden">
       {/* Effet de fond animé */}
       <div className="absolute inset-0">
         <motion.div
@@ -148,10 +148,10 @@ const InstagramTestimonialsSection = ({ testimonials }: InstagramTestimonialsPro
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-4">
-            <span className="text-gray-900">Rejoignez des dizaines d'entrepreneurs </span>
+            <span className="text-gray-900 dark:text-white">Rejoignez des dizaines d'entrepreneurs </span>
             <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Réunionnais</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Découvrez leurs témoignages et leurs résultats exceptionnels
           </p>
         </motion.div>
@@ -163,11 +163,11 @@ const InstagramTestimonialsSection = ({ testimonials }: InstagramTestimonialsPro
             {instagramData.length > 3 && (
               <motion.button
                 onClick={handlePrev}
-                className="hidden md:flex w-12 h-12 rounded-full bg-white shadow-lg items-center justify-center hover:shadow-xl hover:shadow-purple-500/20 border border-purple-100 hover:border-purple-200 transition-all duration-300"
+                className="hidden md:flex w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-lg items-center justify-center hover:shadow-xl hover:shadow-purple-500/20 border border-purple-100 dark:border-purple-900 hover:border-purple-200 dark:hover:border-purple-700 transition-all duration-300"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </motion.button>
@@ -205,9 +205,9 @@ const InstagramTestimonialsSection = ({ testimonials }: InstagramTestimonialsPro
                     }`}
                   >
                     {/* Carte Instagram */}
-                    <div className="w-80 bg-white rounded-2xl shadow-xl overflow-hidden border border-purple-100 hover:border-purple-200 transition-all duration-300">
+                    <div className="w-80 bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-purple-100 dark:border-purple-900 hover:border-purple-200 dark:hover:border-purple-700 transition-all duration-300">
                       {/* Header Instagram */}
-                      <div className="flex items-center justify-between p-4 border-b">
+                      <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
                         <div className="flex items-center gap-3">
                           <div className="relative w-10 h-10">
                             {testimonial.companyLogo ? (
@@ -224,11 +224,11 @@ const InstagramTestimonialsSection = ({ testimonials }: InstagramTestimonialsPro
                             )}
                           </div>
                           <div>
-                            <p className="font-semibold text-sm">{testimonial.username}</p>
-                            <p className="text-xs text-gray-500">La Réunion</p>
+                            <p className="font-semibold text-sm dark:text-white">{testimonial.username}</p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">La Réunion</p>
                           </div>
                         </div>
-                        <button className="text-gray-700">
+                        <button className="text-gray-700 dark:text-gray-300">
                           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
                           </svg>
@@ -312,25 +312,25 @@ const InstagramTestimonialsSection = ({ testimonials }: InstagramTestimonialsPro
                               className="transition-colors"
                             >
                               <Heart 
-                                className={`w-6 h-6 ${likedPosts.has(testimonial.id) ? 'fill-red-500 text-red-500' : 'text-gray-700'}`} 
+                                className={`w-6 h-6 ${likedPosts.has(testimonial.id) ? 'fill-red-500 text-red-500' : 'text-gray-700 dark:text-gray-300'}`} 
                               />
                             </motion.button>
                             <button>
-                              <MessageCircle className="w-6 h-6 text-gray-700" />
+                              <MessageCircle className="w-6 h-6 text-gray-700 dark:text-gray-300" />
                             </button>
                             <button>
-                              <Send className="w-6 h-6 text-gray-700" />
+                              <Send className="w-6 h-6 text-gray-700 dark:text-gray-300" />
                             </button>
                           </div>
                           <button>
-                            <Bookmark className="w-6 h-6 text-gray-700" />
+                            <Bookmark className="w-6 h-6 text-gray-700 dark:text-gray-300" />
                           </button>
                         </div>
 
                         {/* Likes et description */}
                         <div className="space-y-2">
                           <motion.p 
-                            className="font-semibold text-sm"
+                            className="font-semibold text-sm dark:text-white"
                             key={animatedLikes[testimonial.id]}
                             initial={{ scale: 1 }}
                             animate={{ scale: [1, 1.1, 1] }}
@@ -338,21 +338,21 @@ const InstagramTestimonialsSection = ({ testimonials }: InstagramTestimonialsPro
                           >
                             {animatedLikes[testimonial.id]?.toLocaleString()} J'aime
                           </motion.p>
-                          <p className="text-sm">
+                          <p className="text-sm dark:text-gray-200">
                             <span className="font-semibold">velocitai</span> "{testimonial.content}"
                           </p>
                           {testimonial.metrics && testimonial.metrics.length > 0 && (
                             <div className="flex gap-4 mt-2">
                               {testimonial.metrics.slice(0, 2).map((metric, idx) => (
                                 <div key={idx} className="text-xs">
-                                  <span className="text-purple-600 font-bold">{metric.value}</span>
-                                  <span className="text-gray-500 ml-1">{metric.label}</span>
+                                  <span className="text-purple-600 dark:text-purple-400 font-bold">{metric.value}</span>
+                                  <span className="text-gray-500 dark:text-gray-400 ml-1">{metric.label}</span>
                                 </div>
                               ))}
                             </div>
                           )}
-                          <p className="text-xs text-gray-500">Voir les {testimonial.comments} commentaires</p>
-                          <p className="text-xs text-gray-400 uppercase">{testimonial.publishedAt}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">Voir les {testimonial.comments} commentaires</p>
+                          <p className="text-xs text-gray-400 dark:text-gray-500 uppercase">{testimonial.publishedAt}</p>
                         </div>
                       </div>
                     </div>
@@ -366,11 +366,11 @@ const InstagramTestimonialsSection = ({ testimonials }: InstagramTestimonialsPro
             {instagramData.length > 3 && (
               <motion.button
                 onClick={handleNext}
-                className="hidden md:flex w-12 h-12 rounded-full bg-white shadow-lg items-center justify-center hover:shadow-xl hover:shadow-purple-500/20 border border-purple-100 hover:border-purple-200 transition-all duration-300"
+                className="hidden md:flex w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-lg items-center justify-center hover:shadow-xl hover:shadow-purple-500/20 border border-purple-100 dark:border-purple-900 hover:border-purple-200 dark:hover:border-purple-700 transition-all duration-300"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </motion.button>
@@ -386,7 +386,7 @@ const InstagramTestimonialsSection = ({ testimonials }: InstagramTestimonialsPro
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   index === activeIndex 
                     ? 'w-8 bg-gradient-to-r from-purple-600 to-blue-600' 
-                    : 'bg-gray-300'
+                    : 'bg-gray-300 dark:bg-gray-600'
                 }`}
               />
             ))}
