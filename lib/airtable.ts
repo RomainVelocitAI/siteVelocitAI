@@ -64,14 +64,17 @@ export function getAirtableClient() {
 export async function getTestimonials(): Promise<FormattedTestimonial[]> {
   const client = getAirtableClient();
   
-  if (!client || !process.env.AIRTABLE_BASE_ID || !process.env.AIRTABLE_TABLE_NAME) {
+  // Utiliser l'ID de table ou le nom si l'ID n'est pas défini (compatibilité)
+  const tableIdentifier = process.env.AIRTABLE_TABLE_ID || process.env.AIRTABLE_TABLE_NAME;
+  
+  if (!client || !process.env.AIRTABLE_BASE_ID || !tableIdentifier) {
     console.error('Configuration Airtable manquante');
     return getFallbackTestimonials();
   }
 
   try {
     const base = client.base(process.env.AIRTABLE_BASE_ID);
-    const table = base(process.env.AIRTABLE_TABLE_NAME);
+    const table = base(tableIdentifier);
     
     const records = await table
       .select({

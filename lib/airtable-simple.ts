@@ -47,14 +47,34 @@ export function getAirtableClient() {
 export async function getSimpleTestimonials(): Promise<SimpleFormattedTestimonial[]> {
   const client = getAirtableClient();
   
-  if (!client || !process.env.AIRTABLE_BASE_ID || !process.env.AIRTABLE_TABLE_NAME) {
-    console.error('Configuration Airtable manquante');
+  // Utiliser l'ID de table ou le nom si l'ID n'est pas défini (compatibilité)
+  const tableIdentifier = process.env.AIRTABLE_TABLE_ID || process.env.AIRTABLE_TABLE_NAME;
+  
+  // Log pour débugger en production
+  console.log('Airtable Config Check:', {
+    hasClient: !!client,
+    hasApiKey: !!process.env.AIRTABLE_API_KEY,
+    hasBaseId: !!process.env.AIRTABLE_BASE_ID,
+    hasTableId: !!process.env.AIRTABLE_TABLE_ID,
+    hasTableName: !!process.env.AIRTABLE_TABLE_NAME,
+    baseId: process.env.AIRTABLE_BASE_ID?.substring(0, 10) + '...',
+    tableIdentifier: tableIdentifier
+  });
+  
+  if (!client || !process.env.AIRTABLE_BASE_ID || !tableIdentifier) {
+    console.error('Configuration Airtable manquante:', {
+      hasClient: !!client,
+      hasApiKey: !!process.env.AIRTABLE_API_KEY,
+      hasBaseId: !!process.env.AIRTABLE_BASE_ID,
+      hasTableId: !!process.env.AIRTABLE_TABLE_ID,
+      hasTableName: !!process.env.AIRTABLE_TABLE_NAME
+    });
     return getFallbackTestimonials();
   }
 
   try {
     const base = client.base(process.env.AIRTABLE_BASE_ID);
-    const table = base(process.env.AIRTABLE_TABLE_NAME);
+    const table = base(tableIdentifier);
     
     const records = await table
       .select({
@@ -63,9 +83,19 @@ export async function getSimpleTestimonials(): Promise<SimpleFormattedTestimonia
       })
       .all();
 
-    return records.map((record, index) => formatSimpleTestimonial(record as unknown as SimpleAirtableTestimonial, index)).filter(Boolean) as SimpleFormattedTestimonial[];
+    console.log(`Récupération réussie: ${records.length} témoignages depuis Airtable`);
+    
+    const testimonials = records.map((record, index) => formatSimpleTestimonial(record as unknown as SimpleAirtableTestimonial, index)).filter(Boolean) as SimpleFormattedTestimonial[];
+    
+    // Si aucun témoignage valide, retourner les fallback
+    if (testimonials.length === 0) {
+      console.warn('Aucun témoignage valide trouvé dans Airtable, utilisation des fallback');
+      return getFallbackTestimonials();
+    }
+    
+    return testimonials;
   } catch (error) {
-    console.error('Erreur lors de la récupération des témoignages:', error);
+    console.error('Erreur lors de la récupération des témoignages Airtable:', error);
     return getFallbackTestimonials();
   }
 }
