@@ -15,7 +15,7 @@ import {
   XMarkIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  QuoteIcon
+  ChatBubbleBottomCenterTextIcon
 } from '@heroicons/react/24/outline';
 
 interface VideoTestimonial {
@@ -226,7 +226,7 @@ const PremiumTestimonialsSection = () => {
                 <div className="p-12 flex flex-col justify-center">
                   {/* Quote */}
                   <div className="mb-8">
-                    <QuoteIcon className="w-10 h-10 text-violet-200 mb-4" />
+                    <ChatBubbleBottomCenterTextIcon className="w-10 h-10 text-violet-200 mb-4" />
                     <p className="text-2xl font-light text-gray-700 italic leading-relaxed">
                       "{featuredTestimonial.quote}"
                     </p>

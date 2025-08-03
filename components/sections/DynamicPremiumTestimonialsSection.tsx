@@ -37,7 +37,7 @@ const DynamicPremiumTestimonialsInner = React.forwardRef<HTMLElement, {
   currentIndex: number;
   setSelectedVideo: (video: FormattedTestimonial | null) => void;
   setShowModal: (show: boolean) => void;
-  setCurrentIndex: (index: number) => void;
+  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
 }>(({ testimonials, selectedVideo, showModal, currentIndex, setSelectedVideo, setShowModal, setCurrentIndex }, ref) => {
   const { scrollYProgress } = useScroll({
     target: ref as React.RefObject<HTMLElement>,

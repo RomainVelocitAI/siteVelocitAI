@@ -95,7 +95,7 @@ const LuxuryTestimonialsInner = React.forwardRef<HTMLElement, {
   activeIndex: number;
   setSelectedVideo: (video: LuxuryTestimonial | null) => void;
   setShowModal: (show: boolean) => void;
-  setActiveIndex: (index: number) => void;
+  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
 }>(({ selectedVideo, showModal, activeIndex, setSelectedVideo, setShowModal, setActiveIndex }, ref) => {
   const { scrollYProgress } = useScroll({
     target: ref as React.RefObject<HTMLElement>,

@@ -79,7 +79,7 @@ export async function getTestimonials(): Promise<FormattedTestimonial[]> {
       })
       .all();
 
-    return records.map(formatTestimonial).filter(Boolean) as FormattedTestimonial[];
+    return records.map(record => formatTestimonial(record as unknown as AirtableTestimonial)).filter(Boolean) as FormattedTestimonial[];
   } catch (error) {
     console.error('Erreur lors de la récupération des témoignages:', error);
     return getFallbackTestimonials();

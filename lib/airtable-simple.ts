@@ -16,6 +16,7 @@ export interface SimpleFormattedTestimonial {
   id: string;
   name: string;
   company: string;
+  companyLogo?: string;
   thumbnail: string;
   videoUrl: string;
   quote: string;
@@ -62,7 +63,7 @@ export async function getSimpleTestimonials(): Promise<SimpleFormattedTestimonia
       })
       .all();
 
-    return records.map(formatSimpleTestimonial).filter(Boolean) as SimpleFormattedTestimonial[];
+    return records.map((record, index) => formatSimpleTestimonial(record as unknown as SimpleAirtableTestimonial, index)).filter(Boolean) as SimpleFormattedTestimonial[];
   } catch (error) {
     console.error('Erreur lors de la récupération des témoignages:', error);
     return getFallbackTestimonials();
@@ -94,6 +95,7 @@ function formatSimpleTestimonial(record: SimpleAirtableTestimonial, index: numbe
     id: record.id,
     name: fields['Nom Entreprise'],
     company: fields['Nom Entreprise'], // Même valeur que le nom
+    companyLogo: undefined, // Peut être ajouté plus tard dans Airtable
     thumbnail: thumbnail,
     videoUrl: videoUrl,
     quote: fields['Témoignage Écrit'],
@@ -116,6 +118,7 @@ function getFallbackTestimonials(): SimpleFormattedTestimonial[] {
       id: '1',
       name: 'Caillot Immobilier',
       company: 'Caillot Immobilier',
+      companyLogo: undefined,
       role: 'Client VelocitAI',
       thumbnail: '/images/romain_miniature.png',
       videoUrl: 'videos/romain_temoignage.mp4',
@@ -132,6 +135,7 @@ function getFallbackTestimonials(): SimpleFormattedTestimonial[] {
       id: '2',
       name: 'Scaleable Agency',
       company: 'Scaleable Agency',
+      companyLogo: undefined,
       role: 'Client VelocitAI',
       thumbnail: '/images/julien_miniature.png',
       videoUrl: 'videos/julien_temoignage.mp4',
@@ -148,6 +152,7 @@ function getFallbackTestimonials(): SimpleFormattedTestimonial[] {
       id: '3',
       name: 'Douceur Passion',
       company: 'Douceur Passion',
+      companyLogo: undefined,
       role: 'Client VelocitAI',
       thumbnail: '/images/anna_miniature.png',
       videoUrl: 'videos/anna_temoignage.mp4',

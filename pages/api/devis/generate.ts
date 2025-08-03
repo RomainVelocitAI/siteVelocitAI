@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createQuoteData, generateQuoteUrl, QuoteData } from '@/lib/quoteEncryption';
-import { createQuoteInAirtable, AirtableQuoteData } from '@/lib/airtable';
+// import { createQuoteInAirtable, AirtableQuoteData } from '@/lib/airtable';
+// TODO: Implémenter ces fonctions dans airtable.ts
 
 interface GenerateQuoteRequest {
   clientName: string;

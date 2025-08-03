@@ -5,6 +5,7 @@ interface IconProps {
   className?: string;
   size?: number;
   color?: string;
+  filled?: boolean;
 }
 
 // Icône Rocket pour remplacer 🚀
