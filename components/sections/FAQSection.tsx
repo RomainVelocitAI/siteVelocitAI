@@ -60,8 +60,6 @@ export default function FaqSection() {
   return (
     <section
       className="relative py-20 bg-gradient-to-br from-white via-purple-50/20 to-blue-50/30 dark:from-gray-900 dark:via-purple-900/10 dark:to-blue-900/20 overflow-hidden"
-      itemScope
-      itemType="https://schema.org/FAQPage"
       aria-label="Questions fréquemment posées"
     >
       {/* Background Effects */}
