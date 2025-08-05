@@ -4,7 +4,7 @@ import { GetServerSideProps } from 'next';
 import HeroSection from '@/components/sections/HeroSection';
 import WhyAutomateSection from '@/components/sections/WhyAutomateSection';
 import StructuredData from '@/components/StructuredData';
-import { organizationSchema, websiteSchema, serviceSchema } from '@/lib/structured-data';
+import { organizationSchema, websiteSchema, serviceSchema, faqSchema } from '@/lib/structured-data';
 import { getSimpleTestimonials, SimpleFormattedTestimonial } from '@/lib/airtable-simple';
 
 // Dynamic imports for better performance
@@ -43,6 +43,34 @@ const ContactSection = dynamic(() => import('@/components/sections/ContactSectio
 interface HomeProps {
   testimonials: SimpleFormattedTestimonial[];
 }
+
+// FAQ data for structured data
+const faqData = [
+  {
+    question: "Comment mesurer concrètement le ROI de vos agents IA ?",
+    answer: "Nous garantissons un ROI positif dès le premier mois d'utilisation. Calcul concret : à partir de 197€/mois par agent, si vous économisez seulement 5h/semaine à 25€/h, c'est 500€ d'économies mensuelles pour 197€ d'investissement. Avec 10h/semaine économisées, c'est 1000€ d'économies. Nos clients constatent en moyenne 8 à 15h/semaine libérées par processus automatisé, 40% de réduction des coûts opérationnels, 90% de réduction des erreurs. ROI minimum : 150% dès le premier mois, souvent bien plus."
+  },
+  {
+    question: "Quelle est la complexité d'intégration avec nos systèmes existants ?",
+    answer: "Nos agents IA s'intègrent nativement avec plus de 500 outils business : ERP, CRM, comptabilité, e-commerce. Déploiement progressif sur 2 semaines avec formation complète de vos équipes. Aucune interruption de service pendant la migration. Nos experts techniques vous accompagnent à chaque étape avec une garantie de bon fonctionnement dès la mise en service."
+  },
+  {
+    question: "Quel niveau d'autonomie peuvent atteindre nos processus métier ?",
+    answer: "Nos écosystèmes d'agents IA permettent 80% d'autonomie sur vos processus récurrents : gestion administrative, relation client, logistique, reporting. Vos agents apprennent en continu et s'améliorent automatiquement. Vous gardez le contrôle stratégique tout en libérant 25h/semaine minimum pour vous concentrer sur le développement business et l'innovation."
+  },
+  {
+    question: "Quelles garanties de sécurité et de continuité de service ?",
+    answer: "Infrastructure cloud sécurisée avec certification ISO 27001 et conformité RGPD native. Disponibilité garantie 99.9% avec sauvegardes automatisées toutes les heures. Restauration complète garantie. Vos données restent en Europe, chiffrées de bout en bout. Support technique 24h/24 avec serveur VPS dédié. Aucune perte de données en 5 ans d'activité."
+  },
+  {
+    question: "Quel est l'investissement nécessaire pour une PME de notre taille ?",
+    answer: "Nos solutions sont dimensionnées pour les PME de 5 à 200 personnes. Investissement à partir de 197€/mois par agent IA, soit l'équivalent de 10% du coût d'un salarié. Retour sur investissement immédiat dès le premier mois : même avec seulement 5h économisées × 25€/h = 500€ d'économies pour 197€ d'investissement. ROI minimum de 150% garanti, souvent 300-500% selon les processus automatisés. Financement échelonné possible, sans engagement de durée."
+  },
+  {
+    question: "Quel niveau de support et d'accompagnement proposez-vous ?",
+    answer: "Nous visons un véritable partenariat à long terme avec nos clients. Support premium francophone avec temps de réponse sous 24h. Meetings réguliers organisés pour analyser et améliorer continuellement vos processus automatisés. Notre objectif : vous amener toujours plus loin dans votre transformation. Formation complète de vos équipes et accompagnement personnalisé. Mises à jour et optimisations continues incluses. Taux de satisfaction client 98%."
+  }
+];
 
 export default function Home({ testimonials }: HomeProps) {
   return (
@@ -85,7 +113,7 @@ export default function Home({ testimonials }: HomeProps) {
         <meta name="last-modified" content={new Date().toISOString()} />
       </Head>
 
-      <StructuredData data={[organizationSchema, websiteSchema, serviceSchema]} />
+      <StructuredData data={[organizationSchema, websiteSchema, serviceSchema, faqSchema(faqData)]} />
 
       <main>
         <section id="hero">
