@@ -1,25 +1,29 @@
-# https://www.robotstxt.org/robotstxt.html
+# Robots.txt optimisé pour Velocit-AI.fr
 User-agent: *
 Allow: /
-
-# Blog content - priorité pour l'indexation
 Allow: /blog/
 Allow: /blog/*
 
 # Pages importantes
-Allow: /sitemap.xml
+Allow: /sitemap-dynamic.xml
 Allow: /favicon.ico
 
-# Bloquage des pages techniques
+# Bloquer les ressources inutiles et pages parasites
 Disallow: /admin/
 Disallow: /api/
-Disallow: /*.json$
-Disallow: /*?*
 Disallow: /_next/
+Disallow: /devis/
+Disallow: /ff44f9df
+Disallow: /*.json$
 Disallow: /node_modules/
 
-# Crawl-delay pour optimiser la performance serveur
-Crawl-delay: 1
+# Googlebot spécifique (pas de crawl-delay)
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
 
 # Sitemaps
-Sitemap: https://velocit-ai.fr/sitemap.xml
+Sitemap: https://velocit-ai.fr/sitemap-dynamic.xml
+
+# Canonical
+Host: velocit-ai.fr

@@ -21,6 +21,33 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
+# Redirections SEO - Domaines dupliqués
+[[redirects]]
+  from = "http://www.velocit-ai.fr/*"
+  to = "https://velocit-ai.fr/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.velocit-ai.fr/*"
+  to = "https://velocit-ai.fr/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://velocit-ai.fr/*"
+  to = "https://velocit-ai.fr/:splat"
+  status = 301
+  force = true
+
+# Bloquer la page parasite
+[[redirects]]
+  from = "/ff44f9df"
+  to = "/"
+  status = 301
+  force = true
+
+# Fallback pour SPA
 [[redirects]]
   from = "/*"
   to = "/index.html"
