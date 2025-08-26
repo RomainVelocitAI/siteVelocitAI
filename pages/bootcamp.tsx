@@ -4,6 +4,22 @@ import { useEffect, useRef, useState } from 'react';
 
 // Composant Floating Particles pour ambiance IA
 const FloatingParticles = () => {
+  const [dimensions, setDimensions] = useState({ width: 1920, height: 1080 });
+  
+  useEffect(() => {
+    // Définir les dimensions uniquement côté client
+    if (typeof window !== 'undefined') {
+      setDimensions({ width: window.innerWidth, height: window.innerHeight });
+      
+      const handleResize = () => {
+        setDimensions({ width: window.innerWidth, height: window.innerHeight });
+      };
+      
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+  
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {[...Array(20)].map((_, i) => (
@@ -11,12 +27,12 @@ const FloatingParticles = () => {
           key={i}
           className="absolute w-1 h-1 bg-blue-400/30 rounded-full"
           initial={{ 
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: Math.random() * dimensions.width,
+            y: Math.random() * dimensions.height,
             opacity: 0 
           }}
           animate={{
-            y: [-20, -window.innerHeight * 0.1],
+            y: [-20, -dimensions.height * 0.1],
             x: [0, Math.random() * 100 - 50],
             opacity: [0, 1, 0],
           }}
