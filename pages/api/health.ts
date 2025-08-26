@@ -13,7 +13,7 @@ export default async function handler(
   res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow');
   
-  const health = {
+  const health: any = {
     status: 'healthy',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'production',
