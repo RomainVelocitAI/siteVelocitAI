@@ -28,14 +28,19 @@ export default async function handler(
   // Vérifier la connexion Airtable si configurée
   if (process.env.AIRTABLE_API_KEY) {
     try {
+      // Créer un AbortController pour le timeout
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 3000);
+      
       // Faire un appel simple pour vérifier la connexion
       const response = await fetch('https://api.airtable.com/v0/meta/bases', {
         headers: {
           'Authorization': `Bearer ${process.env.AIRTABLE_API_KEY}`,
         },
-        signal: AbortSignal.timeout(3000), // 3 secondes timeout
+        signal: controller.signal,
       });
       
+      clearTimeout(timeout);
       health['airtable'] = response.ok ? 'connected' : 'error';
     } catch (error) {
       health['airtable'] = 'timeout';
