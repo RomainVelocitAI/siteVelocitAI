@@ -10,6 +10,15 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   generateEtags: true,
+  // Optimisations pour la production
+  compress: true,
+  productionBrowserSourceMaps: false,
+  swcMinify: true,
+  // Amélioration des performances SSR/SSG
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 5,
+  },
   images: {
     remotePatterns: [
       {

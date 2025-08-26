@@ -11,8 +11,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 301);
   }
   
-  // Rediriger HTTP vers HTTPS
-  if (url.protocol === 'http:') {
+  // Rediriger HTTP vers HTTPS en production
+  if (process.env.NODE_ENV === 'production' && url.protocol === 'http:') {
     url.protocol = 'https:';
     return NextResponse.redirect(url, 301);
   }
@@ -23,7 +23,25 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 301);
   }
   
-  return NextResponse.next();
+  // Créer la réponse avec des headers optimisés
+  const response = NextResponse.next();
+  
+  // Headers de cache pour les assets statiques
+  if (request.nextUrl.pathname.match(/\.(ico|png|jpg|jpeg|svg|gif|webp)$/)) {
+    response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+  }
+  
+  // Headers de cache pour les pages (pour éviter les problèmes après inactivité)
+  if (request.nextUrl.pathname === '/' || !request.nextUrl.pathname.includes('.')) {
+    response.headers.set('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
+  }
+  
+  // Headers de sécurité supplémentaires
+  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  
+  return response;
 }
 
 export const config = {

@@ -47,8 +47,4 @@
   status = 301
   force = true
 
-# Fallback pour SPA
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Configuration pour Next.js (géré automatiquement par @netlify/plugin-nextjs)
