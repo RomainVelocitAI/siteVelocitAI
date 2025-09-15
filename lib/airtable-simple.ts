@@ -76,12 +76,21 @@ export async function getSimpleTestimonials(): Promise<SimpleFormattedTestimonia
     const base = client.base(process.env.AIRTABLE_BASE_ID);
     const table = base(tableIdentifier);
     
-    const records = await table
+    // Créer une Promise avec timeout de 3 secondes
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      setTimeout(() => reject(new Error('Airtable timeout après 3 secondes')), 3000);
+    });
+    
+    // Récupérer les records avec timeout
+    const recordsPromise = table
       .select({
         maxRecords: 20,
         view: "Grid view"
       })
       .all();
+    
+    // Race entre la requête et le timeout
+    const records = await Promise.race([recordsPromise, timeoutPromise]);
 
     console.log(`Récupération réussie: ${records.length} témoignages depuis Airtable`);
     
