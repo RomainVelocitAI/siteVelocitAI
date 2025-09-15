@@ -153,103 +153,11 @@ export default function Home({ testimonials }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  try {
-    // Timeout global pour la page
-    const timeoutPromise = new Promise<SimpleFormattedTestimonial[]>((resolve) => {
-      setTimeout(() => {
-        console.warn('Timeout général - utilisation des témoignages fallback');
-        // Retourner les témoignages fallback plutôt qu'un tableau vide
-        resolve([
-          {
-            id: '1',
-            name: 'Caillot Immobilier',
-            company: 'Caillot Immobilier',
-            role: 'Client VelocitAI',
-            thumbnail: '/images/romain_miniature.png',
-            videoUrl: 'videos/romain_temoignage.mp4',
-            quote: "VelocitAI a transformé notre façon de travailler. Les résultats dépassent toutes nos attentes.",
-            highlight: "3x plus de dossiers traités",
-            metrics: [],
-            rating: 5,
-            featured: true,
-            tags: ['Immobilier', 'Automatisation', 'IA'],
-            date: 'Décembre 2023',
-            ordre: 1
-          },
-          {
-            id: '2',
-            name: 'Scaleable Agency',
-            company: 'Scaleable Agency',
-            role: 'Client VelocitAI',
-            thumbnail: '/images/julien_miniature.png',
-            videoUrl: 'videos/julien_temoignage.mp4',
-            quote: "Une expertise technique exceptionnelle doublée d'une compréhension profonde des enjeux business.",
-            highlight: "Croissance x2 sans coûts supplémentaires",
-            metrics: [],
-            rating: 5,
-            featured: false,
-            tags: ['Marketing', 'Growth', 'SaaS'],
-            date: 'Novembre 2023',
-            ordre: 2
-          },
-          {
-            id: '3',
-            name: 'Douceur Passion',
-            company: 'Douceur Passion',
-            role: 'Client VelocitAI',
-            thumbnail: '/images/anna_miniature.png',
-            videoUrl: 'videos/anna_temoignage.mp4',
-            quote: "L'automatisation m'a permis de me concentrer sur l'essentiel : accompagner mes clients.",
-            highlight: "20h/semaine économisées",
-            metrics: [],
-            rating: 5,
-            featured: false,
-            tags: ['Coaching', 'Formation', 'B2B'],
-            date: 'Octobre 2023',
-            ordre: 3
-          }
-        ]);
-      }, 5000);
-    });
-    
-    const testimonialsPromise = getSimpleTestimonials();
-    const testimonials = await Promise.race([testimonialsPromise, timeoutPromise]);
-    
-    // S'assurer que tous les champs sont correctement formatés et omettre companyLogo si undefined
-    const sanitizedTestimonials = testimonials.map(t => {
-      const { companyLogo, ...rest } = t;
-      return rest;
-    });
-    
-    return {
-      props: {
-        testimonials: sanitizedTestimonials,
-      },
-    };
-  } catch (error) {
-    console.error('Erreur dans getServerSideProps:', error);
-    // Retourner les témoignages fallback même en cas d'erreur
-    return {
-      props: {
-        testimonials: [
-          {
-            id: '1',
-            name: 'Caillot Immobilier',
-            company: 'Caillot Immobilier',
-            role: 'Client VelocitAI',
-            thumbnail: '/images/romain_miniature.png',
-            videoUrl: 'videos/romain_temoignage.mp4',
-            quote: "VelocitAI a transformé notre façon de travailler. Les résultats dépassent toutes nos attentes.",
-            highlight: "3x plus de dossiers traités",
-            metrics: [],
-            rating: 5,
-            featured: true,
-            tags: ['Immobilier', 'Automatisation', 'IA'],
-            date: 'Décembre 2023',
-            ordre: 1
-          }
-        ],
-      },
-    };
-  }
+  const testimonials = await getSimpleTestimonials();
+  
+  return {
+    props: {
+      testimonials,
+    },
+  };
 };

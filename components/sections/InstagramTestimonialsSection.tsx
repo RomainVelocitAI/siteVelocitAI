@@ -21,7 +21,6 @@ const InstagramTestimonialsSection = ({ testimonials }: InstagramTestimonialsPro
     content: testimonial.quote,
     videoUrl: testimonial.videoUrl,
     thumbnail: testimonial.thumbnail,
-    companyLogo: testimonial.companyLogo,
     likes: Math.floor(Math.random() * 300) + 150, // Pour la démo
     comments: Math.floor(Math.random() * 50) + 10,
     isVideo: !!testimonial.videoUrl,
@@ -210,18 +209,9 @@ const InstagramTestimonialsSection = ({ testimonials }: InstagramTestimonialsPro
                       <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
                         <div className="flex items-center gap-3">
                           <div className="relative w-10 h-10">
-                            {testimonial.companyLogo ? (
-                              <Image
-                                src={testimonial.companyLogo}
-                                alt={testimonial.company}
-                                fill
-                                className="rounded-full object-cover"
-                              />
-                            ) : (
-                              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold">
-                                {testimonial.company[0].toUpperCase()}
-                              </div>
-                            )}
+                            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                              {testimonial.company[0].toUpperCase()}
+                            </div>
                           </div>
                           <div>
                             <p className="font-semibold text-sm dark:text-white">{testimonial.username}</p>
