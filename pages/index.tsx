@@ -152,12 +152,16 @@ export default function Home({ testimonials }: HomeProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+// Utiliser getStaticProps avec ISR pour réduire les appels API
+// Revalidation toutes les heures (3600 secondes)
+export const getStaticProps: GetStaticProps = async () => {
   const testimonials = await getSimpleTestimonials();
   
   return {
     props: {
       testimonials,
     },
+    // Revalider la page toutes les heures
+    revalidate: 3600, // 1 heure en secondes
   };
 };

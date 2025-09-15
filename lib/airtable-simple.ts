@@ -68,43 +68,35 @@ export async function getSimpleTestimonials(): Promise<SimpleFormattedTestimonia
       hasTableId: !!process.env.AIRTABLE_TABLE_ID,
       hasTableName: !!process.env.AIRTABLE_TABLE_NAME
     });
-    return getFallbackTestimonials();
+    return []; // Retourner tableau vide au lieu des fallback
   }
 
   try {
     const base = client.base(process.env.AIRTABLE_BASE_ID);
     const table = base(tableIdentifier);
     
-    // Créer une Promise avec timeout de 3 secondes
-    const timeoutPromise = new Promise<never>((_, reject) => {
-      setTimeout(() => reject(new Error('Airtable timeout après 3 secondes')), 3000);
-    });
-    
-    // Récupérer les records avec timeout
-    const recordsPromise = table
+    // Récupérer les records SANS timeout - attendre Airtable
+    const records = await table
       .select({
         maxRecords: 20,
         view: "Grid view"
       })
       .all();
-    
-    // Race entre la requête et le timeout
-    const records = await Promise.race([recordsPromise, timeoutPromise]);
 
     console.log(`Récupération réussie: ${records.length} témoignages depuis Airtable`);
     
     const testimonials = records.map((record, index) => formatSimpleTestimonial(record as unknown as SimpleAirtableTestimonial, index)).filter(Boolean) as SimpleFormattedTestimonial[];
     
-    // Si aucun témoignage valide, retourner les fallback
+    // Si aucun témoignage valide, retourner tableau vide
     if (testimonials.length === 0) {
-      console.warn('Aucun témoignage valide trouvé dans Airtable, utilisation des fallback');
-      return getFallbackTestimonials();
+      console.warn('Aucun témoignage valide trouvé dans Airtable');
+      return [];
     }
     
     return testimonials;
   } catch (error) {
     console.error('Erreur lors de la récupération des témoignages Airtable:', error);
-    return getFallbackTestimonials();
+    return []; // Retourner tableau vide au lieu des fallback
   }
 }
 
@@ -148,56 +140,3 @@ function formatSimpleTestimonial(record: SimpleAirtableTestimonial, index: numbe
   };
 }
 
-// Témoignages de fallback si Airtable n'est pas disponible
-function getFallbackTestimonials(): SimpleFormattedTestimonial[] {
-  return [
-    {
-      id: '1',
-      name: 'Caillot Immobilier',
-      company: 'Caillot Immobilier',
-      role: 'Client VelocitAI',
-      thumbnail: '/images/romain_miniature.png',
-      videoUrl: 'videos/romain_temoignage.mp4',
-      quote: "VelocitAI a transformé notre façon de travailler. Les résultats dépassent toutes nos attentes.",
-      highlight: "3x plus de dossiers traités",
-      metrics: [],
-      rating: 5,
-      featured: true,
-      tags: ['Immobilier', 'Automatisation', 'IA'],
-      date: 'Décembre 2023',
-      ordre: 1
-    },
-    {
-      id: '2',
-      name: 'Scaleable Agency',
-      company: 'Scaleable Agency',
-      role: 'Client VelocitAI',
-      thumbnail: '/images/julien_miniature.png',
-      videoUrl: 'videos/julien_temoignage.mp4',
-      quote: "Une expertise technique exceptionnelle doublée d'une compréhension profonde des enjeux business.",
-      highlight: "Croissance x2 sans coûts supplémentaires",
-      metrics: [],
-      rating: 5,
-      featured: false,
-      tags: ['Marketing', 'Growth', 'SaaS'],
-      date: 'Novembre 2023',
-      ordre: 2
-    },
-    {
-      id: '3',
-      name: 'Douceur Passion',
-      company: 'Douceur Passion',
-      role: 'Client VelocitAI',
-      thumbnail: '/images/anna_miniature.png',
-      videoUrl: 'videos/anna_temoignage.mp4',
-      quote: "L'automatisation m'a permis de me concentrer sur l'essentiel : accompagner mes clients.",
-      highlight: "20h/semaine économisées",
-      metrics: [],
-      rating: 5,
-      featured: false,
-      tags: ['Coaching', 'Formation', 'B2B'],
-      date: 'Octobre 2023',
-      ordre: 3
-    }
-  ];
-}
