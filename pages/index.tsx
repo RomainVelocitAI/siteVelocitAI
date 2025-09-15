@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import HeroSection from '@/components/sections/HeroSection';
 import WhyAutomateSection from '@/components/sections/WhyAutomateSection';
 import StructuredData from '@/components/StructuredData';
