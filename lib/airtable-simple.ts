@@ -74,27 +74,60 @@ export async function getSimpleTestimonials(): Promise<SimpleFormattedTestimonia
   try {
     const base = client.base(process.env.AIRTABLE_BASE_ID);
     const table = base(tableIdentifier);
-    
-    // Récupérer les records SANS timeout - attendre Airtable
-    const records = await table
+
+    // Ajouter un timeout de 5 secondes pour éviter le blocage du build
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      setTimeout(() => reject(new Error('Airtable timeout')), 5000);
+    });
+
+    const recordsPromise = table
       .select({
         maxRecords: 20,
         view: "Grid view"
       })
       .all();
 
+    // Utiliser Promise.race pour timeout après 5 secondes
+    const records = await Promise.race([recordsPromise, timeoutPromise]).catch(error => {
+      // Si c'est une erreur de limite API, timeout ou erreur 429, retourner un tableau vide
+      const errorMessage = error.message || '';
+      const statusCode = error.statusCode || 0;
+
+      if (errorMessage.includes('PUBLIC_API_BILLING_LIMIT_EXCEEDED') ||
+          errorMessage === 'Airtable timeout' ||
+          statusCode === 429 ||
+          errorMessage.includes('rate limit')) {
+        console.warn('Limite API Airtable dépassée ou timeout, retour d\'un tableau vide');
+        return [];
+      }
+      // Pour toute autre erreur, la propager
+      throw error;
+    });
+
+    // Si pas de records (timeout ou erreur gérée), retourner tableau vide
+    if (!records || !Array.isArray(records)) {
+      console.warn('Pas de records valides reçus d\'Airtable');
+      return [];
+    }
+
     console.log(`Récupération réussie: ${records.length} témoignages depuis Airtable`);
-    
+
     const testimonials = records.map((record, index) => formatSimpleTestimonial(record as unknown as SimpleAirtableTestimonial, index)).filter(Boolean) as SimpleFormattedTestimonial[];
-    
+
     // Si aucun témoignage valide, retourner tableau vide
     if (testimonials.length === 0) {
       console.warn('Aucun témoignage valide trouvé dans Airtable');
       return [];
     }
-    
+
     return testimonials;
-  } catch (error) {
+  } catch (error: any) {
+    // Gérer spécifiquement l'erreur de limite API au cas où elle arrive ici
+    if (error?.message?.includes('PUBLIC_API_BILLING_LIMIT_EXCEEDED') ||
+        error?.statusCode === 429) {
+      console.warn('Limite API Airtable dépassée, retour d\'un tableau vide');
+      return [];
+    }
     console.error('Erreur lors de la récupération des témoignages Airtable:', error);
     return []; // Retourner tableau vide au lieu des fallback
   }
