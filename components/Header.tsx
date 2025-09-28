@@ -5,9 +5,9 @@ import { Bars3Icon, XMarkIcon, SunIcon, MoonIcon } from '@heroicons/react/24/out
 import { useTheme } from '@/contexts/ThemeContext';
 
 const navigation = [
-  { name: 'Calculateur', href: '#calculateur' },
+  { name: 'Calculateur', href: '/#calculateur' },
   { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Contact', href: '/#contact' },
 ];
 
 const Header = () => {
@@ -32,16 +32,19 @@ const Header = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navigation.map((item, index) => (
-              item.href.startsWith('#') ? (
+              item.href.startsWith('/#') ? (
                 <a
                   key={item.name}
                   href={item.href}
                   className="relative text-lg font-semibold text-gray-700 dark:text-gray-300 hover:text-transparent hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 hover:bg-clip-text transition-all duration-300 cursor-pointer group py-2 px-4 rounded-lg hover:shadow-lg hover:shadow-purple-500/25 transform hover:scale-105"
                   onClick={(e) => {
                     e.preventDefault();
-                    const element = document.querySelector(item.href);
+                    const anchorId = item.href.replace('/', '');
+                    const element = document.querySelector(anchorId);
                     if (element) {
                       element.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      window.location.href = item.href;
                     }
                   }}
                   style={{ animationDelay: `${index * 100}ms` }}
@@ -76,13 +79,15 @@ const Header = () => {
             </button>
             
             <a
-              href="#contact"
+              href="/#contact"
               className="ml-6 relative inline-flex items-center px-8 py-3 border border-transparent text-lg font-bold rounded-2xl text-white bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 hover:from-cyan-500 hover:via-blue-600 hover:to-purple-600 transition-all duration-500 cursor-pointer shadow-2xl hover:shadow-purple-500/40 transform hover:scale-105 hover:-translate-y-1 group overflow-hidden"
               onClick={(e) => {
                 e.preventDefault();
                 const element = document.querySelector('#contact');
                 if (element) {
                   element.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  window.location.href = '/#contact';
                 }
               }}
             >
@@ -128,16 +133,19 @@ const Header = () => {
           <div className="md:hidden pb-4">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
-                item.href.startsWith('#') ? (
+                item.href.startsWith('/#') ? (
                   <a
                     key={item.name}
                     href={item.href}
                     className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-purple-600 dark:hover:text-purple-400 cursor-pointer"
                     onClick={(e) => {
                       e.preventDefault();
-                      const element = document.querySelector(item.href);
+                      const anchorId = item.href.replace('/', '');
+                      const element = document.querySelector(anchorId);
                       if (element) {
                         element.scrollIntoView({ behavior: 'smooth' });
+                      } else {
+                        window.location.href = item.href;
                       }
                       setMobileMenuOpen(false);
                     }}
@@ -156,13 +164,15 @@ const Header = () => {
                 )
               ))}
               <a
-                href="#contact"
+                href="/#contact"
                 className="block w-full text-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 cursor-pointer"
                 onClick={(e) => {
                   e.preventDefault();
                   const element = document.querySelector('#contact');
                   if (element) {
                     element.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    window.location.href = '/#contact';
                   }
                   setMobileMenuOpen(false);
                 }}

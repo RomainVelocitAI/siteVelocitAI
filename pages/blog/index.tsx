@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { GetStaticProps } from 'next';
 import { CalendarIcon, ClockIcon, UserIcon, TagIcon } from '@heroicons/react/24/outline';
-import Footer from '../../components/Footer';
+import Footer from '../../components/layout/Footer';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
