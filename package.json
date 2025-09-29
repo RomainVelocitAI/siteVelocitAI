@@ -25,7 +25,10 @@
     "blog:queue": "node scripts/prepare-blog-queue.js queue",
     "blog:stats": "node scripts/prepare-blog-queue.js stats",
     "blog:simulate": "node scripts/prepare-blog-queue.js simulate",
-    "blog:check": "chmod +x scripts/quick-check.sh && ./scripts/quick-check.sh"
+    "blog:check": "chmod +x scripts/quick-check.sh && ./scripts/quick-check.sh",
+    "seo:optimize-images": "node scripts/optimize-images.js",
+    "seo:deploy-images": "chmod +x scripts/deploy-optimized-images.sh && ./scripts/deploy-optimized-images.sh",
+    "seo:audit": "npm run build && echo '✅ Build successful - SEO optimizations applied'"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

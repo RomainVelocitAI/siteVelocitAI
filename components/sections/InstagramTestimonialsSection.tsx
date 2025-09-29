@@ -230,12 +230,13 @@ const InstagramTestimonialsSection = ({ testimonials }: InstagramTestimonialsPro
                         {/* Image de fond avec thumbnail */}
                         {testimonial.thumbnail && (
                           <div className="absolute inset-0">
-                            <Image 
-                              src={testimonial.thumbnail} 
-                              alt={testimonial.name}
+                            <Image
+                              src={testimonial.thumbnail}
+                              alt={`Témoignage vidéo de ${testimonial.name}, ${testimonial.role} chez ${testimonial.company} - VelocitAI`}
                               fill
                               className="object-cover"
                               sizes="320px"
+                              loading="lazy"
                             />
                           </div>
                         )}

@@ -69,7 +69,7 @@ export default function Header() {
     { name: 'Accueil', href: '#hero', icon: HomeIcon },
     { name: 'Solutions', href: '#solutions', icon: LightningIcon },
     { name: 'Calculateur', href: '#calculateur', icon: CalculatorIcon },
-    { name: 'À propos', href: '#about', icon: TargetIcon },
+    { name: 'À propos', href: '#pourquoi', icon: TargetIcon },
     { name: 'Contact', href: '#contact', icon: PhoneIcon },
   ];
 

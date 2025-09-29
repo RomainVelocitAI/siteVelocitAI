@@ -4,7 +4,7 @@ import { GetStaticProps } from 'next';
 import HeroSection from '@/components/sections/HeroSection';
 import WhyAutomateSection from '@/components/sections/WhyAutomateSection';
 import StructuredData from '@/components/StructuredData';
-import { organizationSchema, websiteSchema, serviceSchema, faqSchema } from '@/lib/structured-data';
+import { organizationSchema, localBusinessSchema, websiteSchema, serviceSchema, productSchema, faqSchema } from '@/lib/structured-data';
 import { getSimpleTestimonials, SimpleFormattedTestimonial } from '@/lib/airtable-simple';
 
 // Dynamic imports for better performance
@@ -113,7 +113,7 @@ export default function Home({ testimonials }: HomeProps) {
         <meta name="last-modified" content={new Date().toISOString()} />
       </Head>
 
-      <StructuredData data={[organizationSchema, websiteSchema, serviceSchema, faqSchema(faqData)]} />
+      <StructuredData data={[organizationSchema, localBusinessSchema, websiteSchema, serviceSchema, productSchema, faqSchema(faqData)]} />
 
       <main>
         <section id="hero">
