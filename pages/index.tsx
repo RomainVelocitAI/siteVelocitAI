@@ -7,18 +7,33 @@ import StructuredData from '@/components/StructuredData';
 import { organizationSchema, localBusinessSchema, websiteSchema, serviceSchema, productSchema, faqSchema } from '@/lib/structured-data';
 import { getSimpleTestimonials, SimpleFormattedTestimonial } from '@/lib/airtable-simple';
 
-// Import critical content directly for SSR/SEO
-import CalculatorSection from '@/components/sections/CalculatorSection';
+// Import SEO-critical sections directly (no state, no client-only APIs)
 import SolutionsSection from '@/components/sections/SolutionsSection';
 import MethodologySection from '@/components/sections/MethodologySection';
-import InstagramTestimonialsSection from '@/components/sections/InstagramTestimonialsSection';
 import BeforeAfterSection from '@/components/sections/BeforeAfterSection';
 import FAQSection from '@/components/sections/FAQSection';
 import BlogPreviewSection from '@/components/sections/BlogPreviewSection';
 
-// Only animations and contact form can be client-side
+// Dynamic imports with SSR for components using Context/State
+const CalculatorSection = dynamic(() => import('@/components/sections/CalculatorSection'), {
+  ssr: false,
+  loading: () => (
+    <div className="h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+        <p className="text-gray-400">Chargement du calculateur...</p>
+      </div>
+    </div>
+  )
+});
+
+const InstagramTestimonialsSection = dynamic(() => import('@/components/sections/InstagramTestimonialsSection'), {
+  ssr: false,
+  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
+});
+
 const ContactSection = dynamic(() => import('@/components/sections/ContactSection'), {
-  ssr: true,
+  ssr: false,
   loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
 });
 
