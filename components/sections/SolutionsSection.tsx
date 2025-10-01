@@ -91,32 +91,10 @@ interface SolutionCardProps {
 const SolutionCard = ({ solution, isHovered, onHoverStart, onHoverEnd }: SolutionCardProps) => {
   // État pour gérer le clic sur mobile
   const [isTapped, setIsTapped] = useState(false);
-  
-  // Gestion du clic sur mobile
-  const [isMobile, setIsMobile] = useState(false);
-  
-  useEffect(() => {
-    // Vérifier si nous sommes côté client
-    if (typeof window !== 'undefined') {
-      const checkIfMobile = () => {
-        setIsMobile(window.innerWidth <= 768);
-      };
-      
-      // Vérifier au chargement
-      checkIfMobile();
-      
-      // Écouter les changements de taille
-      window.addEventListener('resize', checkIfMobile);
-      
-      // Nettoyer l'écouteur d'événement
-      return () => window.removeEventListener('resize', checkIfMobile);
-    }
-  }, []);
-  
+
+  // Gestion du clic - fonctionne sur tous les appareils
   const handleTap = () => {
-    if (isMobile) {
-      setIsTapped(!isTapped);
-    }
+    setIsTapped(!isTapped);
   };
   
   // Détermine si la carte doit être retournée (survol ou clic)
