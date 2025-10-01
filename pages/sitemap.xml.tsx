@@ -45,6 +45,54 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://velocit-ai.fr/blog/automatisation-processus-metier-guide-complet-dirigeants-2025</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://velocit-ai.fr/blog/conformite-rgpd-automatisation-ia-guide-juridique-dirigeants</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://velocit-ai.fr/blog/ia-generative-entreprise-applications-concretes-roi-pme-francaises-2025</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://velocit-ai.fr/blog/ia-vs-rpa-vs-automatisation-intelligente-solution-choisir-2025</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://velocit-ai.fr/blog/roi-automatisation-calculer-maximiser-benefices-pme-francaises</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://velocit-ai.fr/blog/roi-automatisation-ia-7-metriques-cles-impact-business-2025</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://velocit-ai.fr/blog/transformation-digitale-pme-roadmap-complete-automatiser-sans-licencier</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://velocit-ai.fr/bootcamp</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://velocit-ai.fr/mentions-legales</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>yearly</changefreq>
