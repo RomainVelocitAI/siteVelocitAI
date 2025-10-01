@@ -7,36 +7,18 @@ import StructuredData from '@/components/StructuredData';
 import { organizationSchema, localBusinessSchema, websiteSchema, serviceSchema, productSchema, faqSchema } from '@/lib/structured-data';
 import { getSimpleTestimonials, SimpleFormattedTestimonial } from '@/lib/airtable-simple';
 
-// Dynamic imports for better performance
-const CalculatorSection = dynamic(() => import('@/components/sections/CalculatorSection'), {
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
-});
+// Import critical content directly for SSR/SEO
+import CalculatorSection from '@/components/sections/CalculatorSection';
+import SolutionsSection from '@/components/sections/SolutionsSection';
+import MethodologySection from '@/components/sections/MethodologySection';
+import InstagramTestimonialsSection from '@/components/sections/InstagramTestimonialsSection';
+import BeforeAfterSection from '@/components/sections/BeforeAfterSection';
+import FAQSection from '@/components/sections/FAQSection';
+import BlogPreviewSection from '@/components/sections/BlogPreviewSection';
 
-const SolutionsSection = dynamic(() => import('@/components/sections/SolutionsSection'), {
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
-});
-
-const MethodologySection = dynamic(() => import('@/components/sections/MethodologySection'), {
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
-});
-
-const InstagramTestimonialsSection = dynamic(() => import('@/components/sections/InstagramTestimonialsSection'), {
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
-});
-
-const BeforeAfterSection = dynamic(() => import('@/components/sections/BeforeAfterSection'), {
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
-});
-
-const FAQSection = dynamic(() => import('@/components/sections/FAQSection'), {
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
-});
-
-const BlogPreviewSection = dynamic(() => import('@/components/sections/BlogPreviewSection'), {
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
-});
-
+// Only animations and contact form can be client-side
 const ContactSection = dynamic(() => import('@/components/sections/ContactSection'), {
+  ssr: true,
   loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
 });
 

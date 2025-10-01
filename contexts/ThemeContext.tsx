@@ -20,11 +20,13 @@ export const useTheme = () => {
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>('dark'); // Mode dark par défaut
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     // Vérifier le stockage local d'abord
     const savedTheme = localStorage.getItem('theme') as Theme;
-    
+
     // Si pas de préférence sauvegardée, utiliser dark par défaut
     const initialTheme = savedTheme || 'dark';
     setTheme(initialTheme);
@@ -50,6 +52,15 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     localStorage.setItem('theme', newTheme);
     updateTheme(newTheme);
   };
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return (
+      <ThemeContext.Provider value={{ theme: 'dark', toggleTheme: () => {}, isDark: true }}>
+        {children}
+      </ThemeContext.Provider>
+    );
+  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, isDark: theme === 'dark' }}>

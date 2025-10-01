@@ -10,8 +10,10 @@ const CookieBanner = () => {
     analytics: false,
     preferences: false,
   })
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     // Vérifier si l'utilisateur a déjà fait un choix
     const consent = localStorage.getItem('cookieConsent')
     if (!consent) {
@@ -81,6 +83,11 @@ const CookieBanner = () => {
       ...prev,
       [key]: !prev[key]
     }))
+  }
+
+  // Prevent hydration mismatch
+  if (!mounted) {
+    return null
   }
 
   return (
