@@ -10,7 +10,6 @@ import { getSimpleTestimonials, SimpleFormattedTestimonial } from '@/lib/airtabl
 // Import SEO-critical sections directly (no state, no client-only APIs)
 import SolutionsSection from '@/components/sections/SolutionsSection';
 import MethodologySection from '@/components/sections/MethodologySection';
-import BeforeAfterSection from '@/components/sections/BeforeAfterSection';
 import FAQSection from '@/components/sections/FAQSection';
 import BlogPreviewSection from '@/components/sections/BlogPreviewSection';
 
@@ -33,6 +32,11 @@ const InstagramTestimonialsSection = dynamic(() => import('@/components/sections
 });
 
 const ContactSection = dynamic(() => import('@/components/sections/ContactSection'), {
+  ssr: false,
+  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
+});
+
+const BeforeAfterSection = dynamic(() => import('@/components/sections/BeforeAfterSection'), {
   ssr: false,
   loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
 });
