@@ -16,17 +16,32 @@ const heroWords = [
   "Excellence"
 ];
 
-// Composant de texte rotatif stylisé
+// Composant de texte rotatif stylisé - SSR compatible
 const RotatingText = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Marquer comme monté pour activer les animations
+    setMounted(true);
+
     const interval = setInterval(() => {
       setCurrentIndex((prev: number) => (prev + 1) % heroWords.length);
     }, 3000);
 
     return () => clearInterval(interval);
   }, []);
+
+  // En SSR, afficher le premier mot statiquement pour éviter l'hydration mismatch
+  if (!mounted) {
+    return (
+      <div className="relative h-16 md:h-20 mt-2 mb-6 overflow-hidden">
+        <span className="absolute left-0 right-0 text-center lg:text-left font-bold text-4xl md:text-5xl bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
+          {heroWords[0]}
+        </span>
+      </div>
+    );
+  }
 
   return (
     <div className="relative h-16 md:h-20 mt-2 mb-6 overflow-hidden">
@@ -37,7 +52,7 @@ const RotatingText = () => {
           initial={{ y: 50, opacity: 0, rotateX: 90 }}
           animate={{ y: 0, opacity: 1, rotateX: 0 }}
           exit={{ y: -50, opacity: 0, rotateX: -90 }}
-          transition={{ 
+          transition={{
             duration: 0.8,
             type: "spring",
             stiffness: 100,
