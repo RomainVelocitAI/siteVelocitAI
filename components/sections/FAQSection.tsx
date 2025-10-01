@@ -95,7 +95,7 @@ export default function FaqSection() {
         <StaggerContainer className="text-center mb-20">
           <StaggerItem>
             <FadeInUp>
-              <motion.h2 
+              <motion.h2
                 className="text-4xl md:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-6"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -106,6 +106,7 @@ export default function FaqSection() {
                 <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
                   Fréquentes
                 </span>
+                {' '}sur l'Automatisation IA pour Entreprises
               </motion.h2>
               <motion.div
                 className="w-24 h-1.5 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 mx-auto rounded-full mb-8"

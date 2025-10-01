@@ -298,7 +298,7 @@ export default function HeroSection() {
                   }}
                   direction="left-to-right"
                   alignment="center"
-                  tag={Tag.H2}
+                  tag={Tag.P}
                 />
               </motion.div>
             </motion.div>

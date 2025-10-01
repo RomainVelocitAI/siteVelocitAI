@@ -125,7 +125,7 @@ const BlogPreviewSection: React.FC<BlogPreviewSectionProps> = ({ posts }) => {
         <StaggerContainer className="text-center mb-16">
           <StaggerItem>
             <FadeInUp>
-              <motion.h2 
+              <motion.h2
                 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -136,6 +136,7 @@ const BlogPreviewSection: React.FC<BlogPreviewSectionProps> = ({ posts }) => {
                 <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
                   Insights
                 </span>
+                {' '}sur l'Automatisation IA et la Transformation Digitale
               </motion.h2>
               <motion.div
                 className="w-24 h-1.5 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 mx-auto rounded-full mb-8"
