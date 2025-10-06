@@ -13,9 +13,9 @@ import MethodologySection from '@/components/sections/MethodologySection';
 import FAQSection from '@/components/sections/FAQSection';
 import BlogPreviewSection from '@/components/sections/BlogPreviewSection';
 
-// Dynamic imports - CalculatorSection now SSR compatible with client hydration
+// Dynamic imports - CalculatorSection avec optimisation performances
 const CalculatorSection = dynamic(() => import('@/components/sections/CalculatorSection'), {
-  ssr: true, // CRITICAL SEO FIX: Enable SSR for crawlers
+  ssr: false, // PERF: Désactiver SSR pour réduire TBT (calculateur interactif non-critique SEO)
   loading: () => (
     <div className="h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <div className="text-center">
@@ -37,7 +37,7 @@ const ContactSection = dynamic(() => import('@/components/sections/ContactSectio
 });
 
 const BeforeAfterSection = dynamic(() => import('@/components/sections/BeforeAfterSection'), {
-  ssr: true, // CRITICAL SEO FIX: Enable SSR for crawlers (GSAP already has SSR guards)
+  ssr: false, // PERF: Désactiver SSR pour réduire TBT (GSAP non-critique SEO)
   loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
 });
 

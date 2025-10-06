@@ -105,8 +105,8 @@ const SolutionCard = ({ solution, isHovered, onHoverStart, onHoverEnd }: Solutio
       onHoverEnd={onHoverEnd}
       onClick={handleTap}
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ 
-        opacity: 1, 
+      whileInView={{
+        opacity: 1,
         y: 0,
         transition: {
           duration: 0.6,
@@ -114,18 +114,22 @@ const SolutionCard = ({ solution, isHovered, onHoverStart, onHoverEnd }: Solutio
         }
       }}
       viewport={{ once: true, margin: "-50px" }}
+      role="button"
+      tabIndex={0}
       aria-expanded={isTapped || isHovered}
       aria-label={`${solution.title}. Cliquez pour plus d'informations`}
+      style={{ willChange: isHovered || isTapped ? 'transform, opacity' : 'auto' }}
     >
-      <div className="relative w-full h-full" style={{ perspective: '1000px' }}>
-        <motion.div 
+      <div className="relative w-full h-full" style={{ perspective: '1000px', contain: 'layout style paint' }}>
+        <motion.div
           className="w-full h-full"
           style={{
             transformStyle: 'preserve-3d',
             position: 'relative',
             height: '100%',
             transition: 'transform 0.7s ease-in-out',
-            transform: (isHovered || isTapped) ? 'rotateY(180deg)' : 'rotateY(0)'
+            transform: (isHovered || isTapped) ? 'rotateY(180deg)' : 'rotateY(0)',
+            willChange: isHovered || isTapped ? 'transform' : 'auto'
           }}
         >
           {/* Face avant */}

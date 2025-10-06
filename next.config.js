@@ -44,6 +44,11 @@ const nextConfig = {
     // optimizeCss: true, // Enable only if you have @next/bundle-analyzer installed
     scrollRestoration: true,
   },
+  // Optimisations SWC compiler pour navigateurs modernes
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  swcMinify: true,
   // Security headers
   async headers() {
     return [

@@ -70,21 +70,21 @@ export default function Footer() {
                 VelocitAI
               </span>
             </div>
-            <p className="text-gray-400 text-sm mb-4">
+            <p className="text-gray-300 text-sm mb-4">
               Expert en automatisation d'entreprise à La Réunion.
               Solutions IA sur mesure pour doubler votre productivité.
             </p>
             <div className="space-y-1">
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-300 text-sm">
                 📍 77b Rue Adrien Lagourgue
               </p>
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-300 text-sm">
                 97424 Piton Saint Leu
               </p>
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-300 text-sm">
                 📧 direction@velocit-ai.fr
               </p>
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-300 text-sm">
                 📱 +262 693 11 15 38
               </p>
             </div>

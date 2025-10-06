@@ -130,6 +130,7 @@ const CookieBanner = () => {
                     <button
                       onClick={() => setShowBanner(false)}
                       className="text-gray-400 hover:text-gray-500 transition-colors"
+                      aria-label="Fermer la bannière de cookies"
                     >
                       <XMarkIcon className="h-6 w-6" />
                     </button>

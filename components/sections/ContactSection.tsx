@@ -293,7 +293,7 @@ export default function ContactSection() {
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                  Votre message <span className="text-gray-400 text-xs">(optionnel)</span>
+                  Votre message <span className="text-gray-500 text-xs">(optionnel)</span>
                 </label>
                 <div className="mt-1">
                   <textarea
