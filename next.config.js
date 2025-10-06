@@ -43,6 +43,7 @@ const nextConfig = {
   experimental: {
     // optimizeCss: true, // Enable only if you have @next/bundle-analyzer installed
     scrollRestoration: true,
+    forceSwcTransforms: true, // Forcer SWC pour ES2020+
   },
   // Optimisations SWC compiler pour navigateurs modernes
   compiler: {
