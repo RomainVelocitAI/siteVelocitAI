@@ -295,9 +295,13 @@ Je souhaite automatiser ${tasks.length} tâche${tasks.length > 1 ? 's' : ''} ré
     `Cordialement,`;
   };
 
-  // Recalculer les économies à chaque changement de tâches
+  // Recalculer les économies à chaque changement de tâches (throttled)
   React.useEffect(() => {
-    calculateSavings();
+    const timeoutId = setTimeout(() => {
+      calculateSavings();
+    }, 200); // Throttle 200ms
+
+    return () => clearTimeout(timeoutId);
   }, [tasks]);
 
   return (

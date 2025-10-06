@@ -57,11 +57,19 @@ export default function Header() {
   const { isDark } = useTheme();
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 10);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -88,11 +96,7 @@ export default function Header() {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo avec animation */}
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="relative"
-        >
+        <div className="relative">
           <Link href="/" className="flex items-center group">
             <div className="relative">
               {/* Logo principal */}
@@ -114,57 +118,41 @@ export default function Header() {
               <SparklesIcon className="absolute -top-1 -right-1 w-4 h-4 text-purple-500 opacity-0 group-hover:opacity-100 transition-all duration-300 animate-pulse" />
             </div>
           </Link>
-        </motion.div>
+        </div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-2">
           {navLinks.map((link, index) => (
-            <motion.div
-              key={link.name}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                delay: 0.2 + (index * 0.1),
-                duration: 0.5
-              }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
+            <div key={link.name}>
               <Link
                 href={link.href}
                 className="relative px-4 py-2 rounded-xl text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-all duration-300 group flex items-center space-x-2"
               >
                 <link.icon className="w-4 h-4" />
                 <span className="font-medium">{link.name}</span>
-                
+
                 {/* Effet de survol glassmorphism */}
                 <div className="absolute inset-0 rounded-xl bg-white/10 dark:bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm" />
-                
+
                 {/* Bordure animée */}
-                <motion.div 
-                  className="absolute inset-0 rounded-xl border border-purple-500/0 group-hover:border-purple-500/30 transition-colors duration-300"
-                  whileHover={{ scale: 1.02 }}
-                />
+                <div className="absolute inset-0 rounded-xl border border-purple-500/0 group-hover:border-purple-500/30 transition-colors duration-300" />
               </Link>
-            </motion.div>
+            </div>
           ))}
-          
+
           {/* Bouton CTA */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
+          <div>
             <Link
               href="#contact"
               className="relative ml-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-2.5 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2 group overflow-hidden"
             >
               <RocketIcon className="w-5 h-5" />
               <span>Prendre RDV</span>
-              
+
               {/* Effet de lueur */}
               <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
-          </motion.div>
+          </div>
           
           {/* Toggle de thème */}
           <ThemeToggle />
@@ -173,11 +161,8 @@ export default function Header() {
         {/* Mobile menu button */}
         <div className="md:hidden flex items-center space-x-2">
           <ThemeToggle />
-          
-          <motion.div 
-            className="z-50"
-            whileTap={{ scale: 0.9 }}
-          >
+
+          <div className="z-50">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 rounded-xl bg-white/10 dark:bg-black/10 backdrop-blur-md border border-white/20 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 focus:outline-none transition-all duration-300"
@@ -207,7 +192,7 @@ export default function Header() {
                 )}
               </AnimatePresence>
             </button>
-          </motion.div>
+          </div>
         </div>
       </nav>
 
