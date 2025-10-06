@@ -380,7 +380,7 @@ export default function VaporizeTextCycle({
   return (
     <div ref={wrapperRef} style={wrapperStyle}>
       <canvas ref={canvasRef} style={canvasStyle} />
-      <SeoElement tag={tag} texts={texts} />
+      {/* SeoElement supprimé pour éviter H2 caché considéré comme spam par Google */}
     </div>
   );
 }

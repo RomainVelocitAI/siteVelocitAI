@@ -1,4 +1,7 @@
 import { GetServerSideProps } from 'next';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
 const Sitemap = () => {
   // This component will never be rendered
@@ -6,110 +9,84 @@ const Sitemap = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://velocit-ai.fr/</loc>
-    <lastmod>2025-06-27</lastmod>
+  const baseUrl = 'https://velocit-ai.fr';
+  const currentDate = new Date().toISOString().split('T')[0];
+  
+  // Récupérer tous les articles de blog
+  const blogArticles = [];
+  const blogDir = path.join(process.cwd(), 'content/blog');
+  
+  if (fs.existsSync(blogDir)) {
+    const files = fs.readdirSync(blogDir);
+    
+    for (const file of files) {
+      if (file.endsWith('.md')) {
+        try {
+          const filePath = path.join(blogDir, file);
+          const fileContent = fs.readFileSync(filePath, 'utf8');
+          const { data } = matter(fileContent);
+          
+          blogArticles.push({
+            slug: data.slug || file.replace('.md', ''),
+            date: data.date || currentDate,
+            priority: data.featured ? '0.8' : '0.7'
+          });
+        } catch (error) {
+          console.error(`Erreur lecture article ${file}:`, error);
+        }
+      }
+    }
+  }
+  
+  // Générer le sitemap dynamiquement
+  let sitemapUrls = `  <url>
+    <loc>${baseUrl}/</loc>
+    <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://velocit-ai.fr/blog</loc>
-    <lastmod>2025-06-27</lastmod>
+    <loc>${baseUrl}/blog</loc>
+    <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
+  </url>`;
+
+  // Ajouter les articles de blog
+  blogArticles.forEach(article => {
+    sitemapUrls += `
   <url>
-    <loc>https://velocit-ai.fr/blog/10-processus-automatiser-priorite-entreprise</loc>
-    <lastmod>2024-12-27</lastmod>
+    <loc>${baseUrl}/blog/${article.slug}</loc>
+    <lastmod>${article.date}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+    <priority>${article.priority}</priority>
+  </url>`;
+  });
+
+  // Ajouter les pages légales
+  sitemapUrls += `
   <url>
-    <loc>https://velocit-ai.fr/blog/automatisation-entreprise-guide-strategique-2025</loc>
-    <lastmod>2024-12-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://velocit-ai.fr/blog/chatbots-ia-service-client-2025</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://velocit-ai.fr/blog/n8n-vs-zapier-2025-comparatif-automatisation-pme</loc>
-    <lastmod>2025-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://velocit-ai.fr/blog/automatisation-processus-metier-guide-complet-dirigeants-2025</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://velocit-ai.fr/blog/conformite-rgpd-automatisation-ia-guide-juridique-dirigeants</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://velocit-ai.fr/blog/ia-generative-entreprise-applications-concretes-roi-pme-francaises-2025</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://velocit-ai.fr/blog/ia-vs-rpa-vs-automatisation-intelligente-solution-choisir-2025</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://velocit-ai.fr/blog/roi-automatisation-calculer-maximiser-benefices-pme-francaises</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://velocit-ai.fr/blog/roi-automatisation-ia-7-metriques-cles-impact-business-2025</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://velocit-ai.fr/blog/transformation-digitale-pme-roadmap-complete-automatiser-sans-licencier</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://velocit-ai.fr/bootcamp</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://velocit-ai.fr/mentions-legales</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <loc>${baseUrl}/mentions-legales</loc>
+    <lastmod>${currentDate}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://velocit-ai.fr/cgv</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <loc>${baseUrl}/cgv</loc>
+    <lastmod>${currentDate}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://velocit-ai.fr/politique-confidentialite</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <loc>${baseUrl}/politique-confidentialite</loc>
+    <lastmod>${currentDate}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-  </url>
+  </url>`;
+
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapUrls}
 </urlset>`;
 
   res.setHeader('Content-Type', 'text/xml');

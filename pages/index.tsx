@@ -13,9 +13,9 @@ import MethodologySection from '@/components/sections/MethodologySection';
 import FAQSection from '@/components/sections/FAQSection';
 import BlogPreviewSection from '@/components/sections/BlogPreviewSection';
 
-// Dynamic imports with SSR for components using Context/State
+// Dynamic imports - CalculatorSection now SSR compatible with client hydration
 const CalculatorSection = dynamic(() => import('@/components/sections/CalculatorSection'), {
-  ssr: false,
+  ssr: true, // CRITICAL SEO FIX: Enable SSR for crawlers
   loading: () => (
     <div className="h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <div className="text-center">
@@ -32,12 +32,12 @@ const InstagramTestimonialsSection = dynamic(() => import('@/components/sections
 });
 
 const ContactSection = dynamic(() => import('@/components/sections/ContactSection'), {
-  ssr: false,
+  ssr: true, // CRITICAL SEO FIX: Enable SSR for crawlers (uses useEffect for client-side logic)
   loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
 });
 
 const BeforeAfterSection = dynamic(() => import('@/components/sections/BeforeAfterSection'), {
-  ssr: false,
+  ssr: true, // CRITICAL SEO FIX: Enable SSR for crawlers (GSAP already has SSR guards)
   loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
 });
 

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 // Liste des tâches suggérées
 export const SUGGESTED_TASKS = [
@@ -93,8 +93,18 @@ const FORFAITS: Forfait[] = [
   }
 ];
 
+// SSR-safe UUID generator (fallback for server-side)
+const generateId = (): string => {
+  if (typeof window !== 'undefined' && typeof window.crypto?.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  // Fallback for SSR (simple timestamp-based ID)
+  return `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+};
+
 export const CalculatorProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [isClient, setIsClient] = useState(false);
 
   const [result, setResult] = useState<CalculationResult>({
     totalHoursPerYear: 0,
@@ -105,16 +115,21 @@ export const CalculatorProvider: React.FC<{ children: ReactNode }> = ({ children
     emergencyLevel: 0,
   });
 
+  // SSR guard: Only run client-side code after hydration
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const addTask = (taskData?: Partial<Task>) => {
     const newTask = {
-      id: crypto.randomUUID(),
+      id: generateId(), // SSR-safe ID generation
       name: taskData?.name || `Tâche ${tasks.length + 1}`,
       timeSpent: taskData?.timeSpent || 1,
       frequency: taskData?.frequency || 5,
       employeeCount: taskData?.employeeCount || 1,
       employeeCost: taskData?.employeeCost || 15,
     };
-    
+
     setTasks(prevTasks => [...prevTasks, newTask]);
   };
 

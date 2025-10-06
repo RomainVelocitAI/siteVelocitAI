@@ -5,7 +5,7 @@ Allow: /blog/
 Allow: /blog/*
 
 # Pages importantes
-Allow: /sitemap-dynamic.xml
+Allow: /sitemap.xml
 Allow: /favicon.ico
 
 # Bloquer les ressources inutiles et pages parasites
@@ -23,7 +23,7 @@ Allow: /
 Crawl-delay: 0
 
 # Sitemaps
-Sitemap: https://velocit-ai.fr/sitemap-dynamic.xml
+Sitemap: https://velocit-ai.fr/sitemap.xml
 
 # Canonical
 Host: velocit-ai.fr
